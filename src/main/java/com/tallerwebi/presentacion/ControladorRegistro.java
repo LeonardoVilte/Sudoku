@@ -13,7 +13,7 @@ public class ControladorRegistro {
 
     return new ModelAndView("Registro");
     }
-@RequestMapping("/registro")
+@RequestMapping("/registrar")
     public ModelAndView registrar(@RequestParam("username") String username,
                                   @RequestParam("email") String email,
                                   @RequestParam("password") String password,
@@ -22,7 +22,7 @@ public class ControladorRegistro {
         //Logica para validar llamar al servicio de registro y
         // luego guardar el usuario en la base de datos.
 
-    return new ModelAndView("Login");
+    return new ModelAndView("home");
 }
 
 }
