@@ -1,6 +1,18 @@
-.center-container {
+.container {
+    margin: auto;
+}
+
+
+.row {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    min-height: 70vh; /
+}
+.form-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 50px;
+    background-color:#f8f9fb;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
