@@ -15,21 +15,54 @@
 </head>
 
 <body>
-
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">UNLAM</a>
-</nav>
-
 <main role="main" class="container">
-  <div class = "container">
-    <h1>Bienvenidos a Taller Web 1</h1>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <!--<img alt="Imagen Titulo" th:src="@{img/sudoku.png}" id="sudoku" >-->
+      <a class="navbar-brand" href="#">SUDOKU</a>
+    </nav>
+  </header>
+  <h1>DIFICULTAD</h1>
+  <div class="button-container">
+    <!--th:href="@{/jugar?dificultad=facil}"-->
+    <a th:href="@{/jugar}" class="button verde">
+      <span class="texto-boton">FACIL</span>
+      <ul class="lista">
+        <h3>Ranking de Fácil</h3>
+        <!-- Aquí puedes agregar la lista de rankings para la dificultad Fácil -->
+        <li>Jugador 1 - 00:20:15</li>
+        <li>Jugador 2 - 00:25:30</li>
+        <li>Jugador 3 - 00:30:10</li>
+      </ul>
+    </a>
 
-    <a href="login.html" class="btn btn-lg btn-primary btn-block">Volver</a>
+    <a th:href="@{/jugar}" class="button amarillo">
+      <span class="texto-boton">MEDIANO</span>
+      <ul class="lista">
+        <h3>Ranking de Mediano</h3>
+        <!-- Aquí puedes agregar la lista de rankings para la dificultad Mediano -->
+        <li>Jugador 1 - 00:35:20</li>
+        <li>Jugador 2 - 00:40:45</li>
+        <li>Jugador 3 - 00:45:10</li>
+      </ul>
+    </a>
+
+    <a th:href="@{/jugar}"  class="button rojo">
+      <span class="texto-boton" th:action="@{/jugar}">DIFICIL</span>
+      <ul class="lista">
+        <h3>Ranking de Difícil</h3>
+        <!-- Aquí puedes agregar la lista de rankings para la dificultad Difícil -->
+        <li>Jugador 1 - 01:00:20</li>
+        <li>Jugador 2 - 01:15:30</li>
+        <li>Jugador 3 - 01:30:10</li>
+      </ul>
+    </a>
   </div>
 </main>
 <!-- /.container -->
 
 <!-- Boostrap core js -->
-<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}">
+</script>
 </body>
 </html>

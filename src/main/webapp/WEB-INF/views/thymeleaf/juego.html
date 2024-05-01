@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Juego</title>
+
+    <!-- Boostrap core css -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+
+<body>
+<main role="main" class="container">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <!-- <img alt="Imagen Titulo" th:src="img/sudoku.png" id="titulo" th:href="@{/img/sudoku.png}"/> -->
+            <a class="navbar-brand" href="#">SUDOKU</a>
+        </nav>
+    </header>
+    <div class="sudoku-container">
+        <table>
+            <tr>
+                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
+            </tr>
+        </table>
+    </div>
+    <div class="timer-container">
+        <div class="timer">00:00:00</div>
+        <button class="button" onclick="pista()">Pista</button>
+        <button class="button" onclick="ayuda()">Ayuda</button>
+    </div>
+</main>
+<!-- /.container -->
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}">
+
+    function pista() {
+        // Código para mostrar una pista en el sudoku
+    }
+    function ayuda() {
+        // Código para mostrar ayuda en el sudoku
+    }
+    // Obtener todas las celdas de la tabla
+    const cells = document.querySelectorAll('#sudoku-table td');
+
+    // Iterar sobre cada celda y agregar un listener de clic
+    cells.forEach(cell => {
+        cell.addEventListener('click', () => {
+            // Habilitar la edición directa del contenido de la celda
+            cell.contentEditable = true;
+            cell.focus(); // Poner el foco en la celda para que el usuario pueda escribir inmediatamente
+
+            // Después de que el usuario ingrese un número, validar y deshabilitar la edición directa
+            cell.addEventListener('blur', () => {
+                let input = cell.textContent.trim();
+                if (input !== "" && !isNaN(input) && input >= 1 && input <= 9) {
+                    cell.textContent = input;
+                } else {
+                    cell.textContent = ""; // Limpiar la celda si el valor no es válido
+                    alert("Ingrese un número válido del 1 al 9.");
+                }
+                cell.contentEditable = false; // Deshabilitar la edición directa
+            });
+        });
+    });
+
+</script>
+</body>
+</html>
