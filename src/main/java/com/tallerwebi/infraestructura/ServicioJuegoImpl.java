@@ -2,9 +2,10 @@ package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.ServicioJuego;
 import com.tallerwebi.dominio.Sudoku;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
-
+@Service
 public class ServicioJuegoImpl implements ServicioJuego {
 
     @Override
@@ -42,9 +43,17 @@ public class ServicioJuegoImpl implements ServicioJuego {
                 return false;
             }
         }
-    //Aca falta la validacion por celda 3x3
-    return false;
 
+        Integer subgrillaFilaInicio = fila - fila % Sudoku.SUB_SIZE;
+        Integer subgrillaColumnaInicio = columna - columna % Sudoku.SUB_SIZE;
+        for(int n = subgrillaFilaInicio; n < subgrillaFilaInicio + Sudoku.SUB_SIZE; n++){
+            for(int a = subgrillaColumnaInicio; a < subgrillaColumnaInicio + Sudoku.SUB_SIZE; a++){
+                if(tabla[n][a] == num){
+                    return false;
+                }
+            }
+        }
+    return true;
     }
 
 
