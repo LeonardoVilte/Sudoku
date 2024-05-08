@@ -16,6 +16,43 @@ public class Usuario {
     private String rol;
     private Boolean activo = false;
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Integer getHorasJugadas() {
+        return horasJugadas;
+    }
+
+    public void setHorasJugadas(Integer horasJugadas) {
+        this.horasJugadas = horasJugadas;
+    }
+
+    public Integer getCantidadPartidasJugadas() {
+        return cantidadPartidasJugadas;
+    }
+
+    public void setCantidadPartidasJugadas(Integer cantidadPartidasJugadas) {
+        this.cantidadPartidasJugadas = cantidadPartidasJugadas;
+    }
+
+    public Double getTiempoPromedioResolucion() {
+        return tiempoPromedioResolucion;
+    }
+
+    public void setTiempoPromedioResolucion(Double tiempoPromedioResolucion) {
+        this.tiempoPromedioResolucion = tiempoPromedioResolucion;
+    }
+
+    private String nombre;
+    private Integer horasJugadas = 0; // Inicializamos en cero
+    private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
+    private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
+
     public Long getId() {
         return id;
     }
