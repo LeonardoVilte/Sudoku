@@ -23,18 +23,14 @@ main {
 }
 .container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 .sudoku-container {
     display: inline-block;
     margin-bottom: 20px;
 }
 .timer-container {
-    margin: 10px;
+    margin: 1rem 3.9rem;
     padding: 10px 20px;
-    display: inline-block;
-    vertical-align: top;
 }
 .timer {
     margin: 10px;
@@ -50,6 +46,7 @@ main {
     border: none;
     border-radius: 5px;
     display: inline-block;
+    background-color: #dcbc00;
 }
 .button-container {
     margin-top: 20px;
@@ -57,16 +54,17 @@ main {
 .ranking-list {
     margin-top: 20px;
 }
+/*
 table {
     border-collapse: collapse;
-    border: 2px solid black; /* Borde de la tabla */
+    border: 2px solid black;
     width: 100%;
 }
 td {
-    width: 50px; /* Ancho de las celdas */
-    height: 50px; /* Alto de las celdas */
+    width: 50px;
+    height: 50px;
     text-align: center;
-    font-size: 20px; /* Tamaño del texto dentro de las celdas */
+    font-size: 20px;
     border: 1px solid black;
 }
 .verde {
@@ -106,6 +104,7 @@ td {
 a {
     text-decoration: none;
 }
+<<<<<<< HEAD
 #sudoku-table {
     border-collapse: collapse;
 }
@@ -123,3 +122,6 @@ a {
     border-right: 2px solid #000;
     border-bottom: 2px solid #000;
 }
+=======
+*/
+>>>>>>> 7850527f127fe8bcdca37e614f03612ee0057be6

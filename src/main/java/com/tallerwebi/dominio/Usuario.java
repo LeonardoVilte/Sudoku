@@ -15,6 +15,10 @@ public class Usuario {
     private String password;
     private String rol;
     private Boolean activo = false;
+    private String nombre;
+    private Integer horasJugadas = 0; // Inicializamos en cero
+    private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
+    private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
 
     public String getNombre() {
         return nombre;
@@ -48,10 +52,6 @@ public class Usuario {
         this.tiempoPromedioResolucion = tiempoPromedioResolucion;
     }
 
-    private String nombre;
-    private Integer horasJugadas = 0; // Inicializamos en cero
-    private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
-    private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
 
     public Long getId() {
         return id;
