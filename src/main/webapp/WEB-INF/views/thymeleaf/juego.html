@@ -6,11 +6,9 @@
 
     <title>Juego</title>
 
-    <!-- Boostrap core css -->
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+    <!-- <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>-->
 
-    <!-- custom style -->
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/juegoSudokuEstilos.css}"/>
 
 </head>
 <body>
@@ -21,35 +19,13 @@
             <a class="navbar-brand" href="#">SUDOKU</a>
         </nav>
     </header>
-    <div>
-        <table id="sudoku-table">
-            <tr>
-                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td></td><td></td><td></td> <td></td><td></td><td></td> <td></td><td></td><td></td>
-            </tr>
+
+
+    <div id="contenedor-sudoku">
+        <table>
+            <tbody id="tablero-sudoku">
+            <!-- sudoku generado por tablero.js-->
+            </tbody>
         </table>
     </div>
     <div class="timer-container">
@@ -58,10 +34,7 @@
         <button class="button" onclick="ayuda()">Ayuda $$$</button>
     </div>
 </main>
-<!-- /.container -->
-
-<!-- Boostrap core js -->
-<script th:src="@{/js/main.js}"></script>
-<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
 </body>
+    <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/tablero.js}"></script>
 </html>
