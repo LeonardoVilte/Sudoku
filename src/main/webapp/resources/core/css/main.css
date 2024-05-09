@@ -106,3 +106,20 @@ td {
 a {
     text-decoration: none;
 }
+#sudoku-table {
+    border-collapse: collapse;
+}
+
+#sudoku-table td {
+    border: 1px solid #000;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+/* Oscurecer los bordes de cada región 3x3 */
+#sudoku-table td:nth-child(3n), /* selecciona cada tercera columna */
+#sudoku-table tr:nth-child(3n) td /* selecciona cada tercera fila y sus celdas */ {
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+}
