@@ -60,7 +60,7 @@ input{
 }
 #teclado-numeric {
     margin-top: 20px;
-    display:inline-block;
+    display:flex;
 }
 
 .tecla {
