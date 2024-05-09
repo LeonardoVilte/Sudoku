@@ -20,7 +20,7 @@
         </nav>
     </header>
 
-
+<div class="ctn-principal">
     <div id="contenedor-sudoku">
         <table>
             <tbody id="tablero-sudoku">
@@ -28,12 +28,26 @@
             </tbody>
         </table>
     </div>
+    <div id="teclado-numeric">
+        <button class="tecla">1</button>
+        <button class="tecla">2</button>
+        <button class="tecla">3</button>
+        <button class="tecla">4</button>
+        <button class="tecla">5</button>
+        <button class="tecla">6</button>
+        <button class="tecla">7</button>
+        <button class="tecla">8</button>
+        <button class="tecla">9</button>
+    </div>
+</div>
     <div class="timer-container">
         <div class="timer">00:00:00</div>
         <button class="button" onclick="pista()">Pista $$$</button>
         <button class="button" onclick="ayuda()">Ayuda $$$</button>
     </div>
+
 </main>
+
 </body>
     <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/tablero.js}"></script>

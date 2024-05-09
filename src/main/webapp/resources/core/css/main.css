@@ -23,8 +23,6 @@ main {
 }
 .container {
     display: flex;
-    flex-direction:column;
-    align-items: flex-start;
 }
 .sudoku-container {
     display: inline-block;
