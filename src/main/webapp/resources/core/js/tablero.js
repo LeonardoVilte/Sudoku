@@ -11,10 +11,27 @@ document.addEventListener('DOMContentLoaded', function(){
             input.className = "celda";
             input.id = `celda-${fila}-${columna}`;
 
+            input.addEventListener('input', function(event){
+                validarEntrada(event, fila, columna);
+            })
+
+
             celda.appendChild(input);
             nuevaFila.appendChild(celda);
         }
         tablaSudoku.appendChild(nuevaFila);
-
     }
 })
+
+
+function validarEntrada(event, fila, colum) {
+
+    const celdaId = `celda-${fila}-${colum}`;
+    const celda = document.getElementById(celdaId);
+    const valor = celda.value;
+
+    if (!/^[1-9]$/.test(valor)) {
+        alert("El numero no es valido, ingrese un valor entre 1 y 9")
+        celda.value = "";
+    }
+}
