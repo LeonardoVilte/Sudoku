@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 })
 
-
 function validarEntrada(event, fila, colum) {
 
     const celdaId = `celda-${fila}-${colum}`;
@@ -35,3 +34,4 @@ function validarEntrada(event, fila, colum) {
         celda.value = "";
     }
 }
+
