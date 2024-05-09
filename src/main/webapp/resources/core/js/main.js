@@ -4,26 +4,45 @@ function pista() {
 function ayuda() {
     // Código para mostrar ayuda en el sudoku y sacarle monedas al user
 }
-// Obtener todas las celdas de la tabla
-const cells = document.querySelectorAll('#sudoku-table td');
-
-// Iterar sobre cada celda y agregar un listener de clic
-cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-        // Habilitar la edición directa del contenido de la celda
-        cell.contentEditable = true;
-        cell.focus(); // Poner el foco en la celda para que el usuario pueda escribir inmediatamente
-
-        // Después de que el usuario ingrese un número, validar y deshabilitar la edición directa
-        cell.addEventListener('blur', () => {
-            let input = cell.textContent.trim();
-            if (input !== "" && !isNaN(input) && input >= 1 && input <= 9) {
-                cell.textContent = input;
-            } else {
-                cell.textContent = ""; // Limpiar la celda si el valor no es válido
-                alert("Ingrese un número válido del 1 al 9.");
+function iniciarJuego() {
+    // Realiza una solicitud GET al backend para obtener el tablero inicial del Sudoku
+    fetch('/sudoku-inicial')
+        .then(response => {
+            // Verifica si la respuesta fue exitosa
+            if (!response.ok) {
+                throw new Error('No se pudo obtener el tablero inicial del Sudoku');
             }
-            cell.contentEditable = false; // Deshabilitar la edición directa
+            // Si la respuesta es exitosa, devuelve el cuerpo de la respuesta como texto
+            return response.text();
+        })
+        .then(tableroInicial => {
+            // Convierte la cadena de texto en un array de filas
+            let filas = tableroInicial.split('\n');
+            // Recorre cada fila y crea las celdas en el tablero HTML
+            filas.forEach((fila, indiceFila) => {
+                let celdas = fila.split(',');
+                celdas.forEach((valor, indiceColumna) => {
+                    // Actualiza el contenido de la celda correspondiente en el tablero HTML
+                    let celdaId = 'cell' + indiceFila + indiceColumna;
+                    document.getElementById(celdaId).innerText = valor.trim();
+                });
+            });
+        })
+        .catch(error => {
+            // Maneja cualquier error que ocurra durante la solicitud
+            console.error('Error al iniciar el juego:', error);
         });
-    });
-});
+}
+function resolverSudoku() {
+    fetch('/resolver-sudoku', {
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(tableroResuelto => {
+            // Actualiza el tablero en la página HTML con el tablero resuelto
+            mostrarTablero(tableroResuelto);
+        })
+        .catch(error => {
+            console.error('Error al resolver el Sudoku:', error);
+        });
+}

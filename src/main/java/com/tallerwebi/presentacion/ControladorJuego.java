@@ -6,6 +6,8 @@ import com.tallerwebi.dominio.Sudoku;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,13 +15,24 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorJuego {
 
-    private ServicioJuego servicioJuego;
+    private final ServicioJuego servicioJuego;
 
     @Autowired
     public ControladorJuego(ServicioJuego servicioJuego){
         this.servicioJuego = servicioJuego;
     }
 
+    @GetMapping("/sudoku-inicial")
+    public Integer[][] obtenerSudokuInicial() {
+        return servicioJuego.crearYGuardarSudoku().getTablero();
+    }
+
+    @PostMapping("/resolver-sudoku")
+    public Integer[][] resolverSudoku() {
+        Sudoku sudoku = servicioJuego.crearYGuardarSudoku();
+        sudoku.resolverTablero();
+        return sudoku.getTablero();
+    }
 
     @RequestMapping("/jugar")
     public ModelAndView mostrarJuego() {
