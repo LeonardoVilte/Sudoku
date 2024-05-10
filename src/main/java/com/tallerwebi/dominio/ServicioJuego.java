@@ -4,6 +4,6 @@ public interface ServicioJuego {
 
     Sudoku crearYGuardarSudoku();
 
-    //Integer[][] crearDatosParaLaMatriz();
 
+    Integer[][] crearDatosParaLaMatriz(Integer dificultad, Integer[][] tablero);
 }

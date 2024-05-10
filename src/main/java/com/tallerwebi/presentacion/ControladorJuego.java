@@ -22,28 +22,26 @@ public class ControladorJuego {
         this.servicioJuego = servicioJuego;
     }
 
-    @GetMapping("/sudoku-inicial")
-    public Integer[][] obtenerSudokuInicial() {
-        return servicioJuego.crearYGuardarSudoku().getTablero();
-    }
 
-    @PostMapping("/resolver-sudoku")
-    public Integer[][] resolverSudoku() {
-        Sudoku sudoku = servicioJuego.crearYGuardarSudoku();
-        sudoku.resolverTablero();
-        return sudoku.getTablero();
-    }
 
     @RequestMapping("/jugar")
     public ModelAndView mostrarJuego() {
-
-        /*Sudoku sudoku = this.servicioJuego.crearYGuardarSudoku();
+        Sudoku sudoku = servicioJuego.crearYGuardarSudoku();
         ModelMap modelMap = new ModelMap();
-
         modelMap.put("sudoku", sudoku);
         return new ModelAndView("juego", modelMap);
-        */
-
-        return  new ModelAndView("juego");
     }
+
+
+    //    @GetMapping("/sudoku-inicial")
+//    public Integer[][] obtenerSudokuInicial() {
+//        return servicioJuego.crearYGuardarSudoku().getTablero();
+//    }
+
+//    @PostMapping("/resolver-sudoku")
+//    public Integer[][] resolverSudoku() {
+//        Sudoku sudoku = servicioJuego.crearYGuardarSudoku();
+//        sudoku.resolverTablero();
+//        return sudoku.getTablero();
+//    }
 }

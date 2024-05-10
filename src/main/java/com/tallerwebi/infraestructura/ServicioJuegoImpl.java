@@ -10,59 +10,133 @@ public class ServicioJuegoImpl implements ServicioJuego {
 
     @Override
     public Sudoku crearYGuardarSudoku() {
-        //Integer[][] matriz = crearDatosParaLaMatriz();
-        //sudoku.setDificultad("1");
-        //sudoku.setTablero(matriz);
+        Sudoku sudoku = new Sudoku();
+        Integer[][] tablero = sudoku.getTablero();
+        limpiarTablero(tablero);
+        sudoku.setDificultad(1);
+        sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
 
-        return new Sudoku();
+        return sudoku;
     }
 
-//    @Override
-//    public Integer[][] crearDatosParaLaMatriz() {
-//        Integer[][] matriz = new Integer[Sudoku.SIZE][Sudoku.SIZE];
-//        Random ran = new Random();
-//
-//        for(int fila = 0; fila < Sudoku.SIZE; fila++){
-//            for(int columna = 0; columna<Sudoku.SIZE; columna++){
-//                int num;
-//                do{
-//                    num = ran.nextInt(Sudoku.SIZE) + 1;
-//                }while(!validarTabla(matriz, fila,columna, num));
-//                matriz[fila][columna] = num;
-//            }
-//        }
-//        return matriz;
-//    }
-//
-//    private Boolean validarTabla(Integer[][] tabla, int fila, int columna, int num){
-//
-//        if(tabla[0][0]==null){
-//            return false;
-//        }
-//
-//        for(int i = 0; i < Sudoku.SIZE; i++){
-//            if(tabla[fila][i] == num){
-//                return false;
-//            }
-//        }
-//        for(int j = 0; j < Sudoku.SIZE; j++) {
-//            if (tabla[j][columna] == num) {
-//                return false;
-//            }
-//        }
-//
-//        int subgrillaFilaInicio = fila - fila % Sudoku.SUB_SIZE;
-//        int subgrillaColumnaInicio = columna - columna % Sudoku.SUB_SIZE;
-//        for(int n = subgrillaFilaInicio; n < subgrillaFilaInicio + Sudoku.SUB_SIZE; n++){
-//            for(int a = subgrillaColumnaInicio; a < subgrillaColumnaInicio + Sudoku.SUB_SIZE; a++){
-//                if(tabla[n][a] == num){
-//                    return false;
-//                }
-//            }
-//        }
-//
-//    return true;
-//    }
+    public void limpiarTablero(Integer[][] tablero){
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[0].length; j++) {
+                tablero[i][j] = 0;
+            }
+        }
+    }
+
+    @Override
+    public Integer[][] crearDatosParaLaMatriz(Integer dificultad, Integer[][] tablero) {
+        limpiarTablero(tablero);
+        Random ran = new Random();
+        //genera numeros aleatorios en el 1er cuadrante
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                int num = ran.nextInt(9) + 1;
+                if(validarCuadrado(i,j, num, tablero)) {
+                    tablero[i][j] = num;
+                }else{
+                    j--;
+                }
+            }
+        }
+        //genera numeros aleatorios en el 2do cuadrante
+        for(int i = 3; i < 6; i++){
+            for(int j = 3; j < 6; j++){
+                int num = ran.nextInt(9) + 1;
+                if(validarCuadrado(i,j, num, tablero)) {
+                    tablero[i][j] = num;
+                }else{
+                    j--;
+                }
+            }
+        }
+        //genera numeros aleatorios en el 3er cuadrante
+        for(int i = 6; i < 9; i++){
+            for(int j = 6; j < 9; j++){
+                int num = ran.nextInt(9) + 1;
+                if(validarCuadrado(i,j, num, tablero)) {
+                    tablero[i][j] = num;
+                }else{
+                    j--;
+                }
+            }
+        }
+        resolverTablero(tablero);
+
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[0].length; j++) {
+                int aux = j;
+                int rand = ran.nextInt(dificultad+1);
+                j+=rand;
+                for (int k = aux; k < j && k<tablero.length; k++) {
+                    tablero[i][k] = 0;
+                }
+
+            }
+        }
+    return tablero;
+    }
+
+    public boolean resolverTablero(Integer[][] tablero){
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[0].length; j++) {
+                if(tablero[i][j]==0){
+                    for(int valor = 1; valor < 9; valor++){
+                        if(validarFila(i,valor, tablero) && validarCol(j, valor, tablero) && validarCuadrado(i, j, valor, tablero)){
+                            tablero[i][j]=valor;
+                            //es recursivo porque asigna el valor y sigue con el proximo valor
+                            if(resolverTablero(tablero)){
+                                return true;
+                            }
+                            //back-traking porque si da falso vuelvo a cero hasta el ultimo valor que si me daba bien en la funcion
+                            tablero[i][j]=0;
+                        }
+                    }return false;
+                }
+            }
+            //como es recursivo solo da true cuando esta la matriz completa diferente de cero
+        }return true;
+    }
+
+    public boolean validarCuadrado(int i, int j, int valor, Integer[][] tablero){
+        int posicionX = cuadradoActual(i);
+        int posicionY = cuadradoActual(j);
+        for (int k = posicionX-3; k < posicionX; k++) {
+            for (int l = posicionY-3; l < posicionY; l++) {
+                if(tablero[k][l]==valor){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public int cuadradoActual(int posicion){
+        if(posicion <= 2){
+            return 3;
+        }else if(posicion <=5){
+            return 6;
+        }else return 9;
+    }
+    public boolean validarFila(int i, int valor, Integer[][] tablero){
+        for (int j = 0; j < tablero[0].length; j++) {
+            if (tablero[i][j]==valor) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validarCol(int j, int valor, Integer[][] tablero){
+        for (int i = 0; i < tablero.length; i++) {
+            if (tablero[i][j]==valor) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 }
