@@ -64,6 +64,8 @@ public class ServicioJuegoImpl implements ServicioJuego {
                 }
             }
         }
+
+
         resolverTablero(tablero);
 
         for (int i = 0; i < tablero.length; i++) {
@@ -81,24 +83,40 @@ public class ServicioJuegoImpl implements ServicioJuego {
     }
 
     public boolean resolverTablero(Integer[][] tablero){
+        // Verificar si el tablero está completo
+        if (estaCompleto(tablero)) {
+            return true; // Tablero completo y válido
+        }
+
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
-                if(tablero[i][j]==0){
-                    for(int valor = 1; valor < 9; valor++){
-                        if(validarFila(i,valor, tablero) && validarCol(j, valor, tablero) && validarCuadrado(i, j, valor, tablero)){
-                            tablero[i][j]=valor;
-                            //es recursivo porque asigna el valor y sigue con el proximo valor
+                if(tablero[i][j] == 0){
+                    for(int valor = 1; valor <= 9; valor++){
+                        if(validarFila(i, valor, tablero) && validarCol(j, valor, tablero) && validarCuadrado(i, j, valor, tablero)){
+                            tablero[i][j] = valor;
+                            // Llamar recursivamente con el nuevo valor asignado
                             if(resolverTablero(tablero)){
                                 return true;
                             }
-                            //back-traking porque si da falso vuelvo a cero hasta el ultimo valor que si me daba bien en la funcion
-                            tablero[i][j]=0;
+                            // Backtracking: si la recursión falla, deshacer el cambio
+                            tablero[i][j] = 0;
                         }
-                    }return false;
+                    }
+                    return false;
                 }
             }
-            //como es recursivo solo da true cuando esta la matriz completa diferente de cero
-        }return true;
+        }
+        return false;
+    }
+    private boolean estaCompleto(Integer[][] tablero) {
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[0].length; j++) {
+                if (tablero[i][j] == 0) {
+                    return false; // falta
+                }
+            }
+        }
+        return true;//completo
     }
 
     public boolean validarCuadrado(int i, int j, int valor, Integer[][] tablero){

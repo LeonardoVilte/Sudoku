@@ -28,8 +28,7 @@
     <div class="ctn-principal">
         <div id="contenedor-sudoku">
             <table>
-                <tbody id="tablero-sudoku" th:data-sudoku="${sudoku.tablero}">
-<!--                <tbody id="tablero-sudoku" data-sudoku="1,2,3,4,5,6,7,8,9;4,5,6,7,8,9,1,2,3;7,8,9,1,2,3,4,5,6;2,3,4,5,6,7,8,9,1;5,6,7,8,9,1,2,3,4;8,9,1,2,3,4,5,6,7;3,4,5,6,7,8,9,1,2;6,7,8,9,1,2,3,4,5;9,1,2,3,4,5,6,7,8">-->
+                <tbody id="tablero-sudoku" th:data-sudoku="${sudoku}">
                 </tbody>
             </table>
         </div>
@@ -47,10 +46,11 @@
     </div>
     <div class="timer-container">
         <div class="timer">00:00:00</div>
-        <button class="button" onclick="resolverSudoku()">Resolver Sudoku</button>
+
         <button class="button" onclick="pista()">Pista $$$</button>
         <button class="button" onclick="ayuda()">Ayuda $$$</button>
         <button class="button" onclick="iniciarJuego()">Iniciar Juego</button>
+        <button class="button" onclick="resolverSudoku()">Resolver Sudoku</button>
     </div>
 
 
