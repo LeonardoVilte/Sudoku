@@ -7,7 +7,6 @@
     <title>Juego</title>
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" th:href="@{/css/juegoSudokuEstilos.css}"/>
 
 </head>
@@ -15,50 +14,50 @@
 <main role="main" class="container">
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-                <a class="navbar-brand">
-                    <img th:src="@{/img/sudoku.png}" alt="sudoku" >
-                </a>
-                <div  class="navbar-brand ml-auto">
-                    <a class="link-light" data-bs-toggle="modal" data-bs-target="#otroBackdrop">Monedas</a>
-                    <!-- <a th:text="${usuario.username}" type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop"/> -->
-                </div>
+            <a class="navbar-brand">
+                <img th:src="@{/img/sudoku.png}" alt="sudoku" >
+            </a>
+            <div  class="navbar-brand ml-auto">
+                <a class="link-light" data-bs-toggle="modal" data-bs-target="#otroBackdrop">Monedas</a>
+                <!-- <a th:text="${usuario.username}" type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop"/> -->
+            </div>
 
         </nav>
     </header>
 
-<div class="ctn-principal">
-    <div id="contenedor-sudoku">
-        <table>
-            <tbody id="tablero-sudoku">
-            <!-- sudoku generado por tablero.js-->
-            </tbody>
-        </table>
+    <div class="ctn-principal">
+        <div id="contenedor-sudoku">
+            <table>
+                <tbody id="tablero-sudoku" th:data-sudoku="${sudoku}">
+                </tbody>
+            </table>
+        </div>
+        <div id="teclado-numeric">
+            <button class="tecla">1</button>
+            <button class="tecla">2</button>
+            <button class="tecla">3</button>
+            <button class="tecla">4</button>
+            <button class="tecla">5</button>
+            <button class="tecla">6</button>
+            <button class="tecla">7</button>
+            <button class="tecla">8</button>
+            <button class="tecla">9</button>
+        </div>
     </div>
-    <div id="teclado-numeric">
-        <button class="tecla">1</button>
-        <button class="tecla">2</button>
-        <button class="tecla">3</button>
-        <button class="tecla">4</button>
-        <button class="tecla">5</button>
-        <button class="tecla">6</button>
-        <button class="tecla">7</button>
-        <button class="tecla">8</button>
-        <button class="tecla">9</button>
-    </div>
-</div>
     <div class="timer-container">
         <div class="timer">00:00:00</div>
-        <button class="button" onclick="iniciarJuego()">Iniciar Juego</button>
-        <button class="button" onclick="resolverSudoku()">Resolver Sudoku</button>
+
         <button class="button" onclick="pista()">Pista $$$</button>
         <button class="button" onclick="ayuda()">Ayuda $$$</button>
+        <button class="button" onclick="iniciarJuego()">Iniciar Juego</button>
+        <button class="button" onclick="resolverSudoku()">Resolver Sudoku</button>
     </div>
 
 
 </main>
 
 </body>
-    <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
-    <script th:src="@{/js/tablero.js}"></script>
-    <script th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/tablero.js}"></script>
+<script th:src="@{/js/main.js}"></script>
 </html>
