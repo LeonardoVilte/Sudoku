@@ -28,4 +28,5 @@ function iniciarJuego() {
 
 
 function resolverSudoku() {
+
 }

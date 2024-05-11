@@ -65,7 +65,6 @@ public class ServicioJuegoImpl implements ServicioJuego {
             }
         }
 
-
         resolverTablero(tablero);
 
         for (int i = 0; i < tablero.length; i++) {
