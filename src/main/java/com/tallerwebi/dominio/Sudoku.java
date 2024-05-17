@@ -4,8 +4,10 @@ public class Sudoku {
     public static final int SUB_SIZE = 3;
     public static final int SIZE = 9;
     private Integer id;
-    private Integer[][] tablero;
-    private String dificultad;
+    private Integer[][] tablero = new Integer[SIZE][SIZE];
+    private Integer dificultad;
+
+
 
     public Integer getId() {
         return id;
@@ -23,11 +25,11 @@ public class Sudoku {
         this.tablero = tablero;
     }
 
-    public String getDificultad() {
+    public Integer getDificultad() {
         return dificultad;
     }
 
-    public void setDificultad(String dificultad) {
+    public void setDificultad(Integer dificultad) {
         this.dificultad = dificultad;
     }
 }

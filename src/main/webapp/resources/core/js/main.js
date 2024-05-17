@@ -4,26 +4,28 @@ function pista() {
 function ayuda() {
     // Código para mostrar ayuda en el sudoku y sacarle monedas al user
 }
-// Obtener todas las celdas de la tabla
-const cells = document.querySelectorAll('#sudoku-table td');
+function iniciarJuego() {
+    let sudokuData = document.getElementById("tablero-sudoku").dataset.sudoku;
+    let sudokuMatriz;
 
-// Iterar sobre cada celda y agregar un listener de clic
-cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-        // Habilitar la edición directa del contenido de la celda
-        cell.contentEditable = true;
-        cell.focus(); // Poner el foco en la celda para que el usuario pueda escribir inmediatamente
+    if (sudokuData.includes(';')) {
+        // Dividir la cadena en filas y luego en números
+        sudokuMatriz = sudokuData.split(';').map(row => row.split(',').map(Number));
+    } else {
+        // La matriz ya está en formato de matriz, solo necesita dividir las filas
+        sudokuMatriz = sudokuData.split(',').map(row => row.split(';').map(Number));
+    }
 
-        // Después de que el usuario ingrese un número, validar y deshabilitar la edición directa
-        cell.addEventListener('blur', () => {
-            let input = cell.textContent.trim();
-            if (input !== "" && !isNaN(input) && input >= 1 && input <= 9) {
-                cell.textContent = input;
-            } else {
-                cell.textContent = ""; // Limpiar la celda si el valor no es válido
-                alert("Ingrese un número válido del 1 al 9.");
-            }
-            cell.contentEditable = false; // Deshabilitar la edición directa
-        });
-    });
-});
+    // Llenar las celdas del Sudoku con los números del Sudoku
+    for (let i = 0; i < sudokuMatriz.length; i++) {
+        for (let j = 0; j < sudokuMatriz[i].length; j++) {
+            const celdaId = `celda-${i}-${j}`;
+            const celda = document.getElementById(celdaId);
+            celda.value = sudokuMatriz[i][j] || ""; // Mostrar el número si existe, de lo contrario, dejar el campo vacío
+        }
+    }
+}
+
+
+function resolverSudoku() {
+}

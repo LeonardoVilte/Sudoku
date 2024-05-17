@@ -60,7 +60,7 @@ input{
 }
 #teclado-numeric {
     margin-top: 20px;
-    display:inline-block;
+    display:flex;
 }
 
 .tecla {
@@ -77,4 +77,41 @@ input{
 .tecla:hover {
     background-color: #f0f0f0;
 }
-
+/* Oscurecer los bordes de cada región 3x3 */
+#sudoku-table td:nth-child(3n), /* selecciona cada tercera columna */
+#sudoku-table tr:nth-child(3n) td /* selecciona cada tercera fila y sus celdas */ {
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+}
+.container {
+    display: flex;
+}
+.timer-container {
+    margin: 1rem 3.9rem;
+    padding: 10px 20px;
+}
+.timer {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+.button-container {
+    margin-top: 20px;
+}
+.ranking-list {
+    margin-top: 20px;
+}
+.texto-boton {
+    color: white;
+}
+.button {
+    cursor: pointer;
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #dcbc00;
+}
