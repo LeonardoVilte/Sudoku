@@ -15,15 +15,15 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="form-container">
-                <form id="registro-form" th:action="@{/registrar}" method="post">
+                <form id="registro-form" th:action="@{/registrarme}" th:object="${usuario}" method="post">
                     <h2 class="mb-3">Registro</h2>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico:</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <input th:field="*{email}" type="email" class="form-control" id="email" name="email"  required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña:</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <input  th:field="*{password}" type="password" class="form-control" id="password" name="password" required>
                     </div>
                     <div class="mb-3">
                         <label for="c_password" class="form-label">Confirmar Contraseña:</label>
@@ -31,9 +31,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Nombre de Usuario:</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                        <input th:field="*{nombre}" type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Registrarse</button>
+                    <div class="card-footer text-center">
+                        <small>¿Ya tienes cuenta? <a th:href="@{/login}">Loggeate</a></small>
+                    </div>
+                    <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}">
                 </form>
             </div>
         </div>
