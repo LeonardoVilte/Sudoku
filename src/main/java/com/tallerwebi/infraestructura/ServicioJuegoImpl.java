@@ -9,16 +9,15 @@ import java.util.Random;
 public class ServicioJuegoImpl implements ServicioJuego {
 
     @Override
-    public Sudoku crearYGuardarSudoku() {
+    public Sudoku crearYGuardarSudoku(Integer dificultad) {
         Sudoku sudoku = new Sudoku();
         Integer[][] tablero = sudoku.getTablero();
         limpiarTablero(tablero);
-        sudoku.setDificultad(1);
+        sudoku.setDificultad(dificultad);
         sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
 
         return sudoku;
     }
-
     public void limpiarTablero(Integer[][] tablero){
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
@@ -107,6 +106,13 @@ public class ServicioJuegoImpl implements ServicioJuego {
         }
         return false;
     }
+
+    @Override
+    public Integer[][] sudokuResuelto(Integer[][] tablero) {
+        resolverTablero(tablero);
+        return tablero;
+    }
+
     private boolean estaCompleto(Integer[][] tablero) {
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
