@@ -14,12 +14,8 @@
 <main role="main" class="container">
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand">
-                <img th:src="@{/img/sudoku.png}" alt="sudoku" >
-            </a>
             <div  class="navbar-brand ml-auto">
                 <a class="link-light" data-bs-toggle="modal" data-bs-target="#otroBackdrop">Monedas</a>
-                <!-- <a th:text="${usuario.username}" type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop"/> -->
             </div>
 
         </nav>
@@ -28,7 +24,9 @@
     <div class="ctn-principal">
         <div id="contenedor-sudoku">
             <table>
+
                 <tbody id="tablero-sudoku" th:data-sudoku="${sudoku}">
+                <tbody id="tablero-sudoku-rta" th:data-sudoku-resuelto="${sudokuResuelto}">
                 </tbody>
             </table>
         </div>
@@ -47,8 +45,8 @@
     <div class="timer-container">
         <div class="timer">00:00:00</div>
 
-        <button class="button" onclick="pista()">Pista $$$</button>
-        <button class="button" onclick="ayuda()">Ayuda $$$</button>
+        <button class="button" onclick="pista()">Pista</button>
+        <button class="button" onclick="ayuda()">Ayuda</button>
         <button class="button" onclick="iniciarJuego()">Iniciar Juego</button>
         <button class="button" onclick="resolverSudoku()">Resolver Sudoku</button>
     </div>
