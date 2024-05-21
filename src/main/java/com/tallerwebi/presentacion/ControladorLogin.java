@@ -23,6 +23,8 @@ public class ControladorLogin {
         this.servicioLogin = servicioLogin;
     }
 
+
+    // Metodos del login
     @RequestMapping("/login")
     public ModelAndView irALogin() {
 
@@ -35,7 +37,9 @@ public class ControladorLogin {
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
-        Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
+        Usuario usuarioBuscado;
+        usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
+
         if (usuarioBuscado != null) {
             request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
             return new ModelAndView("redirect:/home");
@@ -44,7 +48,18 @@ public class ControladorLogin {
         }
         return new ModelAndView("login", model);
     }
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public ModelAndView inicio() {
+        return new ModelAndView("redirect:/login");
+    }
 
+    //Metodos del Registro
+    @RequestMapping("/Registro")
+    public ModelAndView mostrarRegistro() {
+        ModelMap model = new ModelMap();
+        model.put("usuario", new Usuario());
+        return new ModelAndView("Registro", model);
+    }
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario) {
         ModelMap model = new ModelMap();
@@ -59,10 +74,6 @@ public class ControladorLogin {
         }
         return new ModelAndView("redirect:/login");
     }
-
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ModelAndView inicio() {
-        return new ModelAndView("redirect:/login");
-    }
 }
+
 

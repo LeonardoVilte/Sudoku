@@ -36,7 +36,7 @@ public class ControladorLoginTest {
 	}
 
 	@Test
-	public void loginConUsuarioYPasswordInorrectosDeberiaLlevarALoginNuevamente(){
+	public void loginConUsuarioYPasswordInorrectosDeberiaLlevarALoginNuevamente() {
 		// preparacion
 		when(servicioLoginMock.consultarUsuario(anyString(), anyString())).thenReturn(null);
 
@@ -50,7 +50,7 @@ public class ControladorLoginTest {
 	}
 	
 	@Test
-	public void loginConUsuarioYPasswordCorrectosDeberiaLLevarAHome(){
+	public void loginConUsuarioYPasswordCorrectosDeberiaLLevarAHome()  {
 		// preparacion
 		Usuario usuarioEncontradoMock = mock(Usuario.class);
 		when(usuarioEncontradoMock.getRol()).thenReturn("ADMIN");
@@ -58,7 +58,7 @@ public class ControladorLoginTest {
 		when(requestMock.getSession()).thenReturn(sessionMock);
 		when(servicioLoginMock.consultarUsuario(anyString(), anyString())).thenReturn(usuarioEncontradoMock);
 		
-		// ejecucion
+		// ejecucions
 		ModelAndView modelAndView = controladorLogin.validarLogin(datosLoginMock, requestMock);
 		
 		// validacion
@@ -91,7 +91,7 @@ public class ControladorLoginTest {
 	}
 
 	@Test
-	public void errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError() throws UsuarioExistente {
+	public void errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError() throws UsuarioExistente{
 		// preparacion
 		doThrow(RuntimeException.class).when(servicioLoginMock).registrar(usuarioMock);
 
