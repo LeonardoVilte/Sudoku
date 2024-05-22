@@ -9,10 +9,12 @@ body {
 .navbar-brand{
     margin:0 2rem;
 }
+
 main {
     font-family: Arial, sans-serif;
     text-align: center;
 }
+
 .button {
     cursor: pointer;
     margin: 20px;
@@ -24,6 +26,15 @@ main {
     display: inline-block;
     background-color: #dcbc00;
 }
+
+.button-container {
+    margin-top: 20px;
+}
+.ranking-list {
+    margin-top: 20px;
+}
+
+
 
 .verde {
     background-color: #439347;
@@ -52,4 +63,12 @@ main {
 
 a {
     text-decoration: none;
+
 }
+
+
+
+
+
+
+

@@ -115,3 +115,13 @@ input{
     display: inline-block;
     background-color: #dcbc00;
 }
+#sudoku-table {
+    border-collapse: collapse;
+}
+
+#sudoku-table td {
+    border: 1px solid #000;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
