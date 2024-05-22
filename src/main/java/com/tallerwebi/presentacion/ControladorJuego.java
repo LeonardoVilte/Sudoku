@@ -6,32 +6,35 @@ import com.tallerwebi.dominio.Sudoku;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
 public class ControladorJuego {
 
-    private final ServicioJuego servicioJuego;
+    private final ServicioJuego servicioJuego ;
+
 
     @Autowired
     public ControladorJuego(ServicioJuego servicioJuego){
         this.servicioJuego = servicioJuego;
     }
 
-
-
     @RequestMapping("/jugar")
-    public ModelAndView mostrarJuego() {
-        Sudoku sudoku = servicioJuego.crearYGuardarSudoku();
+    public ModelAndView mostrarJuego(@RequestParam("dificultad") int dificultad) {
+        Sudoku sudoku = servicioJuego.crearYGuardarSudoku(dificultad);
         String sudokuString = convertirSudokuACadena(sudoku.getTablero());
-        ModelMap modelMap = new ModelMap();
-        modelMap.put("sudoku", sudokuString);
-        return new ModelAndView("juego", modelMap);
+        String sudokuResueltoString = convertirSudokuACadena(servicioJuego.sudokuResuelto(sudoku.getTablero()));
+
+        ModelAndView modelAndView = new ModelAndView("juego");
+        modelAndView.addObject("sudoku", sudokuString);
+        modelAndView.addObject("sudokuResuelto", sudokuResueltoString);
+
+        return modelAndView;
+
     }
+
 
     private String convertirSudokuACadena(Integer[][] tablero) {
         StringBuilder sb = new StringBuilder();
@@ -53,10 +56,4 @@ public class ControladorJuego {
         return sb.toString();
     }
 
-//    ("/resolver-sudoku")
-//    public Integer[][] resolverSudoku() {
-//        Sudoku sudoku = servicioJuego.crearYGuardarSudoku();
-//        sudoku.resolverTablero();
-//        return sudoku.getTablero();
-//    }
 }
