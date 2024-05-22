@@ -14,7 +14,7 @@ public class ControladorHome {
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome(HttpServletRequest request){
         HttpSession session = request.getSession(false);
-        if(session != null && session.getAttribute("ROL") != null){
+        if(session != null){
 
             return new ModelAndView("home");
         }else {
