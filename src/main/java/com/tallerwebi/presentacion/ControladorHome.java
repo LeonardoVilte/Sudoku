@@ -5,11 +5,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class ControladorHome {
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView irAHome() {
-        return new ModelAndView("home");
+    public ModelAndView irAHome(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if(session != null && session.getAttribute("ROL") != null){
+
+            return new ModelAndView("home");
+        }else {
+            return new ModelAndView("redirect:/login");
+        }
     }
+
+    @RequestMapping("/logout")
+    public ModelAndView logout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if (session != null){
+            session.invalidate();
+        }
+        return new ModelAndView("redirect:/login?logout");
+    }
+
 }

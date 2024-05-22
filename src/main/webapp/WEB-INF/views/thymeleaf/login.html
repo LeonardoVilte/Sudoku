@@ -30,6 +30,9 @@
                     <small>¿No tienes una cuenta? <a th:href="@{/Registro}">Regístrate aquí</a></small>
                 </div>
                 <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}">
+                <div th:if="${param.logout}">
+                    <p class="alert alert-info">Sesión cerrada correctamente.</p>
+                </div>
             </div>
         </div>
     </div>

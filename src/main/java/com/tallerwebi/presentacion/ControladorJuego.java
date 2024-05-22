@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class ControladorJuego {
@@ -25,12 +28,18 @@ public class ControladorJuego {
 
 
     @RequestMapping("/jugar")
-    public ModelAndView mostrarJuego() {
-        Sudoku sudoku = servicioJuego.crearYGuardarSudoku();
+    public ModelAndView mostrarJuego(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if(session != null && session.getAttribute("ROL") != null){
+            Sudoku sudoku = servicioJuego.crearYGuardarSudoku();
         String sudokuString = convertirSudokuACadena(sudoku.getTablero());
         ModelMap modelMap = new ModelMap();
         modelMap.put("sudoku", sudokuString);
         return new ModelAndView("juego", modelMap);
+
+        }else{
+            return new ModelAndView("redirect:login");
+        }
     }
 
     private String convertirSudokuACadena(Integer[][] tablero) {
