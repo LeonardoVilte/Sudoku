@@ -10,28 +10,77 @@ function resolverSudoku() {
     let sudokuMatriz = stringAMatriz(sudokuDataRta);
     imprimirSudoku(sudokuMatriz);
 }
+let posicionX = 0;
+let posicionY = 0;
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('celda')) {
+        const celda = event.target;
+        const id = celda.id;
+        const [_, fila, columna] = id.split('-'); // Desestructuración de la cadena de ID para obtener fila y columna
+        const filaNum = parseInt(fila);
+        const columnaNum = parseInt(columna);
 
-function pista() {
-    let stringSudoku = document.getElementById("tablero-sudoku").dataset.sudoku;
-    let matrizSudoku = stringAMatriz(stringSudoku);
-    let vectorRta = matrizInverza(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto, stringSudoku);
+        console.log(`El usuario hizo clic en la celda en la fila ${filaNum + 1} y columna ${columnaNum + 1}`);
+        posicionX = filaNum;
+        posicionY = columnaNum;
+        terminado();
+    }
+});
 
-    for (let i = 0; i < matrizSudoku.length; i++) {
-        for (let j = 0; j < matrizSudoku[i].length; j++) {
-            if (matrizSudoku[i][j] === 0) {
-                matrizSudoku[i][j] = vectorRta.shift();
+function terminado(){
+    let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
+    let sudokuMatriz = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
+    let completado = true;
+    for (let i = 0; i < sudokuMatriz.length; i++) {
+        for (let j = 0; j < sudokuMatriz[i].length; j++) {
+            if(sudokuMatriz[i][j] !== matrizSudokuResuelta[i][j]){
+                completado = false;
                 break;
             }
         }
+        if(!completado) break;
     }
-    imprimirSudoku(matrizSudoku);
+    if(completado){
+        alert('FELICIDADES LOGRASTE COMPLETAR EL SUDOKU!');
+    }
+}
 
+function pista() {
+    let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
+    let matrizSudoku = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
+
+    if(posicionX !== null &&  posicionY!== null){
+        if (matrizSudoku[posicionX][posicionY] === 0) {
+            let aux = matrizSudokuResuelta[posicionX][posicionY];
+            matrizSudoku[posicionX][posicionY] = aux;
+            imprimirSudoku(matrizSudoku);
+        }else{
+            alert("El casillero seleccionado debe estar vacio");
+        }
+    }else{
+        alert("Debe seleccionar un casillero para recibir una pista")
+    }
 }
 
 function ayuda() {
-    let sudokuDataRta = document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto;
+    let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
+    let matrizSudoku = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
 
-
+    if(posicionX !== null &&  posicionY!== null){
+        if (matrizSudoku[posicionX][posicionY] !== 0) {
+            if(matrizSudoku[posicionX][posicionY] === matrizSudokuResuelta[posicionX][posicionY]){
+                alert(`El valor ${matrizSudoku[posicionX][posicionY]} es correcto para esa casilla`);
+            }else{
+                alert(`El valor ${matrizSudoku[posicionX][posicionY]} es incorrecto para esa casilla`);
+            }
+            matrizSudoku[posicionX][posicionY] = 0;
+            imprimirSudoku(matrizSudoku);
+        }else{
+            alert("El casillero seleccionado no debe estar vacio para recibir una ayuda");
+        }
+    }else{
+        alert("Debe seleccionar un casillero para recibir una ayuda")
+    }
 }
 
 function imprimirSudoku(sudokuMatriz){
@@ -55,19 +104,4 @@ function stringAMatriz(sudoku){
         sudokuMatriz = sudoku.split(',').map(row => row.split(';').map(Number));
     }
     return sudokuMatriz;
-}
-
-function matrizInverza(stringCompleta, stringIncompleta){
-    let matrizCompleta = stringAMatriz(stringCompleta);
-    let matrizIncompleta = stringAMatriz(stringIncompleta)
-    let faltan = [];
-
-    for (let i = 0; i < matrizCompleta.length; i++) {
-        for (let j = 0; j < matrizCompleta[i].length; j++) {
-            if (matrizIncompleta[i][j] !== matrizCompleta[i][j]) {
-                faltan = faltan.concat(matrizCompleta[i][j]);
-            }
-        }
-    }
-    return faltan;
 }
