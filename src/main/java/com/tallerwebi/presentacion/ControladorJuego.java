@@ -27,7 +27,7 @@ public class ControladorJuego {
     @RequestMapping("/jugar")
     public ModelAndView mostrarJuego(@RequestParam("dificultad") int dificultad, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if(session != null && session.getAttribute("ROL") != null) {
+        if(session != null) {
 
             Sudoku sudoku = servicioJuego.crearYGuardarSudoku(dificultad);
             String sudokuString = convertirSudokuACadena(sudoku.getTablero());
