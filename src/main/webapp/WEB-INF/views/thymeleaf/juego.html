@@ -14,10 +14,16 @@
 <main role="main" class="container">
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand">
+                <img th:src="@{/resources/img/sudoku.png}" alt="sudoku" >
+            </a>
+            <div class="navbar-brand ml-auto">
+                <a class="link-light" th:href="@{/home}">Inicio</a>
+            </div>
+
             <div  class="navbar-brand ml-auto">
                 <a class="link-light" data-bs-toggle="modal" data-bs-target="#otroBackdrop">Monedas</a>
             </div>
-
         </nav>
     </header>
 
