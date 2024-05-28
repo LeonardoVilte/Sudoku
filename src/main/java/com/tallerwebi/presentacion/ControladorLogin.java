@@ -2,6 +2,7 @@ package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioLogin;
 import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.excepcion.ContrasenasDistintas;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,19 +61,25 @@ public class ControladorLogin {
     @RequestMapping("/Registro")
     public ModelAndView mostrarRegistro() {
         ModelMap model = new ModelMap();
-        model.put("usuario", new Usuario());
+        model.put("DatosRegistroDTO" , new DatosRegistroDTO());
         return new ModelAndView("Registro", model);
     }
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
-    public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario) {
+    public ModelAndView registrarme(@ModelAttribute("DatosRegistro") DatosRegistroDTO datosRegistroDTO) {
         ModelMap model = new ModelMap();
         try{
-            servicioLogin.registrar(usuario);
+            servicioLogin.registrar(datosRegistroDTO);
         } catch (UsuarioExistente e){
             model.put("error", "El usuario ya existe");
+            model.put("DatosRegistroDTO", new DatosRegistroDTO());
+            return new ModelAndView("Registro", model);
+        }catch (ContrasenasDistintas e){
+            model.put("error", "Las contraseñas no son iguales");
+            model.put("DatosRegistroDTO", new DatosRegistroDTO());
             return new ModelAndView("Registro", model);
         } catch (Exception e){
             model.put("error", "Error al registrar el nuevo usuario");
+            model.put("DatosRegistroDTO", new DatosRegistroDTO());
             return new ModelAndView("Registro", model);
         }
         return new ModelAndView("redirect:/login");

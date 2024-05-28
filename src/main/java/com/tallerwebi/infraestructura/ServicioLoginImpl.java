@@ -3,7 +3,9 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.ServicioLogin;
 import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.excepcion.ContrasenasDistintas;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
+import com.tallerwebi.presentacion.DatosRegistroDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +28,20 @@ public class ServicioLoginImpl implements ServicioLogin {
     }
 
     @Override
-    public void registrar(Usuario usuario) throws UsuarioExistente {
-        Usuario usuarioEncontrado = repositorioUsuario.buscarPorEmail(usuario.getEmail());
+    public void registrar(DatosRegistroDTO datosRegistro) throws UsuarioExistente, ContrasenasDistintas {
+        Usuario usuarioEncontrado = repositorioUsuario.buscarPorEmail(datosRegistro.getEmail());
         if(usuarioEncontrado != null){
             throw new UsuarioExistente();
         }
-        repositorioUsuario.guardar(usuario);
+        if(!datosRegistro.getPassword().equals(datosRegistro.getC_password())){
+            throw new ContrasenasDistintas();
+        }
+        Usuario usuarioNuevo = new Usuario();
+        usuarioNuevo.setEmail(datosRegistro.getEmail());
+        usuarioNuevo.setNombre(datosRegistro.getNombre());
+        usuarioNuevo.setPassword(datosRegistro.getPassword());
+
+        repositorioUsuario.guardar(usuarioNuevo);
     }
 
 }

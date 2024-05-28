@@ -15,7 +15,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="form-container">
-                <form id="registro-form" th:action="@{/registrarme}" th:object="${usuario}" method="post">
+                <form id="registro-form" th:action="@{/registrarme}" th:object="${DatosRegistroDTO}" method="post">
                     <h2 class="mb-3">Registro</h2>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico:</label>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="c_password" class="form-label">Confirmar Contraseña:</label>
-                        <input type="password" class="form-control" id="c_password" name="c_password" required>
+                        <input th:field="*{c_password}" type="password" class="form-control" id="c_password" name="c_password" required>
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Nombre de Usuario:</label>
