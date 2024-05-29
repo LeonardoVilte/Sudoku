@@ -21,7 +21,7 @@ public class ControladorLogin {
     private ServicioLogin servicioLogin;
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin){
+    public ControladorLogin(ServicioLogin servicioLogin) {
         this.servicioLogin = servicioLogin;
     }
 
@@ -53,6 +53,7 @@ public class ControladorLogin {
         }
         return new ModelAndView("login", model);
     }
+
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
         return new ModelAndView("redirect:/login");
@@ -62,30 +63,35 @@ public class ControladorLogin {
     @RequestMapping("/Registro")
     public ModelAndView mostrarRegistro() {
         ModelMap model = new ModelMap();
-        model.put("DatosRegistroDTO" , new DatosRegistroDTO());
+        model.put("DatosRegistroDTO", new DatosRegistroDTO());
         return new ModelAndView("Registro", model);
     }
+
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView registrarme(@ModelAttribute("DatosRegistro") DatosRegistroDTO datosRegistroDTO) {
         ModelMap model = new ModelMap();
-        try{
+        try {
             servicioLogin.registrar(datosRegistroDTO);
-        } catch (UsuarioExistente e){
+        } catch (UsuarioExistente e) {
             model.put("error", "El usuario ya existe");
             model.put("DatosRegistroDTO", new DatosRegistroDTO());
             return new ModelAndView("Registro", model);
-        }catch (ContrasenasDistintas e){
+        } catch (ContrasenasDistintas e) {
             model.put("error", "Las contraseñas no son iguales");
             model.put("DatosRegistroDTO", new DatosRegistroDTO());
             return new ModelAndView("Registro", model);
 
-        } catch (NombreDeUsuarioRepetido e){
+        } catch (NombreDeUsuarioRepetido e) {
             model.put("error", "Nombre de usuario repetido");
             model.put("DatosRegistroDTO", new DatosRegistroDTO());
             return new ModelAndView("Registro", model);
+        } catch (Exception e) {
+            model.put("error", "Error al registrar el nuevo usuario");
+            model.put("DatosRegistroDTO", new DatosRegistroDTO());
+            return new ModelAndView("Registro", model);
         }
-        return new ModelAndView("redirect:/login");
+            return new ModelAndView("redirect:/login");
+
     }
 }
-
 
