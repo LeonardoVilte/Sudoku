@@ -4,6 +4,7 @@ import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.ServicioLogin;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.ContrasenasDistintas;
+import com.tallerwebi.dominio.excepcion.NombreDeUsuarioRepetido;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import com.tallerwebi.presentacion.DatosRegistroDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,18 @@ public class ServicioLoginImpl implements ServicioLogin {
     }
 
     @Override
-    public void registrar(DatosRegistroDTO datosRegistro) throws UsuarioExistente, ContrasenasDistintas {
+    public void registrar(DatosRegistroDTO datosRegistro) throws UsuarioExistente, ContrasenasDistintas, NombreDeUsuarioRepetido {
         Usuario usuarioEncontrado = repositorioUsuario.buscarPorEmail(datosRegistro.getEmail());
+        Usuario usuarioEncontradoPorNombre = repositorioUsuario.buscarUsuarioPorNombre(datosRegistro.getNombre());
         if(usuarioEncontrado != null){
             throw new UsuarioExistente();
         }
         if(!datosRegistro.getPassword().equals(datosRegistro.getC_password())){
             throw new ContrasenasDistintas();
+        }
+
+        if(usuarioEncontradoPorNombre != null){
+            throw new NombreDeUsuarioRepetido();
         }
         Usuario usuarioNuevo = new Usuario();
         usuarioNuevo.setEmail(datosRegistro.getEmail());

@@ -3,6 +3,7 @@ package com.tallerwebi.presentacion;
 import com.tallerwebi.dominio.ServicioLogin;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.ContrasenasDistintas;
+import com.tallerwebi.dominio.excepcion.NombreDeUsuarioRepetido;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,7 +71,7 @@ public class ControladorLoginTest {
 	}
 
 	@Test
-	public void registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin() throws UsuarioExistente, ContrasenasDistintas {
+	public void registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin() throws UsuarioExistente, ContrasenasDistintas, NombreDeUsuarioRepetido {
 
 		// ejecucion
 		ModelAndView modelAndView = controladorLogin.registrarme(datosRegistroMock);
@@ -81,7 +82,7 @@ public class ControladorLoginTest {
 	}
 
 	@Test
-	public void registrarmeSiUsuarioExisteDeberiaVolverAFormularioYMostrarError() throws UsuarioExistente, ContrasenasDistintas {
+	public void registrarmeSiUsuarioExisteDeberiaVolverAFormularioYMostrarError() throws UsuarioExistente, ContrasenasDistintas, NombreDeUsuarioRepetido {
 		// preparacion
 		doThrow(UsuarioExistente.class).when(servicioLoginMock).registrar(datosRegistroMock);
 
@@ -94,7 +95,7 @@ public class ControladorLoginTest {
 	}
 
 	@Test
-	public void errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError() throws UsuarioExistente, ContrasenasDistintas {
+	public void errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError() throws UsuarioExistente, ContrasenasDistintas, NombreDeUsuarioRepetido {
 		// preparacion
 		doThrow(RuntimeException.class).when(servicioLoginMock).registrar(datosRegistroMock);
 

@@ -3,6 +3,7 @@ package com.tallerwebi.presentacion;
 import com.tallerwebi.dominio.ServicioLogin;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.ContrasenasDistintas;
+import com.tallerwebi.dominio.excepcion.NombreDeUsuarioRepetido;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -77,8 +78,9 @@ public class ControladorLogin {
             model.put("error", "Las contraseñas no son iguales");
             model.put("DatosRegistroDTO", new DatosRegistroDTO());
             return new ModelAndView("Registro", model);
-        } catch (Exception e){
-            model.put("error", "Error al registrar el nuevo usuario");
+
+        } catch (NombreDeUsuarioRepetido e){
+            model.put("error", "Nombre de usuario repetido");
             model.put("DatosRegistroDTO", new DatosRegistroDTO());
             return new ModelAndView("Registro", model);
         }
