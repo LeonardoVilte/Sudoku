@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta charset="UTF-8">
+    <title>Resultado</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+<body>
+    <main role="main" class="container">
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+                <a class="navbar-brand">
+                </a>
+                <div class="navbar-brand ml-auto">
+                    <a class="link-light" th:href="@{/home}">Inicio</a>
+                </div>
+
+                <div  class="navbar-brand ml-auto">
+                    <a class="link-light" data-bs-toggle="modal" data-bs-target="#otroBackdrop">Monedas</a>
+                </div>
+            </nav>
+        </header>
+    </main>
+
+    <div class="container center-div">
+        <h1 class="text-center mb-4">   T E R M I N A S T E   </h1>
+        <div id="timer" class="text-center"></div>
+    </div>
+</body>
+</html>

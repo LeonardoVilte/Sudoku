@@ -31,6 +31,7 @@ function terminado(){
     }
     if(completado){
         alert('FELICIDADES LOGRASTE COMPLETAR EL SUDOKU!');
+        window.location.href = "/spring/resultado";
     }
 }
 

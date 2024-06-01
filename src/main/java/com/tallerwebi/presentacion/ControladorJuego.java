@@ -4,8 +4,6 @@ import org.springframework.stereotype.Controller;
 import com.tallerwebi.dominio.ServicioJuego;
 import com.tallerwebi.dominio.Sudoku;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,9 +41,14 @@ public class ControladorJuego {
         }
     }
 
+    @RequestMapping("/resultado")
+    public ModelAndView mostrarResultado() {
+        return new ModelAndView("resultado");
+    }
 
 
-        private String convertirSudokuACadena (Integer[][]tablero){
+
+    private String convertirSudokuACadena (Integer[][]tablero){
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < tablero.length; i++) {
                 for (int j = 0; j < tablero[i].length; j++) {
