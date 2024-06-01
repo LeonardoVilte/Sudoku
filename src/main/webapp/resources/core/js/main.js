@@ -1,15 +1,3 @@
-
-function iniciarJuego() {
-    let sudokuData = document.getElementById("tablero-sudoku").dataset.sudoku;
-    let sudokuMatriz = stringAMatriz(sudokuData);
-    imprimirSudoku(sudokuMatriz);
-}
-
-function resolverSudoku() {
-    let sudokuDataRta = document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto;
-    let sudokuMatriz = stringAMatriz(sudokuDataRta);
-    imprimirSudoku(sudokuMatriz);
-}
 let posicionX = 0;
 let posicionY = 0;
 document.addEventListener('click', function(event) {
@@ -45,14 +33,25 @@ function terminado(){
     }
 }
 
+function iniciarJuego() {
+    let sudokuData = document.getElementById("tablero-sudoku").dataset.sudoku;
+    let sudokuMatriz = stringAMatriz(sudokuData);
+    imprimirSudoku(sudokuMatriz);
+}
+
+function resolverSudoku() {
+    let sudokuDataRta = document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto;
+    let sudokuMatriz = stringAMatriz(sudokuDataRta);
+    imprimirSudoku(sudokuMatriz);
+}
+
 function pista() {
     let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
     let matrizSudoku = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
 
     if(posicionX !== null &&  posicionY!== null){
         if (matrizSudoku[posicionX][posicionY] === 0) {
-            let aux = matrizSudokuResuelta[posicionX][posicionY];
-            matrizSudoku[posicionX][posicionY] = aux;
+            matrizSudoku[posicionX][posicionY] = matrizSudokuResuelta[posicionX][posicionY];
             imprimirSudoku(matrizSudoku);
         }else{
             alert("El casillero seleccionado debe estar vacio");

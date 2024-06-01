@@ -18,6 +18,7 @@ public class ServicioJuegoImpl implements ServicioJuego {
 
         return sudoku;
     }
+
     public void limpiarTablero(Integer[][] tablero){
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
@@ -113,7 +114,7 @@ public class ServicioJuegoImpl implements ServicioJuego {
         return tablero;
     }
 
-    private boolean estaCompleto(Integer[][] tablero) {
+    public boolean estaCompleto(Integer[][] tablero) {
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
                 if (tablero[i][j] == 0) {
@@ -136,6 +137,7 @@ public class ServicioJuegoImpl implements ServicioJuego {
         }
         return true;
     }
+
     public int cuadradoActual(int posicion){
         if(posicion <= 2){
             return 3;
@@ -143,6 +145,7 @@ public class ServicioJuegoImpl implements ServicioJuego {
             return 6;
         }else return 9;
     }
+
     public boolean validarFila(int i, int valor, Integer[][] tablero){
         for (int j = 0; j < tablero[0].length; j++) {
             if (tablero[i][j]==valor) {
