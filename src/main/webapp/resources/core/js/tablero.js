@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function(){
     let sudokuInicial = sudokuMatriz;
     const medidaCuadricula = 9;
 
+    const timerElement = document.getElementById('timer');
+    let segundos = 0;
+
     for(let fila = 0; fila < medidaCuadricula;fila++){
         const nuevaFila = document.createElement("tr");
         for(let columna= 0; columna < medidaCuadricula; columna++){
@@ -32,6 +35,16 @@ document.addEventListener('DOMContentLoaded', function(){
         tablaSudoku.appendChild(nuevaFila);
     } imprimirSudoku(sudokuMatriz);
 
+    function actualizarTimer() {
+                segundos++;
+                const horas = Math.floor(segundos / 3600);
+                const minutos = Math.floor((segundos % 3600) / 60);
+                const segundosRestantes = segundos % 60;
+                const tiempoFormateado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundosRestantes.toString().padStart(2, '0')}`;
+                timerElement.textContent = tiempoFormateado;
+            }
+
+    setInterval(actualizarTimer, 1000);
 
 });
 

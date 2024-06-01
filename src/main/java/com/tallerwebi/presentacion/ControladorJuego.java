@@ -43,9 +43,9 @@ public class ControladorJuego {
         }
     }
 
-    @RequestMapping("/resultado")
+    @RequestMapping("/Resultad0")
     public ModelAndView mostrarResultado() {
-        return new ModelAndView("resultado");
+        return new ModelAndView("Resultad0");
     }
 
 
