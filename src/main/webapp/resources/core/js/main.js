@@ -19,6 +19,7 @@ function terminado(){
     let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
     let sudokuMatriz = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
     let completado = true;
+
     for (let i = 0; i < sudokuMatriz.length; i++) {
         for (let j = 0; j < sudokuMatriz[i].length; j++) {
             if(sudokuMatriz[i][j] !== matrizSudokuResuelta[i][j]){
@@ -35,8 +36,8 @@ function terminado(){
 
 function resolverSudoku() {
     let sudokuDataRta = document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto;
-    let sudokuMatriz = stringAMatriz(sudokuDataRta);
-    imprimirSudoku(sudokuMatriz);
+    document.getElementById("tablero-sudoku").dataset.sudoku = sudokuDataRta;
+    imprimirSudoku(stringAMatriz(sudokuDataRta));
 }
 
 function pista() {
@@ -46,6 +47,7 @@ function pista() {
     if(posicionX !== null &&  posicionY!== null){
         if (matrizSudoku[posicionX][posicionY] === 0) {
             matrizSudoku[posicionX][posicionY] = matrizSudokuResuelta[posicionX][posicionY];
+            document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
             imprimirSudoku(matrizSudoku);
         }else{
             alert("El casillero seleccionado debe estar vacio");
@@ -65,8 +67,9 @@ function ayuda() {
                 alert(`El valor ${matrizSudoku[posicionX][posicionY]} es correcto para esa casilla`);
             }else{
                 alert(`El valor ${matrizSudoku[posicionX][posicionY]} es incorrecto para esa casilla`);
+                matrizSudoku[posicionX][posicionY] = 0;
+                document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
             }
-            matrizSudoku[posicionX][posicionY] = 0;
             imprimirSudoku(matrizSudoku);
         }else{
             alert("El casillero seleccionado no debe estar vacio para recibir una ayuda");
@@ -97,4 +100,14 @@ function stringAMatriz(sudoku){
         sudokuMatriz = sudoku.split(',').map(row => row.split(';').map(Number));
     }
     return sudokuMatriz;
+}
+
+function matrizAString(matriz) {
+    let sudokuString = '';
+    for (let i = 0; i < matriz.length; i++) {
+        sudokuString += matriz[i].join(',') + ';';
+    }
+    // Eliminar el último ';' si existe
+    sudokuString = sudokuString.slice(0, -1);
+    return sudokuString;
 }
