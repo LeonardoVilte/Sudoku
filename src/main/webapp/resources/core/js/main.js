@@ -15,6 +15,25 @@ document.addEventListener('click', function(event) {
     }
 });
 
+let tiempoInicio = Date.now(); // Guardar el tiempo de inicio cuando se carga la página
+
+function obtenerTiempoActual() {
+    const tiempoActual = Date.now();
+    const tiempoTranscurrido = tiempoActual - tiempoInicio; // Tiempo transcurrido en milisegundos
+
+    const segundosTotales = Math.floor(tiempoTranscurrido / 1000);
+    const horas = Math.floor(segundosTotales / 3600);
+    const minutos = Math.floor((segundosTotales % 3600) / 60);
+    const segundos = segundosTotales % 60;
+
+    // Formatear el tiempo como HH:MM:SS
+    const horasFormateadas = String(horas).padStart(2, '0');
+    const minutosFormateados = String(minutos).padStart(2, '0');
+    const segundosFormateados = String(segundos).padStart(2, '0');
+
+    return `${horasFormateadas}:${minutosFormateados}:${segundosFormateados}`;
+}
+
 function terminado(){
     let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
     let sudokuMatriz = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
@@ -32,6 +51,11 @@ function terminado(){
     if(completado){
         alert('FELICIDADES LOGRASTE COMPLETAR EL SUDOKU!');
         window.location.href = "/spring/Resultad0";
+       // Guardar el tiempo al momento de resolver el sudoku
+        const tiempoActual = obtenerTiempoActual(); // Función para obtener el tiempo actual, reemplaza esto con tu lógica real
+
+            // Redirigir al usuario a la vista de resultado y pasar el tiempo como parámetro en la URL
+        window.location.href = "/spring/Resultad0?tiempo=" + tiempoActual;
     }
 }
 
