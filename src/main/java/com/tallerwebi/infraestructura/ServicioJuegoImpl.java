@@ -115,9 +115,9 @@ public class ServicioJuegoImpl implements ServicioJuego {
     }
 
     public boolean estaCompleto(Integer[][] tablero) {
-        for (int i = 0; i < tablero.length; i++) {
+        for (Integer[] integers : tablero) {
             for (int j = 0; j < tablero[0].length; j++) {
-                if (tablero[i][j] == 0) {
+                if (integers[j] == 0) {
                     return false; // falta
                 }
             }
@@ -156,8 +156,8 @@ public class ServicioJuegoImpl implements ServicioJuego {
     }
 
     public boolean validarCol(int j, int valor, Integer[][] tablero){
-        for (int i = 0; i < tablero.length; i++) {
-            if (tablero[i][j]==valor) {
+        for (Integer[] integers : tablero) {
+            if (integers[j] == valor) {
                 return false;
             }
         }

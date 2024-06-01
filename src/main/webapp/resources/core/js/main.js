@@ -33,12 +33,6 @@ function terminado(){
     }
 }
 
-function iniciarJuego() {
-    let sudokuData = document.getElementById("tablero-sudoku").dataset.sudoku;
-    let sudokuMatriz = stringAMatriz(sudokuData);
-    imprimirSudoku(sudokuMatriz);
-}
-
 function resolverSudoku() {
     let sudokuDataRta = document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto;
     let sudokuMatriz = stringAMatriz(sudokuDataRta);

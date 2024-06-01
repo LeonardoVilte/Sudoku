@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
     const tablaSudoku=  document.getElementById("tablero-sudoku");
     let sudokuMatriz = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
+    let sudokuActualizado = sudokuMatriz;
     const medidaCuadricula = 9;
 
     for(let fila = 0; fila < medidaCuadricula;fila++){
@@ -15,34 +16,18 @@ document.addEventListener('DOMContentLoaded', function(){
                 input.setAttribute("disabled", "true");
             }
             input.addEventListener('input', function(event){
-                validarEntradaYActualizar(event, fila, columna);
+                if (!/^[1-9]$/.test(input.value) ) {
+                    alert("El numero no es valido, ingrese un valor entre 1 y 9")
+                    celda.value = "";
+                }
+                sudokuActualizado[fila][columna]=input.value;
             })
 
             celda.appendChild(input);
             nuevaFila.appendChild(celda);
         }
         tablaSudoku.appendChild(nuevaFila);
-    }
+    }imprimirSudoku(sudokuMatriz);
 })
 
-function validarEntradaYActualizar(event, fila, colum) {
-    let sudokuMatriz = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
-    let sudokuActualizado = sudokuMatriz;
-    const celdaId = `celda-${fila}-${colum}`;
-    const celda = document.getElementById(celdaId);
-    const valor = celda.value;
-
-     if(sudokuMatriz[fila][colum] === 0){
-         if (!/^[1-9]$/.test(valor) ) {
-             alert("El numero no es valido, ingrese un valor entre 1 y 9")
-             celda.value = "";
-         }else{
-             return sudokuActualizado[fila][colum]=celda.value;
-         }
-
-    }else{
-         alert("Esta celda ya se encuentra ocupada");
-         celda.value = sudokuMatriz[fila][colum];
-     }
-}
 
