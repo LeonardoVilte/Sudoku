@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class ControladorJuego {
 
-    private final ServicioJuego servicioJuego ;
+    private final ServicioJuego servicioJuego;
+
+
 
 
     @Autowired

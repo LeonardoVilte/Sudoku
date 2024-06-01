@@ -30,7 +30,9 @@ document.addEventListener('DOMContentLoaded', function(){
             nuevaFila.appendChild(celda);
         }
         tablaSudoku.appendChild(nuevaFila);
-    }imprimirSudoku(sudokuMatriz);
+    } imprimirSudoku(sudokuMatriz);
+
+
 });
 
 

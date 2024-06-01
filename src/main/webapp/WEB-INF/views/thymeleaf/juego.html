@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="timer-container">
-        <div class="timer">00:00:00</div>
+        <div class="timer" id="timer">00:00:00</div>
 
         <button class="button" onclick="pista()">Pista</button>
         <button class="button" onclick="ayuda()">Ayuda</button>
@@ -62,5 +62,25 @@
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/tablero.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+
+// para que el timer corra
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const timerElement = document.getElementById('timer');
+        let segundos = 0;
+
+        function actualizarTimer() {
+            segundos++;
+            const horas = Math.floor(segundos / 3600);
+            const minutos = Math.floor((segundos % 3600) / 60);
+            const segundosRestantes = segundos % 60;
+            const tiempoFormateado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundosRestantes.toString().padStart(2, '0')}`;
+            timerElement.textContent = tiempoFormateado;
+        }
+
+        setInterval(actualizarTimer, 1000);
+    });
+</script>
+
 </html>
 
