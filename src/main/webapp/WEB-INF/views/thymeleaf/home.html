@@ -6,27 +6,29 @@
     <title>Sudoku</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/home.css}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" >SUDOKU</a>
+        <a class="navbar-brand">SUDOKU</a>
     </div>
     <div class="navbar-brand ml-auto">
+        <a class="link-primary" th:href="@{perfil}">Perfil</a>
         <a class="link-primary" th:href="@{logout}">Cerrar sesión</a>
     </div>
 </nav>
 <body>
 <div class="container">
     <header>
-        <img src="../../../resources/img/sudoku.png" height="140" width="387"/>
+        <img src="../../../resources/img/sudokublanco.png" height="140" width="387"/>
     </header>
     <main>
         <div class="button-container">
-            <div class="button fade-in-left" id="botonJugar">Jugar</div>
-            <div class="button fade-in-right" id="botonMercado">Mercado</div>
+            <a href="#" th:href="@{/dificultad}" class="button fade-in-left" id="botonJugar">Jugar</a>
+            <a href="#" th:href="@{/mercado}" class="button fade-in-right" id="botonMercado">Mercado</a>
         </div>
-        <div class="button-wide fade-in" id="botonRanking">Ranking / Mejores Jugadores</div>
-        <div class="button-wide fade-in" id="botonSobre">Sobre este proyecto</div>
+        <a href="#" th:href="@{/ranking}" class="button-wide fade-in" id="botonRanking">Ranking / Mejores Jugadores</a>
+        <a href="#" th:href="@{/about}" class="button-wide fade-in" id="botonSobre">Sobre este proyecto</a>
     </main>
 </div>
 </body>

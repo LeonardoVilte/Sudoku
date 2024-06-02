@@ -31,4 +31,29 @@ public class ControladorHome {
         return new ModelAndView("redirect:/login?logout");
     }
 
+    @RequestMapping("/home")
+    public ModelAndView home() {
+        return new ModelAndView("home");
+    }
+
+    @RequestMapping("/dificultad")
+    public ModelAndView dificultad() {
+        return new ModelAndView("dificultad");
+    }
+
+    @RequestMapping("/mercado")
+    public ModelAndView mercado() {
+        return new ModelAndView("mercado");
+    }
+
+    @RequestMapping("/ranking")
+    public ModelAndView ranking() {
+        return new ModelAndView("ranking");
+    }
+
+    @RequestMapping("/about")
+    public ModelAndView about() {
+        return new ModelAndView("about");
+    }
+
 }
