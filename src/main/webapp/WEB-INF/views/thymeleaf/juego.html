@@ -29,22 +29,21 @@
     <div class="ctn-principal">
         <div id="contenedor-sudoku">
             <table>
-
                 <tbody id="tablero-sudoku" th:data-sudoku="${sudoku}">
                 <tbody id="tablero-sudoku-rta" th:data-sudoku-resuelto="${sudokuResuelto}">
                 </tbody>
             </table>
         </div>
         <div id="teclado-numeric">
-            <button class="tecla">1</button>
-            <button class="tecla">2</button>
-            <button class="tecla">3</button>
-            <button class="tecla">4</button>
-            <button class="tecla">5</button>
-            <button class="tecla">6</button>
-            <button class="tecla">7</button>
-            <button class="tecla">8</button>
-            <button class="tecla">9</button>
+            <button class="tecla" data-numero="1">1</button>
+            <button class="tecla" data-numero="2">2</button>
+            <button class="tecla" data-numero="3">3</button>
+            <button class="tecla" data-numero="4">4</button>
+            <button class="tecla" data-numero="5">5</button>
+            <button class="tecla" data-numero="6">6</button>
+            <button class="tecla" data-numero="7">7</button>
+            <button class="tecla" data-numero="8">8</button>
+            <button class="tecla" data-numero="9">9</button>
         </div>
     </div>
     <div class="timer-container">

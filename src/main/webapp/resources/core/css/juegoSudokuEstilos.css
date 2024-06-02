@@ -125,3 +125,17 @@ input{
     height: 30px;
     text-align: center;
 }
+
+.celda {
+    border: 1px solid #ccc;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.5rem;
+}
+
+.celda.selected {
+    border: 2px solid #007bff;
+    background-color: #e7f3ff;
+}

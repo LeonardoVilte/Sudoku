@@ -1,5 +1,6 @@
 let posicionX = 0;
 let posicionY = 0;
+
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('celda')) {
         const celda = event.target;
@@ -86,21 +87,21 @@ function ayuda() {
     let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
     let matrizSudoku = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
 
-    if(posicionX !== null &&  posicionY!== null){
+    if (posicionX !== null && posicionY !== null) {
         if (matrizSudoku[posicionX][posicionY] !== 0) {
-            if(matrizSudoku[posicionX][posicionY] === matrizSudokuResuelta[posicionX][posicionY]){
+            if (matrizSudoku[posicionX][posicionY] === matrizSudokuResuelta[posicionX][posicionY]) {
                 alert(`El valor ${matrizSudoku[posicionX][posicionY]} es correcto para esa casilla`);
-            }else{
+            } else {
                 alert(`El valor ${matrizSudoku[posicionX][posicionY]} es incorrecto para esa casilla`);
                 matrizSudoku[posicionX][posicionY] = 0;
                 document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
             }
             imprimirSudoku(matrizSudoku);
-        }else{
-            alert("El casillero seleccionado no debe estar vacio para recibir una ayuda");
+        } else {
+            alert("El casillero seleccionado no debe estar vacío para recibir una ayuda");
         }
-    }else{
-        alert("Debe seleccionar un casillero para recibir una ayuda")
+    } else {
+        alert("Debe seleccionar un casillero para recibir una ayuda");
     }
 }
 

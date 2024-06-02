@@ -46,6 +46,56 @@ document.addEventListener('DOMContentLoaded', function(){
 
     setInterval(actualizarTimer, 1000);
 
+    // Variable para almacenar la celda seleccionada
+    let selectedCell = null;
+
+    // Variables para almacenar las posiciones de la celda seleccionada
+    let posicionX = null;
+    let posicionY = null;
+
+    // Función para manejar la selección de celdas del Sudoku
+    function selectCell(event) {
+        // Eliminar la clase de celda seleccionada de cualquier otra celda
+        if (selectedCell) {
+            selectedCell.classList.remove('selected');
+        }
+        // Marcar la celda actual como seleccionada
+        selectedCell = event.target;
+        selectedCell.classList.add('selected');
+
+        // Actualizar las posiciones de la celda seleccionada
+        let idParts = selectedCell.id.split('-');
+        posicionX = parseInt(idParts[1]);
+        posicionY = parseInt(idParts[2]);
+    }
+
+    // Añadir event listeners a las celdas del Sudoku
+    document.querySelectorAll('.celda').forEach(cell => {
+        cell.addEventListener('click', selectCell);
+    });
+
+    // Función para manejar la inserción de números en la celda seleccionada
+    function insertNumber(event) {
+        if (selectedCell) {
+            // Insertar el número en la celda seleccionada
+            selectedCell.value = event.target.textContent;
+
+            // Actualizar la matriz del Sudoku
+            let matrizSudoku = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
+            matrizSudoku[posicionX][posicionY] = parseInt(event.target.textContent);
+            document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
+
+            // Opcional: Desmarcar la celda después de insertar el número
+            selectedCell.classList.remove('selected');
+            selectedCell = null;
+        }
+    }
+
+    // Añadir event listeners a los botones del teclado numérico
+    document.querySelectorAll('#teclado-numeric .tecla').forEach(button => {
+        button.addEventListener('click', insertNumber);
+    });
+
 });
 
 
