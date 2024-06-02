@@ -126,16 +126,92 @@ input{
     text-align: center;
 }
 
-.celda {
-    border: 1px solid #ccc;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 1.5rem;
+/* Ajustes para el Sudoku */
+#contenedor-sudoku {
+    display: inline-block;
+    margin-top: 20px;
 }
 
-.celda.selected {
-    border: 2px solid #007bff;
-    background-color: #e7f3ff;
+#tablero-sudoku table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+#tablero-sudoku td {
+    width: 50px; /* Aumenta el tamaño de las celdas */
+    height: 50px; /* Aumenta el tamaño de las celdas */
+    border: 1px solid #000;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#tablero-sudoku input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* Estilos para las líneas negras que remarcan los 3x3 */
+#tablero-sudoku td:nth-child(3n+1),
+#tablero-sudoku td:first-child {
+    border-left: 3px solid #000;
+}
+
+#tablero-sudoku tr:nth-child(3n+1),
+#tablero-sudoku tr:first-child {
+    border-top: 3px solid #000;
+}
+
+/* Estilos para la celda seleccionada */
+#tablero-sudoku .selected {
+    background-color: lightblue;
+}
+
+/* Estilos para el contenedor del timer */
+.timer-container {
+    text-align: center; /* Alinea el texto al centro */
+    padding-left: 150px;
+}
+
+/* Estilos para los botones */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.button:active {
+    background-color: #003167;
+}
+
+.action-button {
+    display: block;
+    margin: 0 auto;
+    transition: background-color 0.1s;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+.tecla:hover {
+    background-color: #b8b8b8;
+}
+
+.tecla:active {
+    background-color: #929292; /* Cambia rápidamente de color al pasar el mouse */
 }
