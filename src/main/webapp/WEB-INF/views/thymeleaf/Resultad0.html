@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/resultado.css}"/> <!-- Añadir el nuevo archivo CSS -->
+</head>
+<body>
+<main role="main" class="container">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand"></a>
+            <div class="navbar-brand ml-auto">
+                <a class="link-light" th:href="@{/home}">Inicio</a>
+            </div>
+            <div class="navbar-brand ml-auto">
+                <a class="link-light" data-bs-toggle="modal" data-bs-target="#otroBackdrop">Monedas</a>
+            </div>
+        </nav>
+    </header>
+</main>
+
+<div class="container center-div">
+    <h1 class="text-center mb-4">T E R M I N A S T E</h1>
+    <div class="text-center">
+        <p>Tiempo transcurrido: <span class="timer" id="tiempoTranscurrido">00:00:00</span></p>
+        <button onclick="window.location.href='/spring/home'" class="btn btn-primary">Volver al Inicio</button>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tiempo = urlParams.get('tiempo');
+
+        if (tiempo) {
+            const tiempoTranscurridoElement = document.getElementById('tiempoTranscurrido');
+            tiempoTranscurridoElement.textContent = tiempo;
+        }
+    };
+</script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
