@@ -55,7 +55,7 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: black;
+    background-color: #212529;
     padding: 10px 20px;
     position: fixed;
     width: 100%;

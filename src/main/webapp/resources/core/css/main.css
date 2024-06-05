@@ -6,8 +6,55 @@ body {
     text-align: center;
 }
 
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #212529;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
 .navbar-brand {
-    margin: 0 2rem;
+    display: flex;
+    gap: 10px;
+}
+
+.navbar-item {
+    color: white;
+    font-size: 20px;
+}
+
+.navbar-item:hover {
+    color: white;
+}
+
+.navbar-item.monedas {
+    margin-left: 700px;
+}
+
+.monedas-texto {
+    margin-left: 10px; /* Ajusta la distancia entre el icono y el texto */
+}
+
+.monedas {
+    color: yellow;
+    display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#perfiltexto {
+    margin-right: 20px;
+}
+
+a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    color: black;
 }
 
 main {

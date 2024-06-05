@@ -10,17 +10,18 @@
   <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand">SUDOKU</a>
+<nav class="navbar">
+  <div class="navbar-item">Sudoku</div>
+  <div class="navbar-item monedas">
+    <span class="monedas">Monedas =</span>
   </div>
   <div class="navbar-brand ml-auto">
-    <a class="link-primary" th:href="@{logout}">Perfil</a>
-    <a class="link-primary" th:href="@{logout}">Cerrar sesión</a>
+    <a class="navbar-item" id="perfiltexto" th:href="@{perfil}">Perfil</a>
+    <a class="navbar-item" th:href="@{logout}">Cerrar Sesión</a>
   </div>
 </nav>
 <div class="image-fondo cabecera">
-  <h1 class="text-center" style="padding: 30px;">DIFICULTAD</h1>
+  <h1 class="text-center" style="padding: 30px;">ELIGE TU DIFICULTAD</h1>
 </div>
 <div class="content">
   <div class="row justify-content-center">
