@@ -7,6 +7,8 @@ body {
     text-align: center;
 }
 
+
+
 a {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-decoration: none;
@@ -81,7 +83,7 @@ main {
     border-radius: 5px;
     display: inline-block;
     background-color: #dcbc00;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
 }
 
 .button-container {
@@ -134,10 +136,3 @@ main {
         transform: translateY(0);
     }
 }
-
-
-
-
-
-
-

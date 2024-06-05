@@ -5,6 +5,28 @@ body {
     height: 100vh;
 }
 
+.monedas {
+    color: yellow;
+    display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: rgb(0, 0, 0);
+    transition: background-color 0.3s ease;
+}
+
+.navbar-item.monedas {
+    margin-left: auto; /* Modificado para ajustar automáticamente el espacio */
+    margin-right: 100px;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -18,11 +40,6 @@ body {
     z-index: 1000;
 }
 
-.navbar-brand {
-    display: flex;
-    gap: 10px;
-}
-
 .navbar-item {
     color: white;
     font-size: 20px;
@@ -32,18 +49,15 @@ body {
     color: white;
 }
 
-.navbar-item.monedas {
-    margin-left: 700px;
-}
-
-.monedas-texto {
-    margin-left: 10px; /* Ajusta la distancia entre el icono y el texto */
-}
-
-.monedas {
-    color: yellow;
+.navbar-brand {
     display: flex;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    gap: 10px;
+}
+
+.coin-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
 }
 
 #perfiltexto {

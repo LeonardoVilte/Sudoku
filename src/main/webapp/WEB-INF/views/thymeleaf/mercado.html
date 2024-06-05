@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Taller Web I</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+    <!-- Custom style -->
+    <link rel="stylesheet" th:href="@{/css/mercado.css}"/>
 </head>
 <body>
-
+<nav class="navbar">
+    <div class="navbar-item">Sudoku</div>
+    <div class="navbar-item monedas">
+        <span class="monedas">Monedas =</span>
+    </div>
+    <div class="navbar-brand ml-auto">
+        <a class="navbar-item" id="perfiltexto" th:href="@{perfil}">Perfil</a>
+        <a class="navbar-item" th:href="@{logout}">Cerrar Sesión</a>
+    </div>
+</nav>
+<section>
+    <div class="image-fondo cabecera">
+        <h1 class="text-center" style="padding: 30px;">MERCADO DE POTENCIADORES</h1>
+    </div>
+    <div class="content">
+        <div class="row justify-content-center">
+            <div class="card text-center fade-in-up" style="width: 18rem">
+                <div class="card-body">
+                    <h5 class="card-title">Pista</h5>
+                    <p class="card-text">Selecciona un casillero del tablero, la pista te introducirá un número correcto.</p>
+                    <ul class="list-group list-group-flush">
+                        <a class="button verde">COMPRAR</a>
+                    </ul>
+                </div>
+            </div>
+            <div class="card text-center fade-in-up" style="width: 18rem">
+                <div class="card-body">
+                    <h5 class="card-title">Ayuda</h5>
+                    <p class="card-text">Selecciona un casillero del tablero que no esté vacío, la ayuda te dirá si el número ingresado es correcto o no.</p>
+                    <ul class="list-group list-group-flush">
+                        <a class="button amarillo">COMPRAR</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

@@ -11,6 +11,22 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
+a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: rgb(0, 0, 0);
+    transition: background-color 0.3s ease;
+}
+
+.navbar-item.monedas {
+    margin-left: auto; /* Modificado para ajustar automáticamente el espacio */
+    margin-right: 100px;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -24,11 +40,6 @@ input[type="number"] {
     z-index: 1000;
 }
 
-.navbar-brand {
-    display: flex;
-    gap: 10px;
-}
-
 .navbar-item {
     color: white;
     font-size: 20px;
@@ -38,12 +49,19 @@ input[type="number"] {
     color: white;
 }
 
-.navbar-item.monedas {
-    margin-left: 700px;
+.navbar-brand {
+    display: flex;
+    gap: 10px;
 }
 
-.monedas-texto {
-    margin-left: 10px; /* Ajusta la distancia entre el icono y el texto */
+.coin-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+#perfiltexto {
+    margin-right: 20px;
 }
 
 .monedas {
@@ -54,12 +72,6 @@ input[type="number"] {
 
 #perfiltexto {
     margin-right: 20px;
-}
-
-a {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-decoration: none;
-    color: black;
 }
 
 body{
