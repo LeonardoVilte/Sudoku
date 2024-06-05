@@ -1,36 +1,13 @@
 body {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    font-family: Arial, sans-serif;
     background-color: #f0f0f0;
-}
-
-.navbar-brand{
-    margin:0 2rem;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-a:hover {
-    text-decoration: none;
-    color: black;
-}
-
-.container {
-    text-align: center;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 header {
     margin-bottom: 20px;
+    margin-top: 50px;
+    text-align: center;
 }
 
 h1 {
@@ -45,6 +22,73 @@ main {
     align-items: center;
 }
 
+.monedas {
+    color: yellow;
+    display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: rgb(0, 0, 0);
+    transition: background-color 0.3s ease; 
+}
+
+.navbar-item.monedas {
+    margin-left: 700px;
+}
+
+.monedas-texto {
+    margin-left: 10px; /* Ajusta la distancia entre el icono y el texto */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-item {
+    color: white;
+    font-size: 20px;
+}
+
+.navbar-item:hover {
+    color: white;
+}
+
+.navbar-brand {
+    display: flex;
+    gap: 10px;
+}
+
+.coin-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+.container {
+    margin-top: 100px; /* Ajusta este valor para mover el contenido hacia abajo */
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .button-container {
     display: flex;
     gap: 20px;
@@ -53,16 +97,17 @@ main {
 
 .button, .button-wide {
     background-color: #e0e0e0;
-    border: 4px solid #000;
+    border: 3px solid #000;
+    border-radius: 30px;
     padding: 30px;
     font-size: 24px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease; 
     opacity: 0;
 }
 
 .button:hover, .button-wide:hover {
-    background-color: #a8a5a5;
+    background-color: #c8c8c8;
 }
 
 .button:active, .button-wide:active {

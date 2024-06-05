@@ -8,16 +8,17 @@
     <link rel="stylesheet" th:href="@{/css/home.css}"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand">SUDOKU</a>
+<body>
+<nav class="navbar">
+    <div class="navbar-item">Sudoku</div>
+    <div class="navbar-item monedas">
+        <span class="monedas">Monedas =</span>
     </div>
     <div class="navbar-brand ml-auto">
-        <a class="link-primary" th:href="@{perfil}">Perfil</a>
-        <a class="link-primary" th:href="@{logout}">Cerrar sesión</a>
+        <a class="navbar-item" th:href="@{perfil}">Perfil</a>
+        <a class="navbar-item" th:href="@{logout}">Cerrar Sesión</a>
     </div>
 </nav>
-<body>
 <div class="container">
     <header>
         <img src="src/main/webapp/resources/img/sudokublanco.png" height="140" width="387"/>

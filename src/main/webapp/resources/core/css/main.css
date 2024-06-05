@@ -6,8 +6,8 @@ body {
     text-align: center;
 }
 
-.navbar-brand{
-    margin:0 2rem;
+.navbar-brand {
+    margin: 0 2rem;
 }
 
 main {
@@ -25,6 +25,7 @@ main {
     border-radius: 5px;
     display: inline-block;
     background-color: #dcbc00;
+    transition: background-color 0.3s ease; 
 }
 
 .button-container {
@@ -33,8 +34,6 @@ main {
 .ranking-list {
     margin-top: 20px;
 }
-
-
 
 .verde {
     background-color: #439347;
@@ -47,12 +46,15 @@ main {
 .rojo {
     background-color: #cf4429;
 }
+
 .verde:hover {
     background-color: #92e0a3;
 }
+
 .amarillo:hover {
     background-color: #f1f17c;
 }
+
 .rojo:hover {
     background-color: #ff6e53;
 }
@@ -63,7 +65,22 @@ main {
 
 a {
     text-decoration: none;
+}
 
+.card {
+    margin: 20px; /* Espacio entre las tarjetas */
+    animation: fadeInUp 1.5s forwards; /* Añadir animación a las tarjetas */
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
