@@ -110,10 +110,6 @@ main {
     color: white;
 }
 
-a {
-    text-decoration: none;
-}
-
 .card {
     margin: 20px; /* Espacio entre las tarjetas */
     animation: fadeInUp 1.5s forwards; /* Añadir animación a las tarjetas */
