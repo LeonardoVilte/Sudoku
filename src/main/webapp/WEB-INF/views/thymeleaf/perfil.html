@@ -1,18 +1,46 @@
 <!DOCTYPE HTML>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Perfil del Usuario</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Taller Web I</title>
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+    <!-- Custom style -->
+    <link rel="stylesheet" th:href="@{/css/mercado.css}"/>
+    <style>
+        .perfil-box {
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .perfil-box:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h1>Perfil del Usuario</h1>
-    <p>Nombre: <span th:text="${nombre}"></span></p>
-    <p>Horas Jugadas: <span th:text="${horasJugadas}"></span></p>
-    <p>Cantidad de Partidas Jugadas: <span th:text="${cantidadPartidasJugadas}"></span></p>
-    <p>Tiempo Promedio de Resolución: <span th:text="${tiempoPromedioResolucion}"></span> minutos</p>
-</div>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<nav class="navbar">
+    <div class="navbar-item">Sudoku</div>
+    <div class="navbar-item monedas">
+        <span class="monedas">Monedas =</span>
+    </div>
+    <div class="navbar-brand ml-auto">
+        <a class="navbar-item" th:href="@{logout}">Cerrar Sesión</a>
+    </div>
+</nav>
+<section>
+    <div class="container mt-5">
+        <h1>Perfil del Usuario</h1>
+        <div class="perfil-box">
+            <p>Nombre: <span th:text="${nombre}"></span></p>
+            <p>Horas Jugadas: <span th:text="${horasJugadas}"></span></p>
+            <p>Cantidad de Partidas Jugadas: <span th:text="${cantidadPartidasJugadas}"></span></p>
+            <p>Tiempo Promedio de Resolución: <span th:text="${tiempoPromedioResolucion}"></span> minutos</p>
+        </div>
+    </div>
+</section>
 </body>
 </html>

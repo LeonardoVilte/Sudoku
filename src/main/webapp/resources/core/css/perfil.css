@@ -1,0 +1,90 @@
+body {
+    padding-top: 5rem;
+    margin-top: 70px;
+}
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: rgb(0, 0, 0);
+    transition: background-color 0.3s ease;
+}
+
+.navbar-item.monedas {
+    margin-left: auto;
+    margin-right: 100px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #212529;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-item {
+    color: white;
+    font-size: 20px;
+}
+
+.navbar-item:hover {
+    color: white;
+}
+
+.navbar-brand {
+    display: flex;
+    gap: 10px;
+}
+
+.coin-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+#perfiltexto {
+    margin-right: 20px;
+}
+
+.monedas {
+    color: yellow;
+    display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+main {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.button {
+    cursor: pointer;
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #dcbc00;
+    transition: background-color 0.3s ease;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
