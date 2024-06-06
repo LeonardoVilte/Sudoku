@@ -1,21 +1,32 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.RepositorioJuego;
 import com.tallerwebi.dominio.ServicioJuego;
 import com.tallerwebi.dominio.Sudoku;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Random;
 @Service
+@Transactional
 public class ServicioJuegoImpl implements ServicioJuego {
+
+    private RepositorioJuego repositorioJuego;
+
+    @Autowired
+    public ServicioJuegoImpl (RepositorioJuego repositorioJuego){
+        this.repositorioJuego = repositorioJuego;
+    }
 
     @Override
     public Sudoku crearYGuardarSudoku(Integer dificultad) {
         Sudoku sudoku = new Sudoku();
         Integer[][] tablero = sudoku.getTablero();
-        limpiarTablero(tablero);
         sudoku.setDificultad(dificultad);
         sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
 
+        repositorioJuego.guardarSudoku(sudoku);
         return sudoku;
     }
 

@@ -17,8 +17,6 @@ public class ControladorJuego {
     private final ServicioJuego servicioJuego;
 
 
-
-
     @Autowired
     public ControladorJuego(ServicioJuego servicioJuego){
         this.servicioJuego = servicioJuego;
