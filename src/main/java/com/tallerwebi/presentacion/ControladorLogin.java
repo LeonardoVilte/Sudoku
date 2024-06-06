@@ -76,6 +76,7 @@ public class ControladorLogin {
             model.put("error", "El usuario ya existe");
             model.put("DatosRegistroDTO", new DatosRegistroDTO());
             return new ModelAndView("Registro", model);
+
         } catch (ContrasenasDistintas e) {
             model.put("error", "Las contraseñas no son iguales");
             model.put("DatosRegistroDTO", new DatosRegistroDTO());
@@ -85,13 +86,14 @@ public class ControladorLogin {
             model.put("error", "Nombre de usuario repetido");
             model.put("DatosRegistroDTO", new DatosRegistroDTO());
             return new ModelAndView("Registro", model);
+
         } catch (Exception e) {
             model.put("error", "Error al registrar el nuevo usuario");
             model.put("DatosRegistroDTO", new DatosRegistroDTO());
             return new ModelAndView("Registro", model);
         }
-            return new ModelAndView("redirect:/login");
 
+        return new ModelAndView("redirect:/login");
     }
 }
 

@@ -21,7 +21,7 @@ public class ControladorPerfil {
     @RequestMapping("/perfil")
     public ModelAndView mostrarPerfil(Model modelo, HttpServletRequest request) {
         // Obtener el email del usuario desde la sesión
-        String email = (String) request.getSession().getAttribute("email"); // simula el usuario autenticado
+        String email = (String) request.getSession().getAttribute("email");
         if (email == null) {
             return new ModelAndView("redirect:/login");
         }

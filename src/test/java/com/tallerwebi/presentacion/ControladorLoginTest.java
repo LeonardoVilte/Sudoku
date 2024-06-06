@@ -106,4 +106,25 @@ public class ControladorLoginTest {
 		assertThat(modelAndView.getViewName(), equalToIgnoringCase("Registro"));
 		assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("Error al registrar el nuevo usuario"));
 	}
+	@Test
+	public void errorRegistrarmeSiContrasenasDistintasDeberiaVolverAFormularioYMostrarError() throws ContrasenasDistintas, UsuarioExistente, NombreDeUsuarioRepetido {
+
+		doThrow(ContrasenasDistintas.class).when(servicioLoginMock).registrar(datosRegistroMock);
+
+		ModelAndView modelAndView = controladorLogin.registrarme(datosRegistroMock);
+
+		assertThat(modelAndView.getViewName(), equalToIgnoringCase("Registro"));
+		assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("Las contraseñas no son iguales"));
+	}
+	@Test
+	public void errorRegistrarmeConNombreYaCargadoDeberiaVolverFormularioYMostrarError() throws ContrasenasDistintas, UsuarioExistente, NombreDeUsuarioRepetido {
+
+		doThrow(NombreDeUsuarioRepetido.class).when(servicioLoginMock).registrar(datosRegistroMock);
+
+		ModelAndView modelAndView = controladorLogin.registrarme(datosRegistroMock);
+
+		assertThat(modelAndView.getViewName(), equalToIgnoringCase("Registro"));
+		assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("Nombre de usuario repetido"));
+	}
+
 }

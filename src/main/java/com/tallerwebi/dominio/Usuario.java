@@ -1,9 +1,7 @@
 package com.tallerwebi.dominio;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -16,6 +14,8 @@ public class Usuario {
     private String rol;
     private Boolean activo = false;
     private String nombre;
+    @OneToMany(mappedBy = "usuario" , cascade = CascadeType.ALL)
+    private List<Partida> partidas;
     private Integer horasJugadas = 0; // Inicializamos en cero
     private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
     private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
