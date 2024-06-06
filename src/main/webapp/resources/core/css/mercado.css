@@ -7,8 +7,6 @@ body {
     text-align: center;
 }
 
-
-
 a {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-decoration: none;
@@ -21,7 +19,7 @@ a:hover {
 }
 
 .navbar-item.monedas {
-    margin-left: auto; /* Modificado para ajustar automáticamente el espacio */
+    margin-left: auto;
     margin-right: 100px;
 }
 
@@ -89,16 +87,17 @@ main {
 .button-container {
     margin-top: 20px;
 }
+
 .ranking-list {
     margin-top: 20px;
 }
 
 .verde {
-    background-color: #439347;
+    background-color: #f4ec05;
 }
 
 .amarillo {
-    background-color: #dcbc00;
+    background-color: #00dc1a;
 }
 
 .rojo {
@@ -106,11 +105,11 @@ main {
 }
 
 .verde:hover {
-    background-color: #92e0a3;
+    background-color: #f1e672;
 }
 
 .amarillo:hover {
-    background-color: #f1f17c;
+    background-color: #7cf18a;
 }
 
 .rojo:hover {
@@ -122,17 +121,44 @@ main {
 }
 
 .card {
-    margin: 20px; /* Espacio entre las tarjetas */
-    animation: fadeInUp 1.5s forwards; /* Añadir animación a las tarjetas */
+    margin: 20px;
 }
 
-@keyframes fadeInUp {
+.fade-in-left {
+    animation: fadeInLeft 1.5s forwards;
+}
+
+.fade-in-right {
+    animation: fadeInRight 1.5s forwards;
+}
+
+@keyframes fadeInLeft {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateX(-20px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
     }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.mt-auto {
+    margin-top: auto;
 }

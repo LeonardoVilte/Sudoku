@@ -26,22 +26,26 @@
     </div>
     <div class="content">
         <div class="row justify-content-center">
-            <div class="card text-center fade-in-up" style="width: 18rem">
-                <div class="card-body">
-                    <h5 class="card-title">Pista</h5>
-                    <p class="card-text">Selecciona un casillero del tablero, la pista te introducirá un número correcto.</p>
-                    <ul class="list-group list-group-flush">
-                        <a class="button verde">COMPRAR</a>
-                    </ul>
-                </div>
-            </div>
-            <div class="card text-center fade-in-up" style="width: 18rem">
-                <div class="card-body">
+            <div class="card text-center fade-in-left" style="width: 18rem">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Ayuda</h5>
                     <p class="card-text">Selecciona un casillero del tablero que no esté vacío, la ayuda te dirá si el número ingresado es correcto o no.</p>
-                    <ul class="list-group list-group-flush">
-                        <a class="button amarillo">COMPRAR</a>
-                    </ul>
+                    <div class="mt-auto">
+                        <form action="ruta_a_tu_accion_de_ayuda" method="post">
+                            <button type="submit" class="button amarillo">COMPRAR</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card text-center fade-in-right" style="width: 18rem">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Pista</h5>
+                    <p class="card-text">Selecciona un casillero del tablero, la pista te introducirá un número correcto.</p>
+                    <div class="mt-auto">
+                        <form action="ruta_a_tu_accion_de_pista" method="post">
+                            <button type="submit" class="button verde">COMPRAR</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
