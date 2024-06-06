@@ -25,7 +25,7 @@ public class ServicioJuegoImpl implements ServicioJuego {
         Integer[][] tablero = sudoku.getTablero();
         sudoku.setDificultad(dificultad);
         sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
-
+        sudoku.setTablero(tablero);
         repositorioJuego.guardarSudoku(sudoku);
         return sudoku;
     }
