@@ -5,6 +5,7 @@ import com.tallerwebi.dominio.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,17 @@ public class ControladorPerfil {
     @RequestMapping("/perfil")
     public String mostrarPerfil(Model modelo, HttpServletRequest request) {
         // Obtener el email del usuario desde la sesión
+<<<<<<< Updated upstream
         String email = (String) request.getSession().getAttribute("mail");
+=======
+        String email = (String) request.getSession().getAttribute("email");
+        String nombre = (String) request.getSession().getAttribute("Usuario");
+
+        ModelMap model = new ModelMap();
+        model.put("usuario", nombre);
+
+
+>>>>>>> Stashed changes
         if (email == null) {
             return "redirect:/login";
         }
@@ -39,6 +50,10 @@ public class ControladorPerfil {
         modelo.addAttribute("cantidadPartidasJugadas", usuario.getCantidadPartidasJugadas());
         modelo.addAttribute("tiempoPromedioResolucion", usuario.getTiempoPromedioResolucion());
 
+<<<<<<< Updated upstream
         return "perfil";
+=======
+        return new ModelAndView("perfil", model);
+>>>>>>> Stashed changes
     }
 }

@@ -21,4 +21,7 @@ public interface ServicioJuego {
     void limpiarTablero(Integer[][] tablero);
 
     boolean resolverTablero(Integer[][] tablero);
+    Partida crearPartidaConSudokuYUsuario(Sudoku sudoku,String emailUsuario);
+
+    Partida buscarPartidaActual(Long idPartidaActual);
 }

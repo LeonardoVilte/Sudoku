@@ -1,8 +1,6 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.RepositorioJuego;
-import com.tallerwebi.dominio.ServicioJuego;
-import com.tallerwebi.dominio.Sudoku;
+import com.tallerwebi.dominio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,22 +11,45 @@ import java.util.Random;
 public class ServicioJuegoImpl implements ServicioJuego {
 
     private RepositorioJuego repositorioJuego;
+    private RepositorioUsuario repositorioUsuario;
 
     @Autowired
-    public ServicioJuegoImpl (RepositorioJuego repositorioJuego){
+    public ServicioJuegoImpl (RepositorioJuego repositorioJuego, RepositorioUsuario repositorioUsuario){
         this.repositorioJuego = repositorioJuego;
+        this.repositorioUsuario = repositorioUsuario;
     }
 
     @Override
     public Sudoku crearYGuardarSudoku(Integer dificultad) {
+
         Sudoku sudoku = new Sudoku();
         Integer[][] tablero = sudoku.getTablero();
         sudoku.setDificultad(dificultad);
         sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
         sudoku.setTablero(tablero);
+
         repositorioJuego.guardarSudoku(sudoku);
+
         return sudoku;
     }
+    @Override
+    public Partida crearPartidaConSudokuYUsuario(Sudoku sudoku,String emailUsuario) {
+
+        Usuario usuarioEncontrado = repositorioUsuario.buscar(emailUsuario);
+
+        Partida partida = new Partida();
+        partida.setSudoku(sudoku);
+        partida.setUsuario(usuarioEncontrado);
+        repositorioJuego.guardarPartida(partida);
+
+        return partida;
+    }
+
+    @Override
+    public Partida buscarPartidaActual(Long idPartidaActual) {
+        return this.repositorioJuego.buscarPartidaPorId(idPartidaActual);
+    }
+
 
     public void limpiarTablero(Integer[][] tablero){
         for (int i = 0; i < tablero.length; i++) {
@@ -174,6 +195,4 @@ public class ServicioJuegoImpl implements ServicioJuego {
         }
         return true;
     }
-
-
 }

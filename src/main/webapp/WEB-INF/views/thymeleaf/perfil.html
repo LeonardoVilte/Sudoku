@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
 </head>
 <body>
+<<<<<<< Updated upstream
 <div class="container mt-5">
     <h1>Perfil del Usuario</h1>
     <p>Nombre: <span th:text="${nombre}"></span></p>
@@ -14,5 +15,27 @@
     <p>Tiempo Promedio de Resolución: <span th:text="${tiempoPromedioResolucion}"></span> minutos</p>
 </div>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+=======
+<nav class="navbar">
+    <div class="navbar-item">Sudoku</div>
+    <div class="navbar-item monedas">
+        <span class="monedas">Monedas =</span>
+    </div>
+    <div class="navbar-brand ml-auto">
+        <a class="navbar-item" th:href="@{logout}">Cerrar Sesión</a>
+    </div>
+</nav>
+<section>
+    <div class="container mt-5">
+        <h1>Perfil del Usuario <span th:text="'Nombre' + ${usuario}"></span></h1>
+        <div class="perfil-box">
+            <p>Nombre: <span th:text="${nombre}"></span></p>
+            <p>Horas Jugadas: <span th:text="${horasJugadas}"></span></p>
+            <p>Cantidad de Partidas Jugadas: <span th:text="${cantidadPartidasJugadas}"></span></p>
+            <p>Tiempo Promedio de Resolución: <span th:text="${tiempoPromedioResolucion}"></span> minutos</p>
+        </div>
+    </div>
+</section>
+>>>>>>> Stashed changes
 </body>
 </html>
