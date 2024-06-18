@@ -1,5 +1,7 @@
 package com.tallerwebi.dominio;
 
+import java.time.LocalTime;
+
 public interface ServicioJuego {
 
     Sudoku crearYGuardarSudoku(Integer dificultad);
@@ -24,4 +26,6 @@ public interface ServicioJuego {
     Partida crearPartidaConSudokuYUsuario(Sudoku sudoku,String emailUsuario);
 
     Partida buscarPartidaActual(Long idPartidaActual);
+
+    void guardarTiemposEnElUsuario(String email , Long tiempoResuelto);
 }

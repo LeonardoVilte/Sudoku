@@ -30,10 +30,10 @@ public class ControladorJuego {
 
         if(session != null) {
 
-            String email = (String) session.getAttribute("email");
+            String emailUsuario = (String) session.getAttribute("email");
 
             Sudoku sudoku = servicioJuego.crearYGuardarSudoku(dificultad);
-            Partida partida = servicioJuego.crearPartidaConSudokuYUsuario(sudoku, email);
+            Partida partida = servicioJuego.crearPartidaConSudokuYUsuario(sudoku, emailUsuario);
 
             session.setAttribute("idSudoku", sudoku.getId());
             session.setAttribute("idPartidaActual", partida.getId());
@@ -56,14 +56,19 @@ public class ControladorJuego {
     @RequestMapping("/Resultad0")
     public ModelAndView mostrarResultado(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
+
+        String emailUsuario = (String) session.getAttribute("email");
         // TRAER LA ULTIMA PARTIDA DEL USUARIO
         Long idPartidaActual = (Long)session.getAttribute("idPartidaActual");
         Partida partidaActual = servicioJuego.buscarPartidaActual(idPartidaActual);
 
         // CALCULAR EL TIEMPO EN EL QUE TARDAR RESOLVER EL SUDOKU
-        LocalTime tiempoResuelto = ExtraerTiempoDeResolucion(session);
+        LocalTime tiempoResuelto = extraerTiempoDeResolucion(session);
+        Long tiempoResueltoEnLong = extraerTiempoEnLong(session);
 
         partidaActual.setTiempo(tiempoResuelto);
+
+        this.servicioJuego.guardarTiemposEnElUsuario("email", tiempoResueltoEnLong);
 
         session.removeAttribute("idPartidaActual");
         session.removeAttribute("tiempoInicial");
@@ -72,7 +77,7 @@ public class ControladorJuego {
         return new ModelAndView("Resultad0");
     }
 
-    private LocalTime ExtraerTiempoDeResolucion(HttpSession session) {
+    private LocalTime extraerTiempoDeResolucion(HttpSession session) {
         Long tiempoInicial = (Long) session.getAttribute("tiempoInicial");
         long tiempoSudoku = System.currentTimeMillis() - tiempoInicial;
 
@@ -82,7 +87,10 @@ public class ControladorJuego {
         segundos = segundos % 60;
 
         return LocalTime.of((int) horas, (int) minutos, (int) segundos);
-
+    }
+    private Long extraerTiempoEnLong(HttpSession session){
+        Long tiempoInicial = (Long) session.getAttribute("tiempoInicial");
+        return System.currentTimeMillis() - tiempoInicial;
     }
 
 

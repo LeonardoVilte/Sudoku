@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalTime;
 import java.util.Random;
 @Service
 @Transactional
@@ -48,6 +49,15 @@ public class ServicioJuegoImpl implements ServicioJuego {
     @Override
     public Partida buscarPartidaActual(Long idPartidaActual) {
         return this.repositorioJuego.buscarPartidaPorId(idPartidaActual);
+    }
+
+    @Override
+    public void guardarTiemposEnElUsuario(String email, Long tiempoResuelto) {
+        Usuario usuarioBuscado = this.repositorioUsuario.buscarPorEmail(email);
+        if(usuarioBuscado != null){
+            usuarioBuscado.setHorasJugadas(usuarioBuscado.getHorasJugadas() + tiempoResuelto);
+        }
+
     }
 
 
