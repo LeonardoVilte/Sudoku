@@ -1,3 +1,75 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Evitar la barra de desplazamiento vertical */
+    height: 100vh;
+}
+
+.monedas {
+    color: yellow;
+    display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: rgb(0, 0, 0);
+    transition: background-color 0.3s ease;
+}
+
+.navbar-item.monedas {
+    margin-left: auto; /* Modificado para ajustar automáticamente el espacio */
+    margin-right: 100px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #212529;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-item {
+    color: white;
+    font-size: 20px;
+}
+
+.navbar-item:hover {
+    color: white;
+}
+
+.navbar-brand {
+    display: flex;
+    gap: 10px;
+}
+
+.coin-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+#perfiltexto {
+    margin-right: 20px;
+}
+
+a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
 /* Estilo para el contenedor principal */
 .center-div {
     display: flex;

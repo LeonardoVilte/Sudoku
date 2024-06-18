@@ -19,7 +19,7 @@ a:hover {
 }
 
 .navbar-item.monedas {
-    margin-left: auto; /* Modificado para ajustar automáticamente el espacio */
+    margin-left: auto;
     margin-right: 100px;
 }
 
@@ -81,63 +81,10 @@ main {
     border-radius: 5px;
     display: inline-block;
     background-color: #dcbc00;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
 }
 
 .button-container {
     margin-top: 20px;
 }
-.ranking-list {
-    margin-top: 20px;
-}
-
-.verde {
-    background-color: #439347;
-}
-
-.amarillo {
-    background-color: #dcbc00;
-}
-
-.rojo {
-    background-color: #cf4429;
-}
-
-.verde:hover {
-    background-color: #92e0a3;
-}
-
-.amarillo:hover {
-    background-color: #f1f17c;
-}
-
-.rojo:hover {
-    background-color: #ff6e53;
-}
-
-.texto-boton {
-    color: white;
-}
-
-.card {
-    margin: 20px; /* Espacio entre las tarjetas */
-    animation: fadeInUp 1.5s forwards; /* Añadir animación a las tarjetas */
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-
-
-
-
 

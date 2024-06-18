@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,15 +20,14 @@ public class ControladorPerfil {
     public ControladorPerfil(ServicioUsuario servicioUsuario)  {this.servicioUsuario = servicioUsuario;}
 
     @RequestMapping("/perfil")
-    public String mostrarPerfil(Model modelo, HttpServletRequest request) {
+    public ModelAndView mostrarPerfil(Model modelo, HttpServletRequest request) {
         // Obtener el email del usuario desde la sesión
 
         String email = (String) request.getSession().getAttribute("email");
         String nombre = (String) request.getSession().getAttribute("Usuario");
 
-
         if (email == null) {
-            return "redirect:/login";
+            return new ModelAndView("redirect:/login");
         }
 
         Usuario usuario = servicioUsuario.obtenerUsuarioPorEmail(email);
@@ -44,6 +44,6 @@ public class ControladorPerfil {
         modelo.addAttribute("cantidadPartidasJugadas", usuario.getCantidadPartidasJugadas());
         modelo.addAttribute("tiempoPromedioResolucion", usuario.getTiempoPromedioResolucion());
 
-        return "perfil";
+        return new ModelAndView("perfil");
     }
 }

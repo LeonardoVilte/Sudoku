@@ -1,76 +1,27 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Taller Web I</title>
-
-  <!-- Boostrap core css -->
-  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
-  <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
--->
-  <!-- custom style -->
-  <link rel="stylesheet" th:href="@{/css/main.css}"/>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" >SUDOKU</a>
-  </div>
-  <div class="navbar-brand ml-auto">
-    <a class="link-primary" th:href="@{logout}">Cerrar sesión</a>
-  </div>
-
+<nav class="navbar">
+    <div class="navbar-item">Sudoku</div>
+    <div class="navbar-item monedas">
+        <span class="monedas">Monedas =</span>
+    </div>
+    <div class="navbar-brand ml-auto">
+        <a class="navbar-item" id="perfiltexto" th:href="@{perfil}">Perfil</a>
+        <a class="navbar-item" th:href="@{logout}">Cerrar Sesión</a>
+    </div>
 </nav>
-<<<<<<< Updated upstream
-<div class="image-fondo cabecera">
-  <h1 class="text-center" style="padding: 30px;">DIFICULTAD</h1>
-</div>
-<div class="content">
-  <div class="row justify-content-center">
-    <div class="card text-center" style="width: 18rem">
-      <div class="card-body">
-        <h5 class="card-title">Facil</h5>
-        <p class="card-text">En la dificultad facil el tablero de 81 casillas tiene 15 vacias:</p>
-        <ul class="list-group list-group-flush">
-          <a th:href="@{/jugar?user=1}" class="list-group-item">Jugador 1 - 00:20:15</a>
-          <a th:href="@{/jugar?user=2}" class="list-group-item nav-link disabled">Jugador 2 - 00:20:15</a>
-          <a th:href="@{/jugar?user=3}" class="list-group-item nav-link disabled">Jugador 3 - 00:20:15</a>
-          <a th:href="@{/jugar?dificultad=1}" class="button verde"> JUGAR </a>
-        </ul>
-      </div>
-    </div>
-    <div class="card text-center" style="width: 18rem">
-      <div class="card-body">
-        <h5 class="card-title">Mediano</h5>
-        <p class="card-text">En la dificultad mediano el tablero de 81 casillas tiene 30 vacias:</p>
-        <ul class="list-group list-group-flush">
-          <a th:href="@{/jugar?user=1}" class="list-group-item">Jugador 1 - 00:20:15</a>
-          <a th:href="@{/jugar?user=2}" class="list-group-item">Jugador 2 - 00:20:15</a>
-          <a th:href="@{/jugar?user=3}" class="list-group-item">Jugador 3 - 00:20:15</a>
-          <a th:href="@{/jugar?dificultad=2}" class="button amarillo"> JUGAR </a>
-        </ul>
-      </div>
-    </div>
-    <div class="card text-center" style="width: 18rem">
-      <div class="card-body">
-        <h5 class="card-title">Dificil</h5>
-        <p class="card-text">En la dificultad dificil el tablero de 81 casillas tiene 45 vacias:</p>
-        <ul class="list-group list-group-flush">
-          <a th:href="@{/jugar?user=1}" class="list-group-item">Jugador 1 - 00:20:15</a>
-          <a th:href="@{/jugar?user=2}" class="list-group-item">Jugador 2 - 00:20:15</a>
-          <a th:href="@{/jugar?user=3}" class="list-group-item">Jugador 3 - 00:20:15</a>
-          <a th:href="@{/jugar?dificultad=3}"  class="button rojo"> JUGAR </a>
-        </ul>
-      </div>
-    </div>
-  </div>
-=======
 <div class="container">
     <header>
-        <img src="/resources/img/sudoku.png" alt="Sudoku" class="header-img"/>
+        <img src="src/main/webapp/resources/img/sudokublanco.png" alt="Sudoku" class="header-img"/>
     </header>
     <main>
         <div class="button-container">
@@ -80,7 +31,6 @@
         <a href="#" th:href="@{/ranking}" class="button-wide fade-in" id="botonRanking">Ranking / Mejores Jugadores</a>
         <a href="#" th:href="@{/about}" class="button-wide fade-in" id="botonSobre">Sobre este proyecto</a>
     </main>
->>>>>>> Stashed changes
 </div>
 </body>
 </html>

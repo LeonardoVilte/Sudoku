@@ -1,0 +1,191 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+header {
+    margin-bottom: 20px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+#perfiltexto {
+    margin-right: 20px;
+}
+
+h1 {
+    font-size: 48px;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.monedas {
+    color: yellow;
+    display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: rgb(0, 0, 0);
+    transition: background-color 0.3s ease; 
+}
+
+.navbar-item.monedas {
+    margin-left: auto; /* Modificado para ajustar automáticamente el espacio */
+    margin-right: 100px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #212529;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-item {
+    color: white;
+    font-size: 20px;
+}
+
+.navbar-item:hover {
+    color: white;
+}
+
+.navbar-brand {
+    display: flex;
+    gap: 10px;
+}
+
+.coin-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+.container {
+    margin-top: 200px;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap; /* Añadido para envolver los botones */
+    justify-content: center; /* Añadido para centrar los botones */
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.button, .button-wide {
+    background-color: #e0e0e0;
+    border: 2px solid #000;
+    border-radius: 30px;
+    padding: 30px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    opacity: 0;
+}
+
+.button:hover, .button-wide:hover {
+    background-color: #c8c8c8;
+}
+
+.button:active, .button-wide:active {
+    background-color: #888888;
+    color: white;
+}
+
+.button {
+    width: 300px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1.5s forwards;
+}
+
+.button-wide {
+    width: calc(50% - 20px); /* Modificado para que los botones ocupen el 50% del contenedor */
+    margin-bottom: 10px;
+    animation: fadeIn 1.5s forwards;
+}
+
+.header-img {
+    max-width: 100%; /* Añadido para que la imagen sea responsive */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in-left {
+    animation: fadeInLeft 1.5s forwards;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in-right {
+    animation: fadeInRight 1.5s forwards;
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1.5s forwards;
+}
+
+@media screen and (max-width: 768px) {
+    .button {
+        width: 100%; /* Cambiar el ancho de los botones a 100% en dispositivos más pequeños */
+    }
+
+    .button-wide {
+        width: 100%; /* Cambiar el ancho de los botones anchos a 100% en dispositivos más pequeños */
+    }
+}
