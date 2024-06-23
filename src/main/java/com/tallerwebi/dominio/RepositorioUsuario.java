@@ -9,5 +9,7 @@ public interface RepositorioUsuario {
     Usuario buscarPorEmail(String email);
 
     Usuario  buscarUsuarioPorNombre(String nombre);
+
+    void traerRankingUsuarios();
 }
 

@@ -46,10 +46,7 @@ public class ControladorHome {
         return new ModelAndView("mercado");
     }
 
-    @RequestMapping("/ranking")
-    public ModelAndView ranking() {
-        return new ModelAndView("ranking");
-    }
+
 
     @RequestMapping("/about")
     public ModelAndView about() {
