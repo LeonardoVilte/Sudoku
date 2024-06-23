@@ -44,6 +44,10 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .uniqueResult();
     }
 
+    @Override
+    public void traerRankingUsuarios() {
+
+    }
 
 
     @Override
