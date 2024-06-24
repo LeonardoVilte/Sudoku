@@ -31,10 +31,6 @@ public class ControladorHome {
         return new ModelAndView("redirect:/login?logout");
     }
 
-    @RequestMapping("/home")
-    public ModelAndView home() {
-        return new ModelAndView("home");
-    }
 
     @RequestMapping("/dificultad")
     public ModelAndView dificultad() {
@@ -45,8 +41,6 @@ public class ControladorHome {
     public ModelAndView mercado() {
         return new ModelAndView("mercado");
     }
-
-
 
     @RequestMapping("/about")
     public ModelAndView about() {

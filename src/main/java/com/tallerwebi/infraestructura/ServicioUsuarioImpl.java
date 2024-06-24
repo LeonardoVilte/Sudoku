@@ -27,4 +27,25 @@ public class ServicioUsuarioImpl  implements ServicioUsuario {
         repositorioUsuario.modificar(usuario);
     }
 
+    @Override
+    public void actualizarMonedas(String email, Integer cantidad) {
+        Usuario usuario = repositorioUsuario.buscarPorEmail(email);
+        usuario.setMonedas(usuario.getMonedas() + cantidad);
+        repositorioUsuario.modificar(usuario);
+    }
+
+    @Override
+    public void actualizarPistas(String email, Integer cantidad) {
+        Usuario usuario = repositorioUsuario.buscarPorEmail(email);
+        usuario.setPistas(usuario.getPistas() + cantidad);
+        repositorioUsuario.modificar(usuario);
+    }
+
+    @Override
+    public void actualizarAyudas(String email, Integer cantidad) {
+        Usuario usuario = repositorioUsuario.buscarPorEmail(email);
+        usuario.setAyudas(usuario.getAyudas() + cantidad);
+        repositorioUsuario.modificar(usuario);
+    }
+
 }

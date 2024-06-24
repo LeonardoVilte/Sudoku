@@ -19,6 +19,10 @@ public class Usuario {
     private Long horasJugadas = 0L; // Inicializamos en cero
     private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
     private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
+    private Integer monedas = 0;
+    private Integer pistas = 5;
+    private Integer ayudas = 2;
+
 
     public String getNombre() {
         return nombre;
@@ -90,5 +94,29 @@ public class Usuario {
 
     public void activar() {
         activo = true;
+    }
+
+    public Integer getMonedas() {
+        return monedas;
+    }
+
+    public void setMonedas(Integer monedas) {
+        this.monedas = monedas;
+    }
+
+    public Integer getPistas() {
+        return pistas;
+    }
+
+    public void setPistas(Integer pistas) {
+        this.pistas = pistas;
+    }
+
+    public Integer getAyudas() {
+        return ayudas;
+    }
+
+    public void setAyudas(Integer ayudas) {
+        this.ayudas = ayudas;
     }
 }
