@@ -1,11 +1,9 @@
 package com.tallerwebi.dominio;
 
-import org.unbescape.json.JsonEscape;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ServicioRanking {
 
-    void traerTablaUsuarios();
+    List<Usuario> traerTablaUsuarios();
 
 }

@@ -8,6 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("repositorioUsuario")
 public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
@@ -45,8 +47,10 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
-    public void traerRankingUsuarios() {
-
+    public List<Usuario> traerRankingUsuarios() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("FROM Usuario u ORDER  BY u.id ASC", Usuario.class)
+                .getResultList();
     }
 
 
