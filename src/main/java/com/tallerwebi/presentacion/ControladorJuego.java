@@ -35,7 +35,6 @@ public class ControladorJuego {
             Sudoku sudoku = servicioJuego.crearYGuardarSudoku(dificultad);
             Partida partida = servicioJuego.crearPartidaConSudokuYUsuario(sudoku, emailUsuario);
 
-            session.setAttribute("idSudoku", sudoku.getId());
             session.setAttribute("idPartidaActual", partida.getId());
 
             String sudokuString = convertirSudokuACadena(sudoku.getTablero());
@@ -71,22 +70,21 @@ public class ControladorJuego {
         this.servicioJuego.guardarTiemposEnElUsuario("email", tiempoResueltoEnLong);
 
         session.removeAttribute("idPartidaActual");
-        session.removeAttribute("tiempoInicial");
-
 
         return new ModelAndView("Resultad0");
     }
 
     private LocalTime extraerTiempoDeResolucion(HttpSession session) {
         Long tiempoInicial = (Long) session.getAttribute("tiempoInicial");
-        long tiempoSudoku = System.currentTimeMillis() - tiempoInicial;
 
-        long segundos = tiempoSudoku / 1000;
-        long horas = segundos / 3600;
-        long minutos = (segundos % 3600) / 60;
-        segundos = segundos % 60;
+            long tiempoSudoku = System.currentTimeMillis() - tiempoInicial;
 
+            long segundos = tiempoSudoku / 1000;
+            long horas = segundos / 3600;
+            long minutos = (segundos % 3600) / 60;
+            segundos = segundos % 60;
         return LocalTime.of((int) horas, (int) minutos, (int) segundos);
+
     }
     private Long extraerTiempoEnLong(HttpSession session){
         Long tiempoInicial = (Long) session.getAttribute("tiempoInicial");
@@ -115,6 +113,11 @@ public class ControladorJuego {
         }
 
     private void iniciarCronometroSudoku(HttpSession session){
-        session.setAttribute("tiempoInicial", System.currentTimeMillis());
+        Long tiempoInicial = System.currentTimeMillis();
+
+        if(session.getAttribute("tiempoInicial")!=null){
+            session.removeAttribute("tiempoInicial");
+        }
+        session.setAttribute("tiempoInicial", tiempoInicial);
     }
 }
