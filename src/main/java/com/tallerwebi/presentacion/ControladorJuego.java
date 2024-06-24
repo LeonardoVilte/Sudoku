@@ -67,7 +67,7 @@ public class ControladorJuego {
 
         partidaActual.setTiempo(tiempoResuelto);
 
-        this.servicioJuego.guardarTiemposEnElUsuario("email", tiempoResueltoEnLong);
+        this.servicioJuego.guardarTiemposEnElUsuario(emailUsuario, tiempoResueltoEnLong);
 
         session.removeAttribute("idPartidaActual");
 

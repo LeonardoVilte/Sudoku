@@ -27,4 +27,6 @@ UPDATE Usuario
 SET nombre = 'usuarioPrueba5', horasJugadas = 15, cantidadPartidasJugadas = 41, tiempoPromedioResolucion = 16.5
 where id = 6;
 
+UPDATE Usuario SET horasJugadas = 0, cantidadPartidasJugadas = 0, tiempoPromedioResolucion = 0
+WHERE id = 1;
 

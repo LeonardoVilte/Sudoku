@@ -55,7 +55,7 @@ public class ServicioJuegoImpl implements ServicioJuego {
     public void guardarTiemposEnElUsuario(String email, Long tiempoResuelto) {
         Usuario usuarioBuscado = this.repositorioUsuario.buscarPorEmail(email);
         if(usuarioBuscado != null){
-            usuarioBuscado.setHorasJugadas(usuarioBuscado.getHorasJugadas() + tiempoResuelto);
+            usuarioBuscado.setHorasJugadas(usuarioBuscado.getHorasJugadas()+tiempoResuelto);
         }
 
     }
