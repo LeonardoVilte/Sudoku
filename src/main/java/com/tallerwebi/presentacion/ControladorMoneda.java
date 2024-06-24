@@ -2,9 +2,10 @@ package com.tallerwebi.presentacion;
 
 import com.mercadopago.resources.preference.Preference;
 import com.tallerwebi.dominio.MercadoPagoService;
+import com.tallerwebi.dominio.ServicioUsuario;
+import com.tallerwebi.dominio.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,14 +15,26 @@ import org.springframework.web.servlet.ModelAndView;
 public class ControladorMoneda {
 
     @Autowired
-    private MercadoPagoService mercadoPagoService;
+    private MercadoPagoService servicioMercadoPago;
+
+    @Autowired
+    private ServicioUsuario servicioUsuario;
 
     @RequestMapping("/comprar")
-    public ModelAndView comprarMonedas(@RequestParam("cantidad") int cantidad, Model model) {
-        Preference preference = mercadoPagoService.crearPreferencia(cantidad);
+    public ModelAndView comprarMonedas(@RequestParam("cantidad") int cantidad) {
+        ModelAndView modelAndView = new ModelAndView("comprar-monedas");
+        Preference preference = servicioMercadoPago.crearPreferencia(cantidad);
         if (preference != null) {
-            model.addAttribute("preferenceId", preference.getId());
+            modelAndView.addObject("preferenceId", preference.getId());
         }
-        return new ModelAndView("comprar-monedas");
+        return modelAndView;
+    }
+
+    @RequestMapping("/vista")
+    public ModelAndView vistaMonedas() {
+        ModelAndView modelAndView = new ModelAndView("vista-monedas");
+        Usuario usuario = servicioUsuario.obtenerUsuarioActual();
+        modelAndView.addObject("monedas", usuario.getMonedas());
+        return modelAndView;
     }
 }

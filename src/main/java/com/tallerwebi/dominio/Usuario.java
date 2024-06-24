@@ -19,7 +19,7 @@ public class Usuario {
     private Long horasJugadas = 0L; // Inicializamos en cero
     private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
     private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
-    private Integer monedas;
+    private Integer monedas = 0;
     // private Integer pistas = 5;
     // private Integer ayudas = 2;
 
