@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Comprar Monedas</title>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+</head>
+<body>
+<h1>Comprar Monedas</h1>
+<form th:action="@{/monedas/comprar}" method="get">
+    <label for="cantidad">Cantidad de Monedas:</label>
+    <select id="cantidad" name="cantidad">
+        <option value="5">5 Monedas</option>
+        <option value="10">10 Monedas</option>
+        <option value="25">25 Monedas</option>
+        <option value="50">50 Monedas</option>
+        <option value="100">100 Monedas</option>
+    </select>
+    <button type="submit">Comprar</button>
+</form>
+
+<div th:if="${preferenceId != null}">
+    <p>Realiza el pago usando el siguiente enlace:</p>
+    <a th:href="'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=' + ${preferenceId}" target="_blank">Pagar</a>
+</div>
+</body>
+</html>

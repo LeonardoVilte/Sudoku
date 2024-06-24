@@ -19,7 +19,7 @@ public class Usuario {
     private Long horasJugadas = 0L; // Inicializamos en cero
     private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
     private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
-    // private Integer monedas = 0;
+    private Integer monedas;
     // private Integer pistas = 5;
     // private Integer ayudas = 2;
 
@@ -96,5 +96,12 @@ public class Usuario {
         activo = true;
     }
 
+    public int getMonedas() {
+        return monedas;
+    }
+
+    public void setMonedas(int monedas) {
+        this.monedas = monedas;
+    }
 //
 }
