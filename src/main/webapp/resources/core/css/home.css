@@ -20,6 +20,10 @@ h1 {
     margin: 0;
 }
 
+span {
+    text-decoration: none;
+}
+
 main {
     display: flex;
     flex-direction: column;

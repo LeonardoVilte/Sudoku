@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class ServicioUsuarioImpl implements ServicioUsuario {
 
-    private final RepositorioUsuario repositorioUsuario;
+    private RepositorioUsuario repositorioUsuario;
 
     @Autowired
     public ServicioUsuarioImpl(RepositorioUsuario repositorioUsuario) {
@@ -40,6 +40,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         } else {
             email = principal.toString();
         }
-        return obtenerUsuarioPorEmail(email);
+        Usuario usuario = obtenerUsuarioPorEmail(email);
+        if (usuario == null) {
+            throw new RuntimeException("Usuario no encontrado: " + email);
+        }
+        return usuario;
     }
 }

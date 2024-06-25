@@ -56,7 +56,6 @@ public class Usuario {
         this.tiempoPromedioResolucion = tiempoPromedioResolucion;
     }
 
-
     public Long getId() {
         return id;
     }
