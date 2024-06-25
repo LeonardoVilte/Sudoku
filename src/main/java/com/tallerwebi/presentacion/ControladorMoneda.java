@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/monedas")
 public class ControladorMoneda {
 
     @Autowired
@@ -21,8 +20,10 @@ public class ControladorMoneda {
     private ServicioUsuario servicioUsuario;
 
     @RequestMapping("/comprar")
-    public ModelAndView comprarMonedas(@RequestParam("cantidad") int cantidad) {
+    public ModelAndView comprarMonedas() {
+
         ModelAndView modelAndView = new ModelAndView("comprar-monedas");
+        int cantidad = 0;
         Preference preference = servicioMercadoPago.crearPreferencia(cantidad);
         if (preference != null) {
             modelAndView.addObject("preferenceId", preference.getId());

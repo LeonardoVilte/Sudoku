@@ -38,9 +38,9 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
 
             // Crear las backUrls
             PreferenceBackUrlsRequest backUrlsRequest = PreferenceBackUrlsRequest.builder()
-                    .success("https://www.tusitio.com/success")
-                    .failure("https://www.tusitio.com/failure")
-                    .pending("https://www.tusitio.com/pending")
+                    .success("http://localhost:8080/spring/success")
+                    .failure("http://localhost:8080/spring/failure")
+                    .pending("http://localhost:8080/spring/pending")
                     .build();
 
             PreferenceRequest preferenceRequest = PreferenceRequest.builder()
