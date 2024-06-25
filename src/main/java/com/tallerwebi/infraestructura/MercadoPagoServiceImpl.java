@@ -45,7 +45,7 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
 
             PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                     .items(items)
-                    .backUrls(backUrlsRequest) // Usar el objeto backUrlsRequest aquí
+                    .backUrls(backUrlsRequest)
                     .build();
 
             PreferenceClient client = new PreferenceClient();

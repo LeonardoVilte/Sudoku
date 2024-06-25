@@ -3,6 +3,7 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.ServicioUsuario;
 import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.excepcion.UsuarioNoEncontrado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class ServicioUsuarioImpl implements ServicioUsuario {
 
-    private RepositorioUsuario repositorioUsuario;
+    private final RepositorioUsuario repositorioUsuario;
 
     @Autowired
     public ServicioUsuarioImpl(RepositorioUsuario repositorioUsuario) {
@@ -32,17 +33,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public Usuario obtenerUsuarioActual() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String email;
-        if (principal instanceof UserDetails) {
-            email = ((UserDetails) principal).getUsername();
-        } else {
-            email = principal.toString();
-        }
-        Usuario usuario = obtenerUsuarioPorEmail(email);
+    public Usuario obtenerUsuarioActual() throws UsuarioNoEncontrado {
+        Usuario usuario = repositorioUsuario.buscarPorEmail("test@unlam.edu.ar");
         if (usuario == null) {
-            throw new RuntimeException("Usuario no encontrado: " + email);
+            throw new UsuarioNoEncontrado();
         }
         return usuario;
     }
