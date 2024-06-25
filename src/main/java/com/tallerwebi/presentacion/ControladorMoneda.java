@@ -28,7 +28,7 @@ public class ControladorMoneda {
     }
 
     @RequestMapping(value = "/comprar", method = RequestMethod.GET)
-    public ModelAndView vistaComprarMonedas(HttpServletRequest requestMock) throws UsuarioNoEncontrado {
+    public ModelAndView vistaComprarMonedas(HttpServletRequest request) throws UsuarioNoEncontrado {
         ModelAndView modelAndView = new ModelAndView("comprar-monedas");
         Usuario usuario = servicioUsuario.obtenerUsuarioActual();
         modelAndView.addObject("monedas", usuario.getMonedas());
@@ -44,7 +44,7 @@ public class ControladorMoneda {
             return new RedirectView(redirectUrl);
         }
         // En caso de que la preferencia no se pueda crear, redirigimos a una página de error o devolvemos un mensaje.
-        return new RedirectView("/error");
+        return new RedirectView("/spring/home");
     }
 
     @RequestMapping(value = "/vista", method = RequestMethod.GET)

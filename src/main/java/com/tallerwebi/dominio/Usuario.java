@@ -20,8 +20,8 @@ public class Usuario {
     private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
     private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
     private Integer monedas = 0;
-    // private Integer pistas = 5;
-    // private Integer ayudas = 2;
+    // private Integer pistas = 6;
+    // private Integer ayudas = 3;
 
 
     public String getNombre() {

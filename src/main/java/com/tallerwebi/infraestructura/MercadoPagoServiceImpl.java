@@ -23,6 +23,7 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
     @Override
     public Preference crearPreferencia(int cantidad) {
         try {
+            System.out.println("AccessToken: " + mercadoPagoAccessToken);
             MercadoPagoConfig.setAccessToken(mercadoPagoAccessToken);
 
             PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
@@ -38,9 +39,9 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
 
             // Crear las backUrls
             PreferenceBackUrlsRequest backUrlsRequest = PreferenceBackUrlsRequest.builder()
-                    .success("http://localhost:8080/spring/success")
-                    .failure("http://localhost:8080/spring/failure")
-                    .pending("http://localhost:8080/spring/pending")
+                    .success("http://localhost:8080/success")
+                    .failure("http://localhost:8080/failure")
+                    .pending("http://localhost:8080/pending")
                     .build();
 
             PreferenceRequest preferenceRequest = PreferenceRequest.builder()
