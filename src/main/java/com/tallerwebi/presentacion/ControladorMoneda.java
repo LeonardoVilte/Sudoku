@@ -36,7 +36,7 @@ public class ControladorMoneda {
     }
 
     @RequestMapping(value = "/comprar", method = RequestMethod.POST)
-    public RedirectView comprarMonedas(@RequestParam("cantidad") int cantidad) {
+    public RedirectView comprarMonedas(@RequestParam("cantidad") int cantidad) throws Exception {
         Preference preference = servicioMercadoPago.crearPreferencia(cantidad);
         if (preference != null) {
             String preferenceId = preference.getId();
@@ -44,7 +44,8 @@ public class ControladorMoneda {
             return new RedirectView(redirectUrl);
         }
         // En caso de que la preferencia no se pueda crear, redirigimos a una página de error o devolvemos un mensaje.
-        return new RedirectView("/spring/home");
+        // malditaSea
+        return new RedirectView("/error");
     }
 
     @RequestMapping(value = "/vista", method = RequestMethod.GET)

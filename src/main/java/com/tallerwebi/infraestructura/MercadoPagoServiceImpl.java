@@ -21,11 +21,9 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
     private String mercadoPagoAccessToken;
 
     @Override
-    public Preference crearPreferencia(int cantidad) {
-        try {
-            System.out.println("AccessToken: " + mercadoPagoAccessToken);
-            MercadoPagoConfig.setAccessToken(mercadoPagoAccessToken);
+    public Preference crearPreferencia(int cantidad) throws Exception {
 
+            MercadoPagoConfig.setAccessToken(mercadoPagoAccessToken);
             PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
                     .id("1234")
                     .title("Monedas")
@@ -34,7 +32,7 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
                     .currencyId("ARS")
                     .unitPrice(new BigDecimal("10")) // Precio por unidad, ajustar según sea necesario
                     .build();
-            List<PreferenceItemRequest> items = new ArrayList<>();
+            List <PreferenceItemRequest> items = new ArrayList<>();
             items.add(itemRequest);
 
             // Crear las backUrls
@@ -50,10 +48,8 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
                     .build();
 
             PreferenceClient client = new PreferenceClient();
+            
             return client.create(preferenceRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+
     }
 }
