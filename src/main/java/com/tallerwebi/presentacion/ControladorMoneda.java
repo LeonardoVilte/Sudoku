@@ -1,5 +1,7 @@
 package com.tallerwebi.presentacion;
 
+import com.mercadopago.exceptions.MPApiException;
+import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.preference.Preference;
 import com.tallerwebi.dominio.MercadoPagoService;
 import com.tallerwebi.dominio.ServicioUsuario;
@@ -36,15 +38,19 @@ public class ControladorMoneda {
     }
 
     @RequestMapping(value = "/comprar", method = RequestMethod.POST)
-    public RedirectView comprarMonedas(@RequestParam("cantidad") int cantidad) throws Exception {
-        Preference preference = servicioMercadoPago.crearPreferencia(cantidad);
-        if (preference != null) {
-            String preferenceId = preference.getId();
-            String redirectUrl = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=" + preferenceId;
-            return new RedirectView(redirectUrl);
+    public RedirectView comprarMonedas(@RequestParam("cantidad") int cantidad) {
+        try {
+            Preference preference = servicioMercadoPago.crearPreferencia(cantidad);
+            if (preference != null) {
+                String preferenceId = preference.getId();
+                String redirectUrl = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=" + preferenceId;
+                return new RedirectView(redirectUrl);
+            }
+        } catch (Exception e) {
+            // Manejar la excepción de Mercado Pago aquí
+            e.printStackTrace(); // Opcional: Imprimir el stack trace para depuración
+            return new RedirectView("/error"); // Redirigir a una página de error adecuada
         }
-        // En caso de que la preferencia no se pueda crear, redirigimos a una página de error o devolvemos un mensaje.
-        // malditaSea
         return new RedirectView("/error");
     }
 

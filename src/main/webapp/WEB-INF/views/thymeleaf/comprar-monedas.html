@@ -36,7 +36,7 @@
                                 <option value="100">100 Monedas</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Comprar</button>
+                        <button id="wallet_container" type="submit" class="btn btn-primary mt-3">Comprar</button>
                     </form>
                     <div th:if="${preferenceId != null}" class="mt-3">
                         <p>Realiza el pago usando el siguiente enlace:</p>
@@ -47,10 +47,9 @@
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
+<script src="https://sdk.mercadopago.com/js/v2">
         if ('[[${preferenceId}]]' !== '') {
-            const mp = new MercadoPago('YOUR_PUBLIC_KEY', {
+            const mp = new MercadoPago('APP_USR-8e1a26e9-7a12-4e5a-924a-c397a35c42d6', {
                 locale: 'es-AR'
             });
 
@@ -66,6 +65,5 @@
         }
     });
 </script>
-<div id="wallet_container"></div>
 </body>
 </html>
