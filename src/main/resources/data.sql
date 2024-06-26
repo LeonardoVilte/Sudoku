@@ -1,11 +1,14 @@
 INSERT INTO Usuario(id, email, password, rol, activo) VALUES(null, 'test@unlam.edu.ar', 'test', 'ADMIN', true);
 
 INSERT INTO Usuario (id, email, password, rol, activo) VALUES
-                                                           (null, 'usuario1@example.com', 'password123', 'ADMIN', true),
-                                                           (null, 'usuario2@example.com', 'password123', 'ADMIN', true),
-                                                           (null, 'usuario3@example.com', 'password123', 'ADMIN', true),
-                                                           (null, 'usuario4@example.com', 'password123', 'ADMIN', true),
-                                                           (null, 'usuario5@example.com', 'password123', 'ADMIN', true);
+                                                           (null, 'usuario1@example.com', 'password123', 'USER', true),
+                                                           (null, 'usuario2@example.com', 'password123', 'USER', true),
+                                                           (null, 'usuario3@example.com', 'password123', 'USER', true),
+                                                           (null, 'usuario4@example.com', 'password123', 'USER', true),
+                                                           (null, 'usuario5@example.com', 'password123', 'USER', true);
+
+
+
 
 UPDATE Usuario
 SET nombre = 'usuarioPrueba1', horasJugadas = 100, cantidadPartidasJugadas = 50, tiempoPromedioResolucion = 12.5
