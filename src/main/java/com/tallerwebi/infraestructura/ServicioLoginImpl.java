@@ -46,6 +46,7 @@ public class ServicioLoginImpl implements ServicioLogin {
         usuarioNuevo.setEmail(datosRegistro.getEmail());
         usuarioNuevo.setNombre(datosRegistro.getNombre());
         usuarioNuevo.setPassword(datosRegistro.getPassword());
+        usuarioNuevo.setMonedas(0);
 
         repositorioUsuario.guardar(usuarioNuevo);
     }
