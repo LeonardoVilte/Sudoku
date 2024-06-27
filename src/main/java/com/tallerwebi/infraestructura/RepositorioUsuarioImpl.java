@@ -53,6 +53,20 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .getResultList();
     }
 
+    @Override
+    public void actualizarDatosDeLaPartida(Usuario usuario, Long tiempoResuelto) {
+        Session session = sessionFactory.getCurrentSession();
+        Long idUsuario = usuario.getId();
+        Long tiempoResueltoTotal  = usuario.getHorasJugadas();
+
+        String hql = "UPDATE Usuario u SET u.horasJugadas = :tiempoResueltoTotal WHERE u.id = :idUsuario";
+
+        int filasActualizadas = session.createQuery(hql)
+                .setParameter("tiempoResueltoTotal", tiempoResueltoTotal)
+                .setParameter("idUsuario", idUsuario)
+                .executeUpdate();
+    }
+
 
     @Override
     public void guardar(Usuario usuario) {

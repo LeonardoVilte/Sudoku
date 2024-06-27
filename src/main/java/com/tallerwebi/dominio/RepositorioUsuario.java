@@ -13,5 +13,7 @@ public interface RepositorioUsuario {
     Usuario  buscarUsuarioPorNombre(String nombre);
 
     List<Usuario> traerRankingUsuarios();
+
+    void actualizarDatosDeLaPartida(Usuario usuario, Long tiempoResuelto);
 }
 

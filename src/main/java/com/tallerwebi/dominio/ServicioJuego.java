@@ -31,4 +31,6 @@ public interface ServicioJuego {
     void guardarTiemposEnElUsuario(String email , Long tiempoResuelto);
 
     List<Partida> traer3MejoresTiemposPorDificultad(int i);
+
+    void guardarTiemposEnLaPartida(Long idPartidaActual, LocalTime tiempoResuelto, boolean resuelto);
 }

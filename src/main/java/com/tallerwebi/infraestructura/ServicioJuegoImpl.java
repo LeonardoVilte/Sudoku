@@ -57,7 +57,8 @@ public class ServicioJuegoImpl implements ServicioJuego {
     public void guardarTiemposEnElUsuario(String email, Long tiempoResuelto) {
         Usuario usuarioBuscado = this.repositorioUsuario.buscarPorEmail(email);
         if(usuarioBuscado != null){
-            usuarioBuscado.setHorasJugadas(usuarioBuscado.getHorasJugadas()+tiempoResuelto);
+            usuarioBuscado.setHorasJugadas(usuarioBuscado.getHorasJugadas() + tiempoResuelto);
+            this.repositorioUsuario.actualizarDatosDeLaPartida(usuarioBuscado, tiempoResuelto);
         }
 
     }
@@ -65,6 +66,11 @@ public class ServicioJuegoImpl implements ServicioJuego {
     @Override
     public List<Partida> traer3MejoresTiemposPorDificultad(int dificultad) {
         return this.repositorioJuego.traerPartidasPorDificultad(dificultad);
+    }
+
+    @Override
+    public void guardarTiemposEnLaPartida(Long idPartidaActual, LocalTime tiempoResuelto, boolean resuelto) {
+        this.repositorioJuego.guardarDatosEnPartida(idPartidaActual, tiempoResuelto, resuelto);
     }
 
     public void limpiarTablero(Integer[][] tablero){

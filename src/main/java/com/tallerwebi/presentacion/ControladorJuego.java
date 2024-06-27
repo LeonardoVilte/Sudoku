@@ -55,20 +55,19 @@ public class ControladorJuego {
 
     @RequestMapping(value = "/Resultad0", method = RequestMethod.GET)
     public ModelAndView mostrarResultado(HttpServletRequest request,
-                                         @RequestParam("resuelto") boolean resuelto) {
+                                         @RequestParam("resuelto") boolean resuelto)  {
         HttpSession session = request.getSession(false);
 
         String emailUsuario = (String) session.getAttribute("email");
         // TRAER LA ULTIMA PARTIDA DEL USUARIO
         Long idPartidaActual = (Long)session.getAttribute("idPartidaActual");
-        Partida partidaActual = servicioJuego.buscarPartidaActual(idPartidaActual);
+
 
         // CALCULAR EL TIEMPO EN EL QUE TARDAR RESOLVER EL SUDOKU
         LocalTime tiempoResuelto = extraerTiempoDeResolucion(session);
         Long tiempoResueltoEnLong = extraerTiempoEnLong(session);
 
-        partidaActual.setTiempo(tiempoResuelto);
-        partidaActual.setResuelto(resuelto);
+        servicioJuego.guardarTiemposEnLaPartida(idPartidaActual, tiempoResuelto,resuelto);
 
         this.servicioJuego.guardarTiemposEnElUsuario(emailUsuario, tiempoResueltoEnLong);
 

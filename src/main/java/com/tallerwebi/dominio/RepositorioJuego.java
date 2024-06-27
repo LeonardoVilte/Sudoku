@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio;
 
+import java.time.LocalTime;
 import java.util.List;
 
 public interface RepositorioJuego {
@@ -13,4 +14,6 @@ public interface RepositorioJuego {
     Partida buscarPartidaPorId(Long idPartida);
 
     List<Partida> traerPartidasPorDificultad(int dificultad);
+
+    void guardarDatosEnPartida(Long idPartidaActual, LocalTime tiempoResuelto, boolean resuelto);
 }
