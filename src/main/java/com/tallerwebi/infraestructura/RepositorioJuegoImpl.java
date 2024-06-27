@@ -52,7 +52,7 @@ public class RepositorioJuegoImpl implements RepositorioJuego {
     @Override
     public List<Partida> traerPartidasPorDificultad(int dificultad) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM Partida p WHERE p.Dificultad = :dificultad ORDER BY p.tiempo DESC", Partida.class)
+        return session.createQuery("FROM Partida p WHERE p.Dificultad = :dificultad ORDER BY p.tiempo ASC", Partida.class)
                 .setParameter("dificultad", dificultad)
                 .setMaxResults(3)
                 .getResultList();
