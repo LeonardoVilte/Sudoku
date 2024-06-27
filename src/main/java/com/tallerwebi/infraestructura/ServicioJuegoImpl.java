@@ -1,33 +1,76 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.RepositorioJuego;
-import com.tallerwebi.dominio.ServicioJuego;
-import com.tallerwebi.dominio.Sudoku;
+import com.tallerwebi.dominio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Random;
 @Service
 @Transactional
 public class ServicioJuegoImpl implements ServicioJuego {
 
     private RepositorioJuego repositorioJuego;
+    private RepositorioUsuario repositorioUsuario;
 
     @Autowired
-    public ServicioJuegoImpl (RepositorioJuego repositorioJuego){
+    public ServicioJuegoImpl (RepositorioJuego repositorioJuego, RepositorioUsuario repositorioUsuario){
         this.repositorioJuego = repositorioJuego;
+        this.repositorioUsuario = repositorioUsuario;
     }
 
     @Override
     public Sudoku crearYGuardarSudoku(Integer dificultad) {
+
         Sudoku sudoku = new Sudoku();
         Integer[][] tablero = sudoku.getTablero();
         sudoku.setDificultad(dificultad);
-        sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
         sudoku.setTablero(tablero);
+        sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
+
         repositorioJuego.guardarSudoku(sudoku);
+
         return sudoku;
+    }
+    @Override
+    public Partida crearPartidaConSudokuYUsuario(Sudoku sudoku,String emailUsuario, Integer dificultad) {
+
+        Usuario usuarioEncontrado = repositorioUsuario.buscar(emailUsuario);
+
+        Partida partida = new Partida();
+        partida.setSudoku(sudoku);
+        partida.setUsuario(usuarioEncontrado);
+        partida.setDificultad(dificultad);
+        repositorioJuego.guardarPartida(partida);
+
+        return partida;
+    }
+
+    @Override
+    public Partida buscarPartidaActual(Long idPartidaActual) {
+        return this.repositorioJuego.buscarPartidaPorId(idPartidaActual);
+    }
+
+    @Override
+    public void guardarTiemposEnElUsuario(String email, Long tiempoResuelto) {
+        Usuario usuarioBuscado = this.repositorioUsuario.buscarPorEmail(email);
+        if(usuarioBuscado != null){
+            usuarioBuscado.setHorasJugadas(usuarioBuscado.getHorasJugadas() + tiempoResuelto);
+            this.repositorioUsuario.actualizarDatosDeLaPartida(usuarioBuscado, tiempoResuelto);
+        }
+
+    }
+
+    @Override
+    public List<Partida> traer3MejoresTiemposPorDificultad(int dificultad) {
+        return this.repositorioJuego.traerPartidasPorDificultad(dificultad);
+    }
+
+    @Override
+    public void guardarTiemposEnLaPartida(Long idPartidaActual, LocalTime tiempoResuelto, boolean resuelto) {
+        this.repositorioJuego.guardarDatosEnPartida(idPartidaActual, tiempoResuelto, resuelto);
     }
 
     public void limpiarTablero(Integer[][] tablero){
@@ -174,6 +217,4 @@ public class ServicioJuegoImpl implements ServicioJuego {
         }
         return true;
     }
-
-
 }

@@ -8,6 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("repositorioUsuario")
 public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
@@ -44,6 +46,26 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .uniqueResult();
     }
 
+    @Override
+    public List<Usuario> traerRankingUsuarios() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("FROM Usuario u ORDER  BY u.id ASC", Usuario.class)
+                .getResultList();
+    }
+
+    @Override
+    public void actualizarDatosDeLaPartida(Usuario usuario, Long tiempoResuelto) {
+        Session session = sessionFactory.getCurrentSession();
+        Long idUsuario = usuario.getId();
+        Long tiempoResueltoTotal  = usuario.getHorasJugadas();
+
+        String hql = "UPDATE Usuario u SET u.horasJugadas = :tiempoResueltoTotal WHERE u.id = :idUsuario";
+
+        int filasActualizadas = session.createQuery(hql)
+                .setParameter("tiempoResueltoTotal", tiempoResueltoTotal)
+                .setParameter("idUsuario", idUsuario)
+                .executeUpdate();
+    }
 
 
     @Override

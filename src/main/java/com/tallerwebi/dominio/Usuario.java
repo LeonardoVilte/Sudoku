@@ -16,7 +16,7 @@ public class Usuario {
     private String nombre;
     @OneToMany(mappedBy = "usuario" , cascade = CascadeType.ALL)
     private List<Partida> partidas;
-    private Integer horasJugadas = 0; // Inicializamos en cero
+    private Long horasJugadas = 0L; // Inicializamos en cero
     private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
     private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
 
@@ -28,11 +28,11 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public Integer getHorasJugadas() {
+    public Long getHorasJugadas() {
         return horasJugadas;
     }
 
-    public void setHorasJugadas(Integer horasJugadas) {
+    public void setHorasJugadas(Long horasJugadas) {
         this.horasJugadas = horasJugadas;
     }
 

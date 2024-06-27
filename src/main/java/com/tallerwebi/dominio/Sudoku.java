@@ -64,7 +64,6 @@ public class Sudoku {
             }
         }
         return matriz;
-
     }
 
     public Integer getDificultad() {
