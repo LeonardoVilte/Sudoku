@@ -16,6 +16,15 @@ public class Partida {
     private Sudoku sudoku;
     private LocalTime tiempo;
     private Boolean resuelto;
+    private Integer Dificultad;
+
+    public Integer getDificultad() {
+        return Dificultad;
+    }
+
+    public void setDificultad(Integer dificultad) {
+        Dificultad = dificultad;
+    }
 
     public Boolean getResuelto() {
         return resuelto;

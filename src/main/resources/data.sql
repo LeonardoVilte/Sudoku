@@ -33,3 +33,13 @@ where id = 6;
 UPDATE Usuario SET horasJugadas = 0, cantidadPartidasJugadas = 0, tiempoPromedioResolucion = 0
 WHERE id = 1;
 
+INSERT INTO Partida(id,usuario_id,tiempo, resuelto,Dificultad) VALUES
+                                                                (null, 2, '00:10:42',true,1),
+                                                                (null, 3, '00:15:15',true,1),
+                                                                (null, 4, '00:05:52',true,1),
+                                                                (null, 2, '00:20:32',true,2),
+                                                                (null, 3, '00:21:49',true,2),
+                                                                (null, 4, '00:22:03',true,2),
+                                                                (null, 2, '00:30:15',true,3),
+                                                                (null, 3, '00:32:58',true,3),
+                                                                (null, 4, '00:41:13',true,3);

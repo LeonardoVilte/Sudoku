@@ -12,4 +12,5 @@ public interface RepositorioJuego {
 
     Partida buscarPartidaPorId(Long idPartida);
 
+    List<Partida> traerPartidasPorDificultad(int dificultad);
 }

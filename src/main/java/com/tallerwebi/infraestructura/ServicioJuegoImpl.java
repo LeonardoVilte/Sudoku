@@ -27,21 +27,22 @@ public class ServicioJuegoImpl implements ServicioJuego {
         Sudoku sudoku = new Sudoku();
         Integer[][] tablero = sudoku.getTablero();
         sudoku.setDificultad(dificultad);
-        sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
         sudoku.setTablero(tablero);
+        sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
 
         repositorioJuego.guardarSudoku(sudoku);
 
         return sudoku;
     }
     @Override
-    public Partida crearPartidaConSudokuYUsuario(Sudoku sudoku,String emailUsuario) {
+    public Partida crearPartidaConSudokuYUsuario(Sudoku sudoku,String emailUsuario, Integer dificultad) {
 
         Usuario usuarioEncontrado = repositorioUsuario.buscar(emailUsuario);
 
         Partida partida = new Partida();
         partida.setSudoku(sudoku);
         partida.setUsuario(usuarioEncontrado);
+        partida.setDificultad(dificultad);
         repositorioJuego.guardarPartida(partida);
 
         return partida;
@@ -59,6 +60,11 @@ public class ServicioJuegoImpl implements ServicioJuego {
             usuarioBuscado.setHorasJugadas(usuarioBuscado.getHorasJugadas()+tiempoResuelto);
         }
 
+    }
+
+    @Override
+    public List<Partida> traer3MejoresTiemposPorDificultad(int dificultad) {
+        return this.repositorioJuego.traerPartidasPorDificultad(dificultad);
     }
 
     public void limpiarTablero(Integer[][] tablero){

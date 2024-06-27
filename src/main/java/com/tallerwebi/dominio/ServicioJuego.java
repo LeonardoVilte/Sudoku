@@ -24,10 +24,11 @@ public interface ServicioJuego {
     void limpiarTablero(Integer[][] tablero);
 
     boolean resolverTablero(Integer[][] tablero);
-    Partida crearPartidaConSudokuYUsuario(Sudoku sudoku,String emailUsuario);
+    Partida crearPartidaConSudokuYUsuario(Sudoku sudoku,String emailUsuario, Integer dificultad);
 
     Partida buscarPartidaActual(Long idPartidaActual);
 
     void guardarTiemposEnElUsuario(String email , Long tiempoResuelto);
 
+    List<Partida> traer3MejoresTiemposPorDificultad(int i);
 }

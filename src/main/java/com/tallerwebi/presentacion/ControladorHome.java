@@ -1,21 +1,31 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.Partida;
+import com.tallerwebi.dominio.ServicioJuego;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class ControladorHome {
+
+    private ServicioJuego servicioJuego;
+    @Autowired
+    public ControladorHome(ServicioJuego servicioJuego){
+        this.servicioJuego = servicioJuego;
+    }
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session != null){
-
             return new ModelAndView("home");
         }else {
             return new ModelAndView("redirect:/login");
@@ -38,15 +48,23 @@ public class ControladorHome {
 
     @RequestMapping("/dificultad")
     public ModelAndView dificultad() {
-        return new ModelAndView("dificultad");
+
+        List<Partida> listaPartidasFaciles = this.servicioJuego.traer3MejoresTiemposPorDificultad(1);
+        List<Partida> listaPartidasNormales = this.servicioJuego.traer3MejoresTiemposPorDificultad(2);
+        List<Partida> listaPartidasDificiles = this.servicioJuego.traer3MejoresTiemposPorDificultad(3);
+
+        ModelMap modelMap = new ModelMap();
+        modelMap.put("listaFaciles" , listaPartidasFaciles);
+        modelMap.put("listaNormales", listaPartidasNormales);
+        modelMap.put("listaDificiles", listaPartidasDificiles);
+
+        return new ModelAndView("dificultad",modelMap);
     }
 
     @RequestMapping("/mercado")
     public ModelAndView mercado() {
         return new ModelAndView("mercado");
     }
-
-
 
     @RequestMapping("/about")
     public ModelAndView about() {

@@ -34,7 +34,7 @@ public class ControladorJuego {
             String emailUsuario = (String) session.getAttribute("email");
 
             Sudoku sudoku = servicioJuego.crearYGuardarSudoku(dificultad);
-            Partida partida = servicioJuego.crearPartidaConSudokuYUsuario(sudoku, emailUsuario);
+            Partida partida = servicioJuego.crearPartidaConSudokuYUsuario(sudoku, emailUsuario, dificultad);
 
             session.setAttribute("idPartidaActual", partida.getId());
 
