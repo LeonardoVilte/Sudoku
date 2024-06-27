@@ -1,5 +1,7 @@
 package com.tallerwebi.dominio;
 
+import java.util.List;
+
 public interface RepositorioUsuario {
 
     Usuario buscarUsuario(String email, String password);
@@ -10,6 +12,8 @@ public interface RepositorioUsuario {
 
     Usuario  buscarUsuarioPorNombre(String nombre);
 
-    void traerRankingUsuarios();
+    List<Usuario> traerRankingUsuarios();
+
+    void actualizarDatosDeLaPartida(Usuario usuario, Long tiempoResuelto);
 }
 

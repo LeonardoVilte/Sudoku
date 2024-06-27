@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Random;
 @Service
 @Transactional
@@ -26,21 +27,22 @@ public class ServicioJuegoImpl implements ServicioJuego {
         Sudoku sudoku = new Sudoku();
         Integer[][] tablero = sudoku.getTablero();
         sudoku.setDificultad(dificultad);
-        sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
         sudoku.setTablero(tablero);
+        sudoku.setTablero(crearDatosParaLaMatriz(sudoku.getDificultad(), tablero));
 
         repositorioJuego.guardarSudoku(sudoku);
 
         return sudoku;
     }
     @Override
-    public Partida crearPartidaConSudokuYUsuario(Sudoku sudoku,String emailUsuario) {
+    public Partida crearPartidaConSudokuYUsuario(Sudoku sudoku,String emailUsuario, Integer dificultad) {
 
         Usuario usuarioEncontrado = repositorioUsuario.buscar(emailUsuario);
 
         Partida partida = new Partida();
         partida.setSudoku(sudoku);
         partida.setUsuario(usuarioEncontrado);
+        partida.setDificultad(dificultad);
         repositorioJuego.guardarPartida(partida);
 
         return partida;
@@ -56,10 +58,20 @@ public class ServicioJuegoImpl implements ServicioJuego {
         Usuario usuarioBuscado = this.repositorioUsuario.buscarPorEmail(email);
         if(usuarioBuscado != null){
             usuarioBuscado.setHorasJugadas(usuarioBuscado.getHorasJugadas() + tiempoResuelto);
+            this.repositorioUsuario.actualizarDatosDeLaPartida(usuarioBuscado, tiempoResuelto);
         }
 
     }
 
+    @Override
+    public List<Partida> traer3MejoresTiemposPorDificultad(int dificultad) {
+        return this.repositorioJuego.traerPartidasPorDificultad(dificultad);
+    }
+
+    @Override
+    public void guardarTiemposEnLaPartida(Long idPartidaActual, LocalTime tiempoResuelto, boolean resuelto) {
+        this.repositorioJuego.guardarDatosEnPartida(idPartidaActual, tiempoResuelto, resuelto);
+    }
 
     public void limpiarTablero(Integer[][] tablero){
         for (int i = 0; i < tablero.length; i++) {

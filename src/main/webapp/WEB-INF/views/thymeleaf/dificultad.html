@@ -30,11 +30,13 @@
         <h5 class="card-title">Facil</h5>
         <p class="card-text">En la dificultad facil el tablero de 81 casillas tiene 15 vacias:</p>
         <ul class="list-group list-group-flush">
-          <a th:href="@{/jugar?user=1}" class="list-group-item">Jugador 1 - 00:20:15</a>
-          <a th:href="@{/jugar?user=2}" class="list-group-item nav-link disabled">Jugador 2 - 00:20:15</a>
-          <a th:href="@{/jugar?user=3}" class="list-group-item nav-link disabled">Jugador 3 - 00:20:15</a>
-          <a th:href="@{/jugar?dificultad=1}" class="button verde"> JUGAR </a>
+          <li th:each="partida : ${listaFaciles}" class="list-group-item">
+            <a th:href="@{|/jugar?user=1}"
+               th:text="${partida.getUsuario().getNombre()} + ' - ' + ${partida.getTiempo()}">
+            </a>
+          </li>
         </ul>
+            <a th:href="@{/jugar?dificultad=1}" class="button verde">JUGAR</a>
       </div>
     </div>
     <div class="card text-center fade-in-up" style="width: 18rem">
@@ -42,11 +44,13 @@
         <h5 class="card-title">Mediano</h5>
         <p class="card-text">En la dificultad mediano el tablero de 81 casillas tiene 30 vacias:</p>
         <ul class="list-group list-group-flush">
-          <a th:href="@{/jugar?user=1}" class="list-group-item">Jugador 1 - 00:20:15</a>
-          <a th:href="@{/jugar?user=2}" class="list-group-item">Jugador 2 - 00:20:15</a>
-          <a th:href="@{/jugar?user=3}" class="list-group-item">Jugador 3 - 00:20:15</a>
-          <a th:href="@{/jugar?dificultad=2}" class="button amarillo"> JUGAR </a>
+          <li th:each="partida : ${listaNormales}" class="list-group-item">
+            <a th:href="@{|/jugar?user=1}"
+               th:text="${partida.getUsuario().getNombre()} + ' - ' + ${partida.getTiempo()}">
+            </a>
+          </li>
         </ul>
+            <a th:href="@{/jugar?dificultad=2}" class="button amarillo">JUGAR</a>
       </div>
     </div>
     <div class="card text-center fade-in-up" style="width: 18rem">
@@ -54,11 +58,15 @@
         <h5 class="card-title">Dificil</h5>
         <p class="card-text">En la dificultad dificil el tablero de 81 casillas tiene 45 vacias:</p>
         <ul class="list-group list-group-flush">
-          <a th:href="@{/jugar?user=1}" class="list-group-item">Jugador 1 - 00:20:15</a>
-          <a th:href="@{/jugar?user=2}" class="list-group-item">Jugador 2 - 00:20:15</a>
-          <a th:href="@{/jugar?user=3}" class="list-group-item">Jugador 3 - 00:20:15</a>
-          <a th:href="@{/jugar?dificultad=3}" class="button rojo"> JUGAR </a>
+          <li th:each="partida : ${listaDificiles}" class="list-group-item">
+            <a th:href="@{|/jugar?user=1}"
+               th:text="${partida.getUsuario().getNombre()} + ' - ' + ${partida.getTiempo()}">
+            </a>
+          </li>
+
+
         </ul>
+            <a th:href="@{/jugar?dificultad=3}" class="button rojo">JUGAR</a>
       </div>
     </div>
   </div>

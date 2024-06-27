@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/estiloRanking.css}"/>
@@ -7,8 +7,6 @@
 </head>
 <body>
 <h1>Ranking Jugadores</h1>
-
-<h1>Tabla de Jugadores</h1>
 
 <table id="playersTable">
     <thead>
@@ -18,11 +16,18 @@
         <th>Partidas Jugados</th>
         <th>Tiempo de Juego</th>
         <th>Perfil del Jugador</th>
-        <th>Sudokus Completados</th>
     </tr>
     </thead>
     <tbody>
-    <!-- Las filas se agregarán aquí dinámicamente -->
+        <tr th:each="usuario : ${listaUsuarios}">
+            <td th:text="${usuario.getId()}"></td>
+            <td th:text="${usuario.getNombre()}"></td>
+            <td th:text="${usuario.getCantidadPartidasJugadas()}"></td>
+            <td th:text="${usuario.getHorasJugadas()}"></td>
+            <td></td>
+        </tr>
+
+
     </tbody>
 </table>
 </body>

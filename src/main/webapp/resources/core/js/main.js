@@ -54,16 +54,25 @@ function terminado(){
         window.location.href = "/spring/Resultad0";
        // Guardar el tiempo al momento de resolver el sudoku
         const tiempoActual = obtenerTiempoActual(); // Función para obtener el tiempo actual, reemplaza esto con tu lógica real
-
+        let resuelto = true;
             // Redirigir al usuario a la vista de resultado y pasar el tiempo como parámetro en la URL
-        window.location.href = "/spring/Resultad0?tiempo=" + tiempoActual;
+        window.location.href = "/spring/Resultad0?tiempo=" + tiempoActual + "&resuelto=" + resuelto;
     }
 }
 
 function resolverSudoku() {
-    let sudokuDataRta = document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto;
-    document.getElementById("tablero-sudoku").dataset.sudoku = sudokuDataRta;
-    imprimirSudoku(stringAMatriz(sudokuDataRta));
+    let confirmAction = confirm("¿Esta seguro de que desea rendirse?");
+    if (confirmAction){
+        let sudokuDataRta = document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto;
+        document.getElementById("tablero-sudoku").dataset.sudoku = sudokuDataRta;
+        imprimirSudoku(stringAMatriz(sudokuDataRta));
+        let tiempo = obtenerTiempoActual();
+        let resuelto =  false;
+
+        window.location.href = `/spring/Resultad0?tiempo=${tiempo}&resuelto=${resuelto}`;
+
+    }
+
 }
 
 function pista() {
@@ -137,3 +146,6 @@ function matrizAString(matriz) {
     sudokuString = sudokuString.slice(0, -1);
     return sudokuString;
 }
+
+
+

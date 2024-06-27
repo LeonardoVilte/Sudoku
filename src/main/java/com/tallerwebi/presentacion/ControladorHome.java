@@ -2,7 +2,9 @@ package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioUsuario;
 import com.tallerwebi.dominio.Usuario;
-import com.tallerwebi.infraestructura.ServicioUsuarioImpl;
+import com.tallerwebi.dominio.Partida;
+import com.tallerwebi.dominio.ServicioJuego;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,15 +14,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class ControladorHome {
 
     private ServicioUsuario servicioUsuario;
+    private ServicioJuego servicioJuego;
 
     @Autowired
-    public ControladorHome(ServicioUsuario servicioUsuario) {
+    public ControladorHome(ServicioUsuario servicioUsuario, ServicioJuego servicioJuego) {
         this.servicioUsuario = servicioUsuario;
+        this.servicioJuego = servicioJuego;
     }
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
@@ -49,7 +54,17 @@ public class ControladorHome {
 
     @RequestMapping("/dificultad")
     public ModelAndView dificultad() {
-        return new ModelAndView("dificultad");
+
+        List<Partida> listaPartidasFaciles = this.servicioJuego.traer3MejoresTiemposPorDificultad(1);
+        List<Partida> listaPartidasNormales = this.servicioJuego.traer3MejoresTiemposPorDificultad(2);
+        List<Partida> listaPartidasDificiles = this.servicioJuego.traer3MejoresTiemposPorDificultad(3);
+
+        ModelMap modelMap = new ModelMap();
+        modelMap.put("listaFaciles" , listaPartidasFaciles);
+        modelMap.put("listaNormales", listaPartidasNormales);
+        modelMap.put("listaDificiles", listaPartidasDificiles);
+
+        return new ModelAndView("dificultad",modelMap);
     }
 
     @RequestMapping("/mercado")

@@ -8,6 +8,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalTime;
+import java.util.List;
+
 @Repository("repositorioJuego")
 public class RepositorioJuegoImpl implements RepositorioJuego {
 
@@ -47,4 +50,26 @@ public class RepositorioJuegoImpl implements RepositorioJuego {
                 .uniqueResult();
     }
 
+    @Override
+    public List<Partida> traerPartidasPorDificultad(int dificultad) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("FROM Partida p WHERE p.Dificultad = :dificultad and p.resuelto = true" +
+                        " ORDER BY p.tiempo ASC", Partida.class)
+                .setParameter("dificultad", dificultad)
+                .setMaxResults(3)
+                .getResultList();
+    }
+
+    @Override
+    public void guardarDatosEnPartida(Long idPartidaActual, LocalTime tiempoResuelto, boolean resuelto) {
+        Session session = sessionFactory.getCurrentSession();
+
+        String hql = "UPDATE Partida p SET p.tiempo = :tiempoResuelto, p.resuelto = :resuelto WHERE p.id = :idPartidaActual";
+
+        int filasActualizadas = session.createQuery(hql)
+                .setParameter("tiempoResuelto", tiempoResuelto)
+                .setParameter("resuelto", resuelto)
+                .setParameter("idPartidaActual", idPartidaActual)
+                .executeUpdate();
+    }
 }
