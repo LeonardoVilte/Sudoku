@@ -58,12 +58,15 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         Session session = sessionFactory.getCurrentSession();
         Long idUsuario = usuario.getId();
         Long tiempoResueltoTotal  = usuario.getHorasJugadas();
+        usuario.setCantidadPartidasJugadas(usuario.getCantidadPartidasJugadas() + 1);
+        Integer partidasTotalesJugadas = usuario.getCantidadPartidasJugadas();
 
-        String hql = "UPDATE Usuario u SET u.horasJugadas = :tiempoResueltoTotal WHERE u.id = :idUsuario";
+        String hql = "UPDATE Usuario u SET u.horasJugadas = :tiempoResueltoTotal,u.cantidadPartidasJugadas = :partidasTotalesJugadas WHERE u.id = :idUsuario";
 
         int filasActualizadas = session.createQuery(hql)
                 .setParameter("tiempoResueltoTotal", tiempoResueltoTotal)
                 .setParameter("idUsuario", idUsuario)
+                .setParameter("partidasTotalesJugadas", partidasTotalesJugadas)
                 .executeUpdate();
     }
 
