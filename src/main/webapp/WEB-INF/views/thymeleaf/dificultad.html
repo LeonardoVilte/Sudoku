@@ -35,10 +35,8 @@
                th:text="${partida.getUsuario().getNombre()} + ' - ' + ${partida.getTiempo()}">
             </a>
           </li>
-          <li>
-            <a th:href="@{/jugar?dificultad=1}" class="button verde">JUGAR</a>
-          </li>
         </ul>
+            <a th:href="@{/jugar?dificultad=1}" class="button verde">JUGAR</a>
       </div>
     </div>
     <div class="card text-center fade-in-up" style="width: 18rem">
@@ -51,10 +49,8 @@
                th:text="${partida.getUsuario().getNombre()} + ' - ' + ${partida.getTiempo()}">
             </a>
           </li>
-          <li>
-            <a th:href="@{/jugar?dificultad=1}" class="button amarillo">JUGAR</a>
-          </li>
         </ul>
+            <a th:href="@{/jugar?dificultad=2}" class="button amarillo">JUGAR</a>
       </div>
     </div>
     <div class="card text-center fade-in-up" style="width: 18rem">
@@ -67,10 +63,10 @@
                th:text="${partida.getUsuario().getNombre()} + ' - ' + ${partida.getTiempo()}">
             </a>
           </li>
-          <li>
-            <a th:href="@{/jugar?dificultad=1}" class="button rojo">JUGAR</a>
-          </li>
+
+
         </ul>
+            <a th:href="@{/jugar?dificultad=3}" class="button rojo">JUGAR</a>
       </div>
     </div>
   </div>

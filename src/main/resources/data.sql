@@ -8,7 +8,7 @@ INSERT INTO Usuario (id, email, password, rol, activo) VALUES
                                                            (null, 'usuario4@example.com', 'password123', 'USER', true),
                                                            (null, 'usuario5@example.com', 'password123', 'USER', true);
 
-
+UPDATE Usuario SET nombre = 'UsuarioTest' WHERE id = 1;
 
 
 UPDATE Usuario
