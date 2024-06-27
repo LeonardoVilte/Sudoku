@@ -1,5 +1,7 @@
 package com.tallerwebi.dominio;
 
+import java.util.List;
+
 public interface RepositorioJuego {
 
     void guardarSudoku(Sudoku sudoku);
@@ -9,4 +11,5 @@ public interface RepositorioJuego {
     void guardarPartida(Partida partida);
 
     Partida buscarPartidaPorId(Long idPartida);
+
 }

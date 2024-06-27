@@ -15,6 +15,15 @@ public class Partida {
     @JoinColumn (name = "sudoku_id")
     private Sudoku sudoku;
     private LocalTime tiempo;
+    private Boolean resuelto;
+
+    public Boolean getResuelto() {
+        return resuelto;
+    }
+
+    public void setResuelto(Boolean resuelto) {
+        this.resuelto = resuelto;
+    }
 
     public Long getId() {
         return id;

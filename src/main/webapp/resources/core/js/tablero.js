@@ -36,13 +36,13 @@ document.addEventListener('DOMContentLoaded', function(){
     } imprimirSudoku(sudokuMatriz);
 
     function actualizarTimer() {
-                segundos++;
-                const horas = Math.floor(segundos / 3600);
-                const minutos = Math.floor((segundos % 3600) / 60);
-                const segundosRestantes = segundos % 60;
-                const tiempoFormateado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundosRestantes.toString().padStart(2, '0')}`;
-                timerElement.textContent = tiempoFormateado;
-            }
+        segundos++;
+        const horas = Math.floor(segundos / 3600);
+        const minutos = Math.floor((segundos % 3600) / 60);
+        const segundosRestantes = segundos % 60;
+        const tiempoFormateado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundosRestantes.toString().padStart(2, '0')}`;
+        timerElement.textContent = tiempoFormateado;
+    }
 
     setInterval(actualizarTimer, 1000);
 

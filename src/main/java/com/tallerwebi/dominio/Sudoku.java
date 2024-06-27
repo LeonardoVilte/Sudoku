@@ -17,7 +17,6 @@ public class Sudoku {
     @Column(name = "tablero", columnDefinition = "CLOB")
     private String tableroAlmacenable;
     private Integer dificultad;
-    private Boolean resuelto = false;
     @OneToMany(mappedBy = "sudoku")
     private List<Partida> partidas;
 

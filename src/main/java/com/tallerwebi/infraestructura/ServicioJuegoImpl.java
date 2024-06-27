@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Random;
 @Service
 @Transactional
@@ -59,7 +60,6 @@ public class ServicioJuegoImpl implements ServicioJuego {
         }
 
     }
-
 
     public void limpiarTablero(Integer[][] tablero){
         for (int i = 0; i < tablero.length; i++) {

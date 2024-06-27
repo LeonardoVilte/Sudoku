@@ -1,6 +1,7 @@
 package com.tallerwebi.dominio;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public interface ServicioJuego {
 
@@ -28,4 +29,5 @@ public interface ServicioJuego {
     Partida buscarPartidaActual(Long idPartidaActual);
 
     void guardarTiemposEnElUsuario(String email , Long tiempoResuelto);
+
 }

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalTime;
+import java.util.List;
 
 
 @Controller
@@ -52,8 +53,9 @@ public class ControladorJuego {
         }
     }
 
-    @RequestMapping("/Resultad0")
-    public ModelAndView mostrarResultado(HttpServletRequest request) {
+    @RequestMapping(value = "/Resultad0", method = RequestMethod.GET)
+    public ModelAndView mostrarResultado(HttpServletRequest request,
+                                         @RequestParam("resuelto") boolean resuelto) {
         HttpSession session = request.getSession(false);
 
         String emailUsuario = (String) session.getAttribute("email");
@@ -66,6 +68,7 @@ public class ControladorJuego {
         Long tiempoResueltoEnLong = extraerTiempoEnLong(session);
 
         partidaActual.setTiempo(tiempoResuelto);
+        partidaActual.setResuelto(resuelto);
 
         this.servicioJuego.guardarTiemposEnElUsuario(emailUsuario, tiempoResueltoEnLong);
 
