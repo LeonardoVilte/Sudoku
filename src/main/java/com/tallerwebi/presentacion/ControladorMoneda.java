@@ -51,20 +51,16 @@ public class ControladorMoneda {
                 return new RedirectView(redirectUrl);
             }
         } catch (MPApiException e) {
-            // Loguear el error detallado
             logger.error("Error al crear la preferencia de Mercado Pago", e);
 
-            // Obtener y loguear los detalles del MPResponse
             MPResponse response = e.getApiResponse();
             if (response != null) {
                 logger.error("Código de estado: {}", response.getStatusCode());
                 logger.error("Contenido: {}", response.getContent());
             }
         } catch (MPException e) {
-            // Loguear el error genérico de MPException
             logger.error("Error general de Mercado Pago", e);
         }
-        // Redirigir a una página de error o mostrar un mensaje si la preferencia no se pudo crear
         return new RedirectView("/error");
     }
 
@@ -74,5 +70,50 @@ public class ControladorMoneda {
         Usuario usuario = servicioUsuario.obtenerUsuarioActual();
         modelAndView.addObject("monedas", usuario.getMonedas());
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/success", method = RequestMethod.GET)
+    public ModelAndView paymentSuccess(HttpServletRequest request,
+                                       @RequestParam("collection_id") String collectionId,
+                                       @RequestParam("collection_status") String collectionStatus,
+                                       @RequestParam("payment_id") String paymentId,
+                                       @RequestParam("status") String status,
+                                       @RequestParam("external_reference") String externalReference,
+                                       @RequestParam("payment_type") String paymentType,
+                                       @RequestParam("merchant_order_id") String merchantOrderId,
+                                       @RequestParam("preference_id") String preferenceId,
+                                       @RequestParam("site_id") String siteId,
+                                       @RequestParam("processing_mode") String processingMode,
+                                       @RequestParam(value = "merchant_account_id", required = false) String merchantAccountId) throws UsuarioNoEncontrado {
+
+        ModelAndView modelAndView = new ModelAndView("payment-success");
+
+        try {
+            int cantidadMonedasCompradas = Integer.parseInt(externalReference);
+
+            Usuario usuario = servicioUsuario.obtenerUsuarioActual();
+            usuario.setMonedas(usuario.getMonedas() + cantidadMonedasCompradas);
+            servicioUsuario.actualizarUsuario(usuario);
+
+            modelAndView.addObject("monedas", usuario.getMonedas());
+        } catch (NumberFormatException e) {
+            logger.error("Error al parsear la cantidad de monedas compradas", e);
+            modelAndView.setViewName("error");
+        } catch (UsuarioNoEncontrado e) {
+            logger.error("Usuario no encontrado", e);
+            modelAndView.setViewName("error");
+        }
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/failure", method = RequestMethod.GET)
+    public ModelAndView paymentFailure() {
+        return new ModelAndView("payment-failure");
+    }
+
+    @RequestMapping(value = "/pending", method = RequestMethod.GET)
+    public ModelAndView paymentPending() {
+        return new ModelAndView("payment-pending");
     }
 }

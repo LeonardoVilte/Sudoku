@@ -1,14 +1,14 @@
 INSERT INTO Usuario(id, email, password, rol, activo, monedas) VALUES (null, 'test@unlam.edu.ar', 'test', 'ADMIN', true, 0);
-INSERT INTO Usuario(id, email, password, rol, activo) VALUES(null, '123@123', '123', 'ADMIN', true);
+INSERT INTO Usuario(id, email, password, rol, activo, monedas) VALUES (null, '123@123', '123', 'ADMIN', true, 0);
 
-INSERT INTO Usuario (id, email, password, rol, activo) VALUES
-                                                           (null, 'usuario1@example.com', 'password123', 'USER', true),
-                                                           (null, 'usuario2@example.com', 'password123', 'USER', true),
-                                                           (null, 'usuario3@example.com', 'password123', 'USER', true),
-                                                           (null, 'usuario4@example.com', 'password123', 'USER', true),
-                                                           (null, 'usuario5@example.com', 'password123', 'USER', true);
+INSERT INTO Usuario (id, email, password, rol, activo, monedas) VALUES
+                                                            (null, 'usuario1@example.com', 'password123', 'USER', true, 0),
+                                                            (null, 'usuario2@example.com', 'password123', 'USER', true, 0),
+                                                            (null, 'usuario3@example.com', 'password123', 'USER', true, 0),
+                                                            (null, 'usuario4@example.com', 'password123', 'USER', true, 0),
+                                                            (null, 'usuario5@example.com', 'password123', 'USER', true, 0);
 
-UPDATE Usuario SET nombre = 'UsuarioTest' WHERE id = 1;
+UPDATE Usuario SET nombre = 'UsuarioTest', monedas = 0 WHERE id = 1;
 
 
 UPDATE Usuario

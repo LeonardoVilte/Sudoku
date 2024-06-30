@@ -26,52 +26,41 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
     private static final Logger logger = LoggerFactory.getLogger(MercadoPagoServiceImpl.class);
 
     //@Value("${mercadopago.access.token}")
-    private String mercadoPagoAccessToken = "";
+    private String mercadoPagoAccessToken = "APP_USR";
 
     @Override
     public Preference crearPreferencia(int cantidad) throws MPApiException, MPException {
         try {
-            logger.info("El access token es esta:" + mercadoPagoAccessToken);
-            // Configurar el token de acceso
             MercadoPagoConfig.setAccessToken(mercadoPagoAccessToken);
 
-            // Crear el ítem de preferencia
             PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
                     .id("1234")
                     .title("Monedas")
                     .description("Compra de monedas")
                     .quantity(cantidad)
                     .currencyId("ARS")
-                    .unitPrice(new BigDecimal("5")) // Precio por unidad
+                    .unitPrice(new BigDecimal("10")) // Precio por unidad, ajustar según sea necesario
                     .build();
             List<PreferenceItemRequest> items = new ArrayList<>();
             items.add(itemRequest);
 
-            // Crear las backUrls
             PreferenceBackUrlsRequest backUrlsRequest = PreferenceBackUrlsRequest.builder()
-                    .success("http://localhost:8080/success")
-                    .failure("http://localhost:8080/failure")
-                    .pending("http://localhost:8080/pending")
+                    .success("http://localhost:8080/spring/success")
+                    .failure("http://localhost:8080/spring/failure")
+                    .pending("http://localhost:8080/spring/pending")
                     .build();
 
-            // Crear la solicitud de preferencia
+            // Usar externalReference para pasar la cantidad de monedas
             PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                     .items(items)
                     .backUrls(backUrlsRequest)
+                    .externalReference(String.valueOf(cantidad)) // Almacenar la cantidad de monedas compradas
                     .build();
 
-            // Crear el cliente de preferencia
             PreferenceClient client = new PreferenceClient();
 
-            // Registrar los detalles antes de la solicitud
-            logger.info("Enviando solicitud para crear preferencia con los siguientes detalles:");
-            logger.info("Items: {}", items);
-            logger.info("BackUrls: {}", backUrlsRequest);
-
-            // Realizar la solicitud para crear la preferencia
             return client.create(preferenceRequest);
         } catch (MPApiException e) {
-            // Loguear los detalles del error de API
             logger.error("Error al crear la preferencia en Mercado Pago", e);
 
             MPResponse response = e.getApiResponse();
@@ -79,18 +68,10 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
                 logger.error("Código de estado: {}", response.getStatusCode());
                 logger.error("Contenido: {}", response.getContent());
             }
-
-            // Loguear la causa de la excepción si está disponible
-            Throwable cause = e.getCause();
-            if (cause != null) {
-                logger.error("Causa del error: {}", cause.getMessage(), cause);
-            }
-
-            throw e; // Volver a lanzar la excepción para que sea manejada en el controlador
+            throw e;
         } catch (MPException e) {
-            // Loguear el error genérico de MPException
             logger.error("Error general de Mercado Pago", e);
             throw e;
         }
-    }
+        }
 }
