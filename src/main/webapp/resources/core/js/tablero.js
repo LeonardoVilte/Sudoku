@@ -53,6 +53,11 @@ document.addEventListener('DOMContentLoaded', function(){
                     } else {
                         sudokuMatriz[fila][columna] = parseInt(input.value);
                         document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(sudokuMatriz);
+                        if (!esNumeroValido(sudokuMatriz, fila, columna, parseInt(input.value))) {
+                            input.style.backgroundColor = 'red';
+                        } else {
+                            input.style.backgroundColor = '';
+                        }
                         terminado();
                     }
                 }
@@ -116,6 +121,11 @@ document.addEventListener('DOMContentLoaded', function(){
                 matrizSudoku[posicionX][posicionY] = parseInt(event.target.textContent);
                 document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
 
+                if (!esNumeroValido(matrizSudoku, posicionX, posicionY, parseInt(event.target.textContent))) {
+                    selectedCell.style.backgroundColor = 'red';
+                } else {
+                    selectedCell.style.backgroundColor = '';
+                }
 
                 selectedCell.classList.remove('selected');
                 selectedCell = null;
@@ -152,7 +162,34 @@ document.addEventListener('DOMContentLoaded', function(){
             deleteNumber();
         }
     });
+
+    function esNumeroValido(matriz, fila, columna, numero) {
+        // Verificar fila
+        for (let i = 0; i < 9; i++) {
+            if (i !== columna && matriz[fila][i] === numero) {
+                return false;
+            }
+        }
+        // Verificar columna
+        for (let i = 0; i < 9; i++) {
+            if (i !== fila && matriz[i][columna] === numero) {
+                return false;
+            }
+        }
+        // Verificar subcuadrícula 3x3
+        const subFila = Math.floor(fila / 3) * 3;
+        const subColumna = Math.floor(columna / 3) * 3;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if ((subFila + i !== fila || subColumna + j !== columna) && matriz[subFila + i][subColumna + j] === numero) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 });
+
 
 
 
