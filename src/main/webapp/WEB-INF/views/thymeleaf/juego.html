@@ -3,12 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <title>Juego</title>
-
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/juegoSudokuEstilos.css}"/>
-
 </head>
 <body>
 <main role="main" class="container">
@@ -44,24 +41,14 @@
     </div>
     <div class="timer-container">
         <div class="timer" id="timer">00:00:00</div>
-
-
         <button class="button" onclick="ayuda()">Ayuda</button>
         <button class="button" onclick="pista()">Pista</button>
-
         <button class="button" id="toggleAnotacionesButton">Activar Anotaciones</button>
-
         <button class="button" onclick="resolverSudoku()" id="rendirse">Mostrar resultado/Rendirse</button>
-
-        <div id="botonContainer">
-
-        </div>
-
+        <button class="button" id="togglePauseButton" onclick="togglePause()">Pausa</button>
+        <div id="botonContainer"></div>
     </div>
-
-
 </main>
-
 </body>
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/tablero.js}"></script>

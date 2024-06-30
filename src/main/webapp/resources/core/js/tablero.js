@@ -1,3 +1,36 @@
+let isPaused = false;
+let timerInterval;
+let segundos = 0;
+
+function togglePause() {
+    const sudokuContainer = document.getElementById("contenedor-sudoku");
+    const timerElement = document.getElementById("timer");
+    const togglePauseButton = document.getElementById("togglePauseButton");
+
+    if (!isPaused) {
+        timerInterval = null;
+        sudokuContainer.classList.add("paused");
+        togglePauseButton.textContent = "Reanudar";
+    } else {
+        timerInterval = setInterval(actualizarTimer, 1000);
+        sudokuContainer.classList.remove("paused");
+        togglePauseButton.textContent = "Pausa";
+        clearInterval(timerElement);
+    }
+    isPaused = !isPaused;
+}
+
+function actualizarTimer() {
+    if (!isPaused) {
+        segundos++;
+        const horas = Math.floor(segundos / 3600);
+        const minutos = Math.floor((segundos % 3600) / 60);
+        const segundosRestantes = segundos % 60;
+        const tiempoFormateado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundosRestantes.toString().padStart(2, '0')}`;
+        timerElement.textContent = tiempoFormateado;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function(){
     const tablaSudoku = document.getElementById("tablero-sudoku");
     let sudokuMatriz = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);

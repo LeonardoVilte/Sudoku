@@ -40,6 +40,25 @@ a:hover {
     z-index: 1000;
 }
 
+#contenedor-sudoku.paused {
+    filter: blur(5px);
+    position: relative;
+}
+
+#contenedor-sudoku.paused::after {
+    content: "PAUSA";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    color: red;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+}
+
 .navbar-item {
     color: white;
     font-size: 20px;
