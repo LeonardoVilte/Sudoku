@@ -68,8 +68,18 @@ public class ControladorHome {
     }
 
     @RequestMapping("/mercado")
-    public ModelAndView mercado() {
-        return new ModelAndView("mercado");
+    public ModelAndView mercado(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null){
+            String nombreUsuario = (String) session.getAttribute("Usuario");
+            ModelMap modelMap = new ModelMap();
+            modelMap.put("nombreUsuario" , nombreUsuario);
+
+            return new ModelAndView("mercado", modelMap);
+
+        }
+        return new ModelAndView("redirect:/login");
+
     }
 
     @RequestMapping("/about")
