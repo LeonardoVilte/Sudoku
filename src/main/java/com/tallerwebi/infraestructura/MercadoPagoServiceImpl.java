@@ -26,7 +26,7 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
     private static final Logger logger = LoggerFactory.getLogger(MercadoPagoServiceImpl.class);
 
     //@Value("${mercadopago.access.token}")
-    private String mercadoPagoAccessToken = "APP_USR";
+    private String mercadoPagoAccessToken = "APP_USR-7148490535853042-063000-edad81c3b1347085e79da1ca7b622b94-1874683882";
 
     @Override
     public Preference crearPreferencia(int cantidad) throws MPApiException, MPException {

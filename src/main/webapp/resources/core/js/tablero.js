@@ -8,6 +8,7 @@ function togglePause() {
     const togglePauseButton = document.getElementById("togglePauseButton");
 
     if (!isPaused) {
+        clearInterval(timerInterval);
         timerInterval = null;
         sudokuContainer.classList.add("paused");
         togglePauseButton.textContent = "Reanudar";
@@ -15,7 +16,6 @@ function togglePause() {
         timerInterval = setInterval(actualizarTimer, 1000);
         sudokuContainer.classList.remove("paused");
         togglePauseButton.textContent = "Pausa";
-        clearInterval(timerElement);
     }
     isPaused = !isPaused;
 }
@@ -27,18 +27,19 @@ function actualizarTimer() {
         const minutos = Math.floor((segundos % 3600) / 60);
         const segundosRestantes = segundos % 60;
         const tiempoFormateado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundosRestantes.toString().padStart(2, '0')}`;
+        const timerElement = document.getElementById("timer");
         timerElement.textContent = tiempoFormateado;
     }
 }
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function() {
     const tablaSudoku = document.getElementById("tablero-sudoku");
     let sudokuMatriz = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
     let sudokuInicial = sudokuMatriz;
     const medidaCuadricula = 9;
 
     const timerElement = document.getElementById('timer');
-    let segundos = 0;
+    segundos = 0;  // Inicializar los segundos aquí
 
     const toggleAnotacionesButton = document.getElementById('toggleAnotacionesButton');
     let modoAnotaciones = false;
@@ -51,9 +52,9 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    for(let fila = 0; fila < medidaCuadricula; fila++){
+    for (let fila = 0; fila < medidaCuadricula; fila++) {
         const nuevaFila = document.createElement("tr");
-        for(let columna = 0; columna < medidaCuadricula; columna++){
+        for (let columna = 0; columna < medidaCuadricula; columna++) {
             const celda = document.createElement("td");
 
             const annotationsDiv = document.createElement('div');
@@ -71,10 +72,10 @@ document.addEventListener('DOMContentLoaded', function(){
             input.type = "number";
             input.className = "celda";
             input.id = `celda-${fila}-${columna}`;
-            if(sudokuInicial[fila][columna] !== 0) {
+            if (sudokuInicial[fila][columna] !== 0) {
                 input.setAttribute("disabled", "true");
             }
-            input.addEventListener('input', function(event){
+            input.addEventListener('input', function(event) {
                 if (!/^[1-9]$/.test(input.value) && input.value !== null && input.value !== "") {
                     alert("El numero no es valido, ingrese un valor entre 1 y 9");
                     input.value = "";
@@ -100,26 +101,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
     imprimirSudoku(sudokuMatriz);
 
-    function actualizarTimer() {
-        segundos++;
-        const horas = Math.floor(segundos / 3600);
-        const minutos = Math.floor((segundos % 3600) / 60);
-        const segundosRestantes = segundos % 60;
-        const tiempoFormateado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundosRestantes.toString().padStart(2, '0')}`;
-        timerElement.textContent = tiempoFormateado;
-    }
-
-    setInterval(actualizarTimer, 1000);
+    timerInterval = setInterval(actualizarTimer, 1000);
 
     let selectedCell = null;
-
 
     let posicionX = null;
     let posicionY = null;
 
-
     function selectCell(event) {
-
         if (selectedCell) {
             selectedCell.classList.remove('selected');
         }
@@ -148,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 let matrizSudoku = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
                 matrizSudoku[posicionX][posicionY] = parseInt(event.target.textContent);
                 document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
-
 
                 selectedCell.classList.remove('selected');
                 selectedCell = null;
