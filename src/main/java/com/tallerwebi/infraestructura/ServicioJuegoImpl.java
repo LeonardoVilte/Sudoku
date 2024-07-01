@@ -136,9 +136,8 @@ public class ServicioJuegoImpl implements ServicioJuego {
     }
 
     public boolean resolverTablero(Integer[][] tablero){
-        // Verificar si el tablero está completo
         if (estaCompleto(tablero)) {
-            return true; // Tablero completo y válido
+            return true;
         }
 
         for (int i = 0; i < tablero.length; i++) {
@@ -176,7 +175,7 @@ public class ServicioJuegoImpl implements ServicioJuego {
                 }
             }
         }
-        return true;//completo
+        return true;
     }
 
     public boolean validarCuadrado(int i, int j, int valor, Integer[][] tablero){

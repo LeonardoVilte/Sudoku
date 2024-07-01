@@ -6,16 +6,27 @@ function togglePause() {
     const sudokuContainer = document.getElementById("contenedor-sudoku");
     const timerElement = document.getElementById("timer");
     const togglePauseButton = document.getElementById("togglePauseButton");
+    const cells = document.querySelectorAll('.celda');
 
     if (!isPaused) {
         clearInterval(timerInterval);
         timerInterval = null;
         sudokuContainer.classList.add("paused");
         togglePauseButton.textContent = "Reanudar";
+
+        // Deshabilitar celdas
+        cells.forEach(cell => cell.setAttribute('disabled', true));
     } else {
         timerInterval = setInterval(actualizarTimer, 1000);
         sudokuContainer.classList.remove("paused");
         togglePauseButton.textContent = "Pausa";
+
+        // Habilitar celdas
+        cells.forEach(cell => {
+            if (!cell.classList.contains('pre-filled')) {
+                cell.removeAttribute('disabled');
+            }
+        });
     }
     isPaused = !isPaused;
 }
@@ -52,52 +63,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    for (let fila = 0; fila < medidaCuadricula; fila++) {
-        const nuevaFila = document.createElement("tr");
-        for (let columna = 0; columna < medidaCuadricula; columna++) {
-            const celda = document.createElement("td");
+for (let fila = 0; fila < medidaCuadricula; fila++) {
+    const nuevaFila = document.createElement("tr");
+    for (let columna = 0; columna < medidaCuadricula; columna++) {
+        const celda = document.createElement("td");
 
-            const annotationsDiv = document.createElement('div');
-            annotationsDiv.classList.add('annotations');
-            annotationsDiv.style.display = 'none';
+        const annotationsDiv = document.createElement('div');
+        annotationsDiv.classList.add('annotations');
+        annotationsDiv.style.display = 'none';
 
-            for (let k = 1; k <= 9; k++) {
-                const annotation = document.createElement('div');
-                annotation.classList.add('annotation');
-                annotation.textContent = k;
-                annotationsDiv.appendChild(annotation);
-            }
-
-            const input = document.createElement("input");
-            input.type = "number";
-            input.className = "celda";
-            input.id = `celda-${fila}-${columna}`;
-            if (sudokuInicial[fila][columna] !== 0) {
-                input.setAttribute("disabled", "true");
-            }
-            input.addEventListener('input', function(event) {
-                if (!/^[1-9]$/.test(input.value) && input.value !== null && input.value !== "") {
-                    alert("El numero no es valido, ingrese un valor entre 1 y 9");
-                    input.value = "";
-                } else {
-                    if (modoAnotaciones && /^[1-9]$/.test(input.value)) {
-                        const annotation = annotationsDiv.querySelector(`.annotation:nth-child(${input.value})`);
-                        annotation.style.display = annotation.style.display === 'flex' ? 'none' : 'flex';
-                        input.value = '';
-                    } else {
-                        sudokuMatriz[fila][columna] = parseInt(input.value);
-                        document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(sudokuMatriz);
-                        terminado();
-                    }
-                }
-            });
-
-            celda.appendChild(annotationsDiv);
-            celda.appendChild(input);
-            nuevaFila.appendChild(celda);
+        for (let k = 1; k <= 9; k++) {
+            const annotation = document.createElement('div');
+            annotation.classList.add('annotation');
+            annotation.textContent = k;
+            annotationsDiv.appendChild(annotation);
         }
-        tablaSudoku.appendChild(nuevaFila);
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.className = "celda";
+        input.id = `celda-${fila}-${columna}`;
+        if (sudokuInicial[fila][columna] !== 0) {
+            input.setAttribute("disabled", "true");
+            input.classList.add('pre-filled');
+        }
+        input.addEventListener('input', function(event) {
+            if (!/^[1-9]$/.test(input.value) && input.value !== null && input.value !== "") {
+                alert("El numero no es valido, ingrese un valor entre 1 y 9");
+                input.value = "";
+            } else {
+                if (modoAnotaciones && /^[1-9]$/.test(input.value)) {
+                    const annotation = annotationsDiv.querySelector(`.annotation:nth-child(${input.value})`);
+                    annotation.style.display = annotation.style.display === 'flex' ? 'none' : 'flex';
+                    input.value = '';
+                } else {
+                    sudokuMatriz[fila][columna] = parseInt(input.value);
+                    document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(sudokuMatriz);
+                    if (!esNumeroValido(sudokuMatriz, fila, columna, parseInt(input.value))) {
+                        input.style.backgroundColor = 'red';
+                    } else {
+                        input.style.backgroundColor = '';
+                    }
+                    terminado();
+                }
+            }
+        });
+
+        celda.appendChild(annotationsDiv);
+        celda.appendChild(input);
+        nuevaFila.appendChild(celda);
     }
+    tablaSudoku.appendChild(nuevaFila);
+}
 
     imprimirSudoku(sudokuMatriz);
 
@@ -138,6 +155,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 matrizSudoku[posicionX][posicionY] = parseInt(event.target.textContent);
                 document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
 
+                if (!esNumeroValido(matrizSudoku, posicionX, posicionY, parseInt(event.target.textContent))) {
+                    selectedCell.style.backgroundColor = 'red';
+                } else {
+                    selectedCell.style.backgroundColor = '';
+                }
                 selectedCell.classList.remove('selected');
                 selectedCell = null;
             }
@@ -173,7 +195,34 @@ document.addEventListener('DOMContentLoaded', function() {
             deleteNumber();
         }
     });
+
+    function esNumeroValido(matriz, fila, columna, numero) {
+        // Verificar fila
+        for (let i = 0; i < 9; i++) {
+            if (i !== columna && matriz[fila][i] === numero) {
+                return false;
+            }
+        }
+        // Verificar columna
+        for (let i = 0; i < 9; i++) {
+            if (i !== fila && matriz[i][columna] === numero) {
+                return false;
+            }
+        }
+        // Verificar subcuadrícula 3x3
+        const subFila = Math.floor(fila / 3) * 3;
+        const subColumna = Math.floor(columna / 3) * 3;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if ((subFila + i !== fila || subColumna + j !== columna) && matriz[subFila + i][subColumna + j] === numero) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 });
+
 
 
 
