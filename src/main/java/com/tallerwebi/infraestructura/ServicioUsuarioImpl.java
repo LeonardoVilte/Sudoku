@@ -27,4 +27,16 @@ public class ServicioUsuarioImpl  implements ServicioUsuario {
         repositorioUsuario.modificar(usuario);
     }
 
+    @Override
+    public boolean siUsuarioExiste(String nombreUsuario) {
+        Usuario usuarioEncontrado = this.repositorioUsuario.buscarUsuarioPorNombre(nombreUsuario);
+        return usuarioEncontrado != null;
+
+    }
+
+    @Override
+    public Usuario obtenerUsuarioPorNombre(String nombreUsuario) {
+        return this.repositorioUsuario.buscarUsuarioPorNombre(nombreUsuario);
+    }
+
 }
