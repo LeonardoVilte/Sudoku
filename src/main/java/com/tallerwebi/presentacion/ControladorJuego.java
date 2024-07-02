@@ -30,8 +30,7 @@ public class ControladorJuego {
     public ModelAndView mostrarJuego(@RequestParam("dificultad") int dificultad, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        if(session != null) {
-
+        if (session != null) {
             String emailUsuario = (String) session.getAttribute("email");
 
             Sudoku sudoku = servicioJuego.crearYGuardarSudoku(dificultad);
@@ -49,27 +48,34 @@ public class ControladorJuego {
             iniciarCronometroSudoku(session);
 
             return modelAndView;
-        }else{
+        } else {
             return new ModelAndView("redirect:login");
         }
     }
 
+    @RequestMapping(value = "/pausar", method = RequestMethod.POST)
+    public ResponseEntity<Void> pausarCronometro(HttpSession session) {
+        pausarCronometroSudoku(session);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/reanudar", method = RequestMethod.POST)
+    public ResponseEntity<Void> reanudarCronometro(HttpSession session) {
+        reanudarCronometroSudoku(session);
+        return ResponseEntity.ok().build();
+    }
+
     @RequestMapping(value = "/Resultad0", method = RequestMethod.GET)
-    public ModelAndView mostrarResultado(HttpServletRequest request,
-                                         @RequestParam("resuelto") boolean resuelto)  {
+    public ModelAndView mostrarResultado(HttpServletRequest request, @RequestParam("resuelto") boolean resuelto) {
         HttpSession session = request.getSession(false);
 
         String emailUsuario = (String) session.getAttribute("email");
-        // TRAER LA ULTIMA PARTIDA DEL USUARIO
-        Long idPartidaActual = (Long)session.getAttribute("idPartidaActual");
+        Long idPartidaActual = (Long) session.getAttribute("idPartidaActual");
 
-
-        // CALCULAR EL TIEMPO EN EL QUE TARDAR RESOLVER EL SUDOKU
         LocalTime tiempoResuelto = extraerTiempoDeResolucion(session);
         Long tiempoResueltoEnLong = extraerTiempoEnLong(session);
 
-        servicioJuego.guardarTiemposEnLaPartida(idPartidaActual, tiempoResuelto,resuelto);
-
+        servicioJuego.guardarTiemposEnLaPartida(idPartidaActual, tiempoResuelto, resuelto);
         this.servicioJuego.guardarTiemposEnElUsuario(emailUsuario, tiempoResueltoEnLong);
 
         session.removeAttribute("idPartidaActual");
@@ -77,21 +83,46 @@ public class ControladorJuego {
         return new ModelAndView("Resultad0");
     }
 
+    private void iniciarCronometroSudoku(HttpSession session) {
+        Long tiempoInicial = System.currentTimeMillis();
+
+        if (session.getAttribute("tiempoInicial") != null) {
+            session.removeAttribute("tiempoInicial");
+        }
+        session.setAttribute("tiempoInicial", tiempoInicial);
+        session.setAttribute("tiempoPausado", 0L);
+    }
+
+    private void pausarCronometroSudoku(HttpSession session) {
+        Long tiempoInicial = (Long) session.getAttribute("tiempoInicial");
+        Long tiempoPausado = (Long) session.getAttribute("tiempoPausado");
+        tiempoPausado += System.currentTimeMillis() - tiempoInicial;
+        session.setAttribute("tiempoPausado", tiempoPausado);
+        session.removeAttribute("tiempoInicial");
+    }
+
+    private void reanudarCronometroSudoku(HttpSession session) {
+        Long tiempoPausado = (Long) session.getAttribute("tiempoPausado");
+        Long tiempoInicial = System.currentTimeMillis() - tiempoPausado;
+        session.setAttribute("tiempoInicial", tiempoInicial);
+    }
+
     private LocalTime extraerTiempoDeResolucion(HttpSession session) {
         Long tiempoInicial = (Long) session.getAttribute("tiempoInicial");
+        Long tiempoPausado = (Long) session.getAttribute("tiempoPausado");
+        long tiempoSudoku = (tiempoInicial != null ? System.currentTimeMillis() - tiempoInicial : 0) + tiempoPausado;
 
-            long tiempoSudoku = System.currentTimeMillis() - tiempoInicial;
-
-            long segundos = tiempoSudoku / 1000;
-            long horas = segundos / 3600;
-            long minutos = (segundos % 3600) / 60;
-            segundos = segundos % 60;
+        long segundos = tiempoSudoku / 1000;
+        long horas = segundos / 3600;
+        long minutos = (segundos % 3600) / 60;
+        segundos = segundos % 60;
         return LocalTime.of((int) horas, (int) minutos, (int) segundos);
-
     }
-    private Long extraerTiempoEnLong(HttpSession session){
+
+    private Long extraerTiempoEnLong(HttpSession session) {
         Long tiempoInicial = (Long) session.getAttribute("tiempoInicial");
-        return System.currentTimeMillis() - tiempoInicial;
+        Long tiempoPausado = (Long) session.getAttribute("tiempoPausado");
+        return (tiempoInicial != null ? System.currentTimeMillis() - tiempoInicial : 0) + tiempoPausado;
     }
 
 
@@ -113,16 +144,5 @@ public class ControladorJuego {
                 }
             }
             return sb.toString();
-        }
-
-    private void iniciarCronometroSudoku(HttpSession session){
-        Long tiempoInicial = System.currentTimeMillis();
-
-        if(session.getAttribute("tiempoInicial")!=null){
-            session.removeAttribute("tiempoInicial");
-        }
-        session.setAttribute("tiempoInicial", tiempoInicial);
     }
-
-
 }
