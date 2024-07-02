@@ -31,6 +31,31 @@ function togglePause() {
     isPaused = !isPaused;
 }
 
+// Pausar el juego
+function pausarJuego() {
+    // Detener el cronómetro en el frontend
+    clearInterval(intervalId);
+
+    // Enviar solicitud de pausa al backend
+    fetch('/pausar', { method: 'POST' })
+        .then(response => response.text())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+}
+
+// Reanudar el juego
+function reanudarJuego() {
+    // Enviar solicitud de reanudación al backend
+    fetch('/reanudar', { method: 'POST' })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            // Reiniciar el cronómetro en el frontend
+            startTimer();
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 function actualizarTimer() {
     if (!isPaused) {
         segundos++;

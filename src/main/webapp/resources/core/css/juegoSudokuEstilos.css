@@ -61,6 +61,21 @@ a:hover {
     filter: none; /* Asegurar que el texto no se difumine */
 }
 
+#texto-pausa {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color: black; /* Ajusta el color según tu preferencia */
+    z-index: 10; /* Coloca el texto por encima del contenedor del Sudoku */
+}
+
+#contenedor-sudoku.paused + #texto-pausa {
+    display: block;
+}
+
 .navbar-item {
     color: white;
     font-size: 20px;

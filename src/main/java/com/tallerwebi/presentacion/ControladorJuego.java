@@ -1,6 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.Partida;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import com.tallerwebi.dominio.ServicioJuego;
 import com.tallerwebi.dominio.Sudoku;
@@ -122,4 +123,6 @@ public class ControladorJuego {
         }
         session.setAttribute("tiempoInicial", tiempoInicial);
     }
+
+
 }

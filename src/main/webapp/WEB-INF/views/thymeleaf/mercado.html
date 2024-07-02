@@ -13,11 +13,11 @@
 <nav class="navbar">
     <div class="navbar-item">Sudoku</div>
     <div class="navbar-item monedas">
-        <span class="monedas">Monedas =</span>
+        <a th:href="@{/comprar}" class="btn btn-link"><span class="monedas">Monedas</span></a> = <span th:text="${monedas}"></span>
     </div>
     <div class="navbar-brand ml-auto">
-        <a class="navbar-item" id="perfiltexto" th:href="@{perfil}">Perfil</a>
-        <a class="navbar-item" th:href="@{logout}">Cerrar Sesión</a>
+        <a class="navbar-item" id="perfiltexto" th:href="@{/perfil}">Perfil</a>
+        <a class="navbar-item" th:href="@{/logout}">Cerrar Sesión</a>
     </div>
 </nav>
 <section>
