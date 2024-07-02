@@ -26,7 +26,10 @@ public class ControladorHome {
     public ModelAndView irAHome(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session != null){
-            return new ModelAndView("home");
+            String nombreUsuario = (String) session.getAttribute("Usuario");
+            ModelMap model = new ModelMap();
+            model.put("nombreUsuario" , nombreUsuario);
+            return new ModelAndView("home", model);
         }else {
             return new ModelAndView("redirect:/login");
         }
@@ -41,13 +44,12 @@ public class ControladorHome {
         return new ModelAndView("redirect:/login?logout");
     }
 
-    @RequestMapping("/home")
-    public ModelAndView home() {
-        return new ModelAndView("home");
-    }
-
     @RequestMapping("/dificultad")
-    public ModelAndView dificultad() {
+    public ModelAndView dificultad(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null){
+
+        String nombreUsuario = (String) session.getAttribute("Usuario");
 
         List<Partida> listaPartidasFaciles = this.servicioJuego.traer3MejoresTiemposPorDificultad(1);
         List<Partida> listaPartidasNormales = this.servicioJuego.traer3MejoresTiemposPorDificultad(2);
@@ -57,13 +59,27 @@ public class ControladorHome {
         modelMap.put("listaFaciles" , listaPartidasFaciles);
         modelMap.put("listaNormales", listaPartidasNormales);
         modelMap.put("listaDificiles", listaPartidasDificiles);
+        modelMap.put("nombreUsuario" , nombreUsuario);
+
 
         return new ModelAndView("dificultad",modelMap);
+        }
+        return new ModelAndView("redirect:/login");
     }
 
     @RequestMapping("/mercado")
-    public ModelAndView mercado() {
-        return new ModelAndView("mercado");
+    public ModelAndView mercado(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null){
+            String nombreUsuario = (String) session.getAttribute("Usuario");
+            ModelMap modelMap = new ModelMap();
+            modelMap.put("nombreUsuario" , nombreUsuario);
+
+            return new ModelAndView("mercado", modelMap);
+
+        }
+        return new ModelAndView("redirect:/login");
+
     }
 
     @RequestMapping("/about")

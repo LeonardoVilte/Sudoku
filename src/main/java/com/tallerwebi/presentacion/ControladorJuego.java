@@ -32,6 +32,7 @@ public class ControladorJuego {
         if(session != null) {
 
             String emailUsuario = (String) session.getAttribute("email");
+            String nombreUsuario = (String) session.getAttribute("Usuario");
 
             Sudoku sudoku = servicioJuego.crearYGuardarSudoku(dificultad);
             Partida partida = servicioJuego.crearPartidaConSudokuYUsuario(sudoku, emailUsuario, dificultad);
@@ -44,7 +45,7 @@ public class ControladorJuego {
             ModelAndView modelAndView = new ModelAndView("juego");
             modelAndView.addObject("sudoku", sudokuString);
             modelAndView.addObject("sudokuResuelto", sudokuResueltoString);
-
+            modelAndView.addObject("nombreUsuario", nombreUsuario);
             iniciarCronometroSudoku(session);
 
             return modelAndView;

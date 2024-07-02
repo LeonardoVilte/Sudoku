@@ -16,7 +16,7 @@
     <span class="monedas">Monedas =</span>
   </div>
   <div class="navbar-brand ml-auto">
-    <a class="navbar-item" id="perfiltexto" th:href="@{perfil}">Perfil</a>
+    <a class="navbar-item" id="perfiltexto" th:href="@{/perfil/{nombreUsuario}(nombreUsuario=${nombreUsuario})}">Perfil</a>
     <a class="navbar-item" th:href="@{logout}">Cerrar Sesión</a>
   </div>
 </nav>
@@ -31,7 +31,7 @@
         <p class="card-text">En la dificultad facil el tablero de 81 casillas tiene 15 vacias:</p>
         <ul class="list-group list-group-flush">
           <li th:each="partida : ${listaFaciles}" class="list-group-item">
-            <a th:href="@{|/jugar?user=1}"
+            <a th:href="@{/perfil/{nombreUsuario}(nombreUsuario=${partida.getUsuario().getNombre()})}"
                th:text="${partida.getUsuario().getNombre()} + ' - ' + ${partida.getTiempo()}">
             </a>
           </li>
@@ -45,7 +45,7 @@
         <p class="card-text">En la dificultad mediano el tablero de 81 casillas tiene 30 vacias:</p>
         <ul class="list-group list-group-flush">
           <li th:each="partida : ${listaNormales}" class="list-group-item">
-            <a th:href="@{|/jugar?user=1}"
+            <a th:href="@{/perfil/{nombreUsuario}(nombreUsuario=${partida.getUsuario().getNombre()})}"
                th:text="${partida.getUsuario().getNombre()} + ' - ' + ${partida.getTiempo()}">
             </a>
           </li>
@@ -59,7 +59,7 @@
         <p class="card-text">En la dificultad dificil el tablero de 81 casillas tiene 45 vacias:</p>
         <ul class="list-group list-group-flush">
           <li th:each="partida : ${listaDificiles}" class="list-group-item">
-            <a th:href="@{|/jugar?user=1}"
+            <a th:href="@{/perfil/{nombreUsuario}(nombreUsuario=${partida.getUsuario().getNombre()})}"
                th:text="${partida.getUsuario().getNombre()} + ' - ' + ${partida.getTiempo()}">
             </a>
           </li>
