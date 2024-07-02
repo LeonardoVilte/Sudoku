@@ -4,56 +4,47 @@ let segundos = 0;
 
 function togglePause() {
     const sudokuContainer = document.getElementById("contenedor-sudoku");
-    const timerElement = document.getElementById("timer");
     const togglePauseButton = document.getElementById("togglePauseButton");
     const cells = document.querySelectorAll('.celda');
 
-    if (!isPaused) {
+    let esPausa = !isPaused;
+
+    if (esPausa) {
         clearInterval(timerInterval);
-        timerInterval = null;
         sudokuContainer.classList.add("paused");
         togglePauseButton.textContent = "Reanudar";
 
-        // Deshabilitar celdas
+        // Deshabilitar celdas (si es necesario)
         cells.forEach(cell => cell.setAttribute('disabled', true));
     } else {
         timerInterval = setInterval(actualizarTimer, 1000);
         sudokuContainer.classList.remove("paused");
         togglePauseButton.textContent = "Pausa";
 
-        // Habilitar celdas
+        // Habilitar celdas (si es necesario)
         cells.forEach(cell => {
             if (!cell.classList.contains('pre-filled')) {
                 cell.removeAttribute('disabled');
             }
         });
     }
+
+    // Enviar solicitud de pausa o reanudación al backend
+    $.ajax({
+        type: "POST",
+        url: "/spring/jugar?dificultad=1", // Asegúrate de ajustar aquí la URL correcta
+        data: {
+            esPausa: esPausa
+        },
+        success: function(response) {
+            console.log("Operación completada en el backend:", response);
+        },
+        error: function(error) {
+            console.error('Error al comunicarse con el backend:', error);
+        }
+    });
+
     isPaused = !isPaused;
-}
-
-// Pausar el juego
-function pausarJuego() {
-    // Detener el cronómetro en el frontend
-    clearInterval(intervalId);
-
-    // Enviar solicitud de pausa al backend
-    fetch('/pausar', { method: 'POST' })
-        .then(response => response.text())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
-}
-
-// Reanudar el juego
-function reanudarJuego() {
-    // Enviar solicitud de reanudación al backend
-    fetch('/reanudar', { method: 'POST' })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            // Reiniciar el cronómetro en el frontend
-            startTimer();
-        })
-        .catch(error => console.error('Error:', error));
 }
 
 function actualizarTimer() {

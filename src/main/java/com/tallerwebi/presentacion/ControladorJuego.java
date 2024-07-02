@@ -53,16 +53,16 @@ public class ControladorJuego {
         }
     }
 
-    @RequestMapping(value = "/pausar", method = RequestMethod.POST)
-    public ResponseEntity<Void> pausarCronometro(HttpSession session) {
-        pausarCronometroSudoku(session);
-        return ResponseEntity.ok().build();
-    }
-
-    @RequestMapping(value = "/reanudar", method = RequestMethod.POST)
-    public ResponseEntity<Void> reanudarCronometro(HttpSession session) {
-        reanudarCronometroSudoku(session);
-        return ResponseEntity.ok().build();
+    @PostMapping
+    @ResponseBody
+    public String pausaReanudaJuego(@RequestParam("dificultad") int dificultad, @RequestParam("esPausa") boolean esPausa, HttpSession session) {
+        if (esPausa) {
+            pausarCronometroSudoku(session);
+            return "El juego ha sido pausado en el backend.";
+        } else {
+            reanudarCronometroSudoku(session);
+            return "El juego ha sido reanudado en el backend.";
+        }
     }
 
     @RequestMapping(value = "/Resultad0", method = RequestMethod.GET)
