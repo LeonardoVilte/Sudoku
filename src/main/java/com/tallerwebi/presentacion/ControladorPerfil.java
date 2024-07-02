@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ControladorPerfil {
@@ -39,10 +40,12 @@ public class ControladorPerfil {
             servicioUsuario.actualizarUsuario(usuario);
         }
 
+
         modelo.addAttribute("nombre", usuario.getNombre());
         modelo.addAttribute("horasJugadas", usuario.getHorasJugadas());
         modelo.addAttribute("cantidadPartidasJugadas", usuario.getCantidadPartidasJugadas());
         modelo.addAttribute("tiempoPromedioResolucion", usuario.getTiempoPromedioResolucion());
+        modelo.addAttribute("monedas", usuario.getMonedas());
 
         return new ModelAndView("perfil");
     }

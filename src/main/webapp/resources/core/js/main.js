@@ -147,5 +147,64 @@ function matrizAString(matriz) {
     return sudokuString;
 }
 
+let isPaused = false;
+let timerInterval;
+let segundos = 0;
 
+function togglePause() {
+    const sudokuContainer = document.getElementById("contenedor-sudoku");
+    const togglePauseButton = document.getElementById("togglePauseButton");
+    const cells = document.querySelectorAll('.celda');
+
+    let esPausa = !isPaused;
+
+    if (esPausa) {
+        clearInterval(timerInterval);
+        sudokuContainer.classList.add("paused");
+        togglePauseButton.textContent = "Reanudar";
+
+        // Deshabilitar celdas (si es necesario)
+        cells.forEach(cell => cell.setAttribute('disabled', true));
+    } else {
+        timerInterval = setInterval(actualizarTimer, 1000);
+        sudokuContainer.classList.remove("paused");
+        togglePauseButton.textContent = "Pausa";
+
+        // Habilitar celdas (si es necesario)
+        cells.forEach(cell => {
+            if (!cell.classList.contains('pre-filled')) {
+                cell.removeAttribute('disabled');
+            }
+        });
+    }
+
+    // Enviar solicitud de pausa o reanudación al backend
+    $.ajax({
+        type: "POST",
+        url: "/spring/jugar?dificultad=1", // Asegúrate de ajustar aquí la URL correcta
+        data: {
+            esPausa: esPausa
+        },
+        success: function(response) {
+            console.log("Operación completada en el backend:", response);
+        },
+        error: function(error) {
+            console.error('Error al comunicarse con el backend:', error);
+        }
+    });
+
+    isPaused = !isPaused;
+}
+
+function actualizarTimer() {
+    if (!isPaused) {
+        segundos++;
+        const horas = Math.floor(segundos / 3600);
+        const minutos = Math.floor((segundos % 3600) / 60);
+        const segundosRestantes = segundos % 60;
+        const tiempoFormateado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundosRestantes.toString().padStart(2, '0')}`;
+        const timerElement = document.getElementById("timer");
+        timerElement.textContent = tiempoFormateado;
+    }
+}
 

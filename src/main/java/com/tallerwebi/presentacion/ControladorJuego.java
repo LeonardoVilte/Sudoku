@@ -1,11 +1,10 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.Partida;
+import com.tallerwebi.dominio.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import com.tallerwebi.dominio.ServicioJuego;
-import com.tallerwebi.dominio.Sudoku;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,11 +18,13 @@ import java.util.List;
 public class ControladorJuego {
 
     private final ServicioJuego servicioJuego;
+    private final ServicioUsuario servicioUsuario;
 
 
     @Autowired
-    public ControladorJuego(ServicioJuego servicioJuego){
+    public ControladorJuego(ServicioJuego servicioJuego, ServicioUsuario servicioUsuario){
         this.servicioJuego = servicioJuego;
+        this.servicioUsuario = servicioUsuario;
     }
 
     @RequestMapping("/jugar")
@@ -32,6 +33,7 @@ public class ControladorJuego {
 
         if (session != null) {
             String emailUsuario = (String) session.getAttribute("email");
+            Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorEmail(emailUsuario);
 
             Sudoku sudoku = servicioJuego.crearYGuardarSudoku(dificultad);
             Partida partida = servicioJuego.crearPartidaConSudokuYUsuario(sudoku, emailUsuario, dificultad);
@@ -40,13 +42,14 @@ public class ControladorJuego {
 
             String sudokuString = convertirSudokuACadena(sudoku.getTablero());
             String sudokuResueltoString = convertirSudokuACadena(servicioJuego.sudokuResuelto(sudoku.getTablero()));
+            Integer monedas = usuarioBuscado.getMonedas();
 
             ModelAndView modelAndView = new ModelAndView("juego");
             modelAndView.addObject("sudoku", sudokuString);
             modelAndView.addObject("sudokuResuelto", sudokuResueltoString);
+            modelAndView.addObject("monedas", monedas);
 
             iniciarCronometroSudoku(session);
-
             return modelAndView;
         } else {
             return new ModelAndView("redirect:login");
@@ -80,7 +83,12 @@ public class ControladorJuego {
 
         session.removeAttribute("idPartidaActual");
 
-        return new ModelAndView("Resultad0");
+        String email = (String) session.getAttribute("email");
+        Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorEmail(email);
+        ModelMap modelMap = new ModelMap();
+        modelMap.put("monedas", usuarioBuscado.getMonedas());
+
+        return new ModelAndView("Resultad0", modelMap);
     }
 
     private void iniciarCronometroSudoku(HttpSession session) {

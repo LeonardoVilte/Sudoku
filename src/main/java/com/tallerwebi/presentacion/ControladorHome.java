@@ -53,7 +53,10 @@ public class ControladorHome {
 
 
     @RequestMapping("/dificultad")
-    public ModelAndView dificultad() {
+    public ModelAndView dificultad(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorEmail(email);
 
         List<Partida> listaPartidasFaciles = this.servicioJuego.traer3MejoresTiemposPorDificultad(1);
         List<Partida> listaPartidasNormales = this.servicioJuego.traer3MejoresTiemposPorDificultad(2);
@@ -63,18 +66,30 @@ public class ControladorHome {
         modelMap.put("listaFaciles" , listaPartidasFaciles);
         modelMap.put("listaNormales", listaPartidasNormales);
         modelMap.put("listaDificiles", listaPartidasDificiles);
-
+        modelMap.put("monedas", usuarioBuscado.getMonedas());
         return new ModelAndView("dificultad",modelMap);
     }
 
     @RequestMapping("/mercado")
-    public ModelAndView mercado() {
-        return new ModelAndView("mercado");
+    public ModelAndView mercado(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorEmail(email);
+        ModelMap modelMap = new ModelMap();
+        modelMap.put("monedas", usuarioBuscado.getMonedas());
+
+        return new ModelAndView("mercado", modelMap);
     }
 
     @RequestMapping("/about")
-    public ModelAndView about() {
-        return new ModelAndView("about");
+    public ModelAndView about(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorEmail(email);
+        ModelMap modelMap = new ModelMap();
+        modelMap.put("monedas", usuarioBuscado.getMonedas());
+
+        return new ModelAndView("about", modelMap);
     }
 
 }
