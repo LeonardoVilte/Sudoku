@@ -181,7 +181,9 @@ function togglePause() {
 }
 
 function actualizarTimer() {
-    if (!isPaused) {
+    const timerElement = document.getElementById("timer");
+
+    if (timerElement && !isPaused) {
         const tiempoActual = Date.now();
         const tiempoTranscurrido = tiempoActual - tiempoInicio - tiempoPausaTotal;
         const segundosTotales = Math.floor(tiempoTranscurrido / 1000);
@@ -189,12 +191,16 @@ function actualizarTimer() {
         const minutos = Math.floor((segundosTotales % 3600) / 60);
         const segundos = segundosTotales % 60;
 
-        document.getElementById("timer").textContent =
+        timerElement.textContent =
             `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
     }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    timerInterval = setInterval(actualizarTimer, 1000);
+    const timerElement = document.getElementById("timer");
+
+    if (timerElement) {
+        timerInterval = setInterval(actualizarTimer, 1000);
+    }
 });
 
