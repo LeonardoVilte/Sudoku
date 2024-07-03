@@ -13,13 +13,11 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalTime;
 import java.util.List;
 
-
 @Controller
 public class ControladorJuego {
 
     private final ServicioJuego servicioJuego;
     private final ServicioUsuario servicioUsuario;
-
 
     @Autowired
     public ControladorJuego(ServicioJuego servicioJuego, ServicioUsuario servicioUsuario){
@@ -56,27 +54,27 @@ public class ControladorJuego {
         }
     }
 
-    @PostMapping
-    @ResponseBody
-    public String pausaReanudaJuego(@RequestParam("dificultad") int dificultad, @RequestParam("esPausa") boolean esPausa, HttpSession session) {
-        if (esPausa) {
-            pausarCronometroSudoku(session);
-            return "El juego ha sido pausado en el backend.";
-        } else {
-            reanudarCronometroSudoku(session);
-            return "El juego ha sido reanudado en el backend.";
-        }
+    @PostMapping("/pausar")
+    public ResponseEntity<String> pausarJuego(HttpSession session) {
+        pausarCronometroSudoku(session);
+        return ResponseEntity.ok("El juego ha sido pausado en el backend.");
+    }
+
+    @PostMapping("/reanudar")
+    public ResponseEntity<String> reanudarJuego(HttpSession session) {
+        reanudarCronometroSudoku(session);
+        return ResponseEntity.ok("El juego ha sido reanudado en el backend.");
     }
 
     @RequestMapping(value = "/Resultad0", method = RequestMethod.GET)
-    public ModelAndView mostrarResultado(HttpServletRequest request, @RequestParam("resuelto") boolean resuelto) {
+    public ModelAndView mostrarResultado(HttpServletRequest request, @RequestParam("tiempo") String tiempo, @RequestParam("resuelto") boolean resuelto) {
         HttpSession session = request.getSession(false);
 
         String emailUsuario = (String) session.getAttribute("email");
         Long idPartidaActual = (Long) session.getAttribute("idPartidaActual");
 
-        LocalTime tiempoResuelto = extraerTiempoDeResolucion(session);
-        Long tiempoResueltoEnLong = extraerTiempoEnLong(session);
+        LocalTime tiempoResuelto = LocalTime.parse(tiempo);
+        Long tiempoResueltoEnLong = tiempoToLong(tiempoResuelto);
 
         servicioJuego.guardarTiemposEnLaPartida(idPartidaActual, tiempoResuelto, resuelto);
         this.servicioJuego.guardarTiemposEnElUsuario(emailUsuario, tiempoResueltoEnLong);
@@ -87,6 +85,7 @@ public class ControladorJuego {
         Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorEmail(email);
         ModelMap modelMap = new ModelMap();
         modelMap.put("monedas", usuarioBuscado.getMonedas());
+        modelMap.put("tiempoResuelto", tiempo);  // Añadir el tiempo resuelto al modelo
 
         return new ModelAndView("Resultad0", modelMap);
     }
@@ -115,42 +114,33 @@ public class ControladorJuego {
         session.setAttribute("tiempoInicial", tiempoInicial);
     }
 
-    private LocalTime extraerTiempoDeResolucion(HttpSession session) {
-        Long tiempoInicial = (Long) session.getAttribute("tiempoInicial");
-        Long tiempoPausado = (Long) session.getAttribute("tiempoPausado");
-        long tiempoSudoku = (tiempoInicial != null ? System.currentTimeMillis() - tiempoInicial : 0) + tiempoPausado;
-
-        long segundos = tiempoSudoku / 1000;
-        long horas = segundos / 3600;
-        long minutos = (segundos % 3600) / 60;
-        segundos = segundos % 60;
-        return LocalTime.of((int) horas, (int) minutos, (int) segundos);
-    }
-
     private Long extraerTiempoEnLong(HttpSession session) {
         Long tiempoInicial = (Long) session.getAttribute("tiempoInicial");
         Long tiempoPausado = (Long) session.getAttribute("tiempoPausado");
         return (tiempoInicial != null ? System.currentTimeMillis() - tiempoInicial : 0) + tiempoPausado;
     }
 
+    private Long tiempoToLong(LocalTime tiempo) {
+        return tiempo.toSecondOfDay() * 1000L;
+    }
 
     private String convertirSudokuACadena (Integer[][]tablero){
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < tablero.length; i++) {
-                for (int j = 0; j < tablero[i].length; j++) {
-                    if (tablero[i][j] != 0) {
-                        sb.append(tablero[i][j]);
-                    } else {
-                        sb.append(" ");
-                    }
-                    if (j < tablero[i].length - 1) {
-                        sb.append(",");
-                    }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[i].length; j++) {
+                if (tablero[i][j] != 0) {
+                    sb.append(tablero[i][j]);
+                } else {
+                    sb.append(" ");
                 }
-                if (i < tablero.length - 1) {
-                    sb.append(";");
+                if (j < tablero[i].length - 1) {
+                    sb.append(",");
                 }
             }
-            return sb.toString();
+            if (i < tablero.length - 1) {
+                sb.append(";");
+            }
+        }
+        return sb.toString();
     }
 }
