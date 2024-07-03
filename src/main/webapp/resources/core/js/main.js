@@ -197,9 +197,7 @@ function actualizarTimer() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const timerElement = document.getElementById("timer");
-
-    if (timerElement) {
+    if (document.getElementById("timer")) { // Verificar si estamos en la vista del juego
         timerInterval = setInterval(actualizarTimer, 1000);
     }
 });

@@ -89,17 +89,17 @@ public class ControladorJuego {
     }
 
     @RequestMapping(value = "/Resultad0", method = RequestMethod.GET)
-    public ModelAndView mostrarResultado(HttpServletRequest request, @RequestParam("resuelto") boolean resuelto) {
+    public ModelAndView mostrarResultado(HttpServletRequest request, @RequestParam("resuelto") boolean resuelto, @RequestParam("tiempo") String tiempoResuelto) {
         HttpSession session = request.getSession(false);
 
         if (session != null) {
             String emailUsuario = (String) session.getAttribute("email");
             Long idPartidaActual = (Long) session.getAttribute("idPartidaActual");
 
-            LocalTime tiempoResuelto = extraerTiempoDeResolucion(session);
-            Long tiempoResueltoEnLong = extraerTiempoEnLong(session);
+            LocalTime tiempoResueltoLocalTime = LocalTime.parse(tiempoResuelto);
+            Long tiempoResueltoEnLong = tiempoToLong(tiempoResueltoLocalTime);
 
-            servicioJuego.guardarTiemposEnLaPartida(idPartidaActual, tiempoResuelto, resuelto);
+            servicioJuego.guardarTiemposEnLaPartida(idPartidaActual, tiempoResueltoLocalTime, resuelto);
             this.servicioJuego.guardarTiemposEnElUsuario(emailUsuario, tiempoResueltoEnLong);
 
             session.removeAttribute("idPartidaActual");
@@ -107,7 +107,7 @@ public class ControladorJuego {
             Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorEmail(emailUsuario);
             ModelMap modelMap = new ModelMap();
             modelMap.put("monedas", usuarioBuscado.getMonedas());
-            modelMap.put("tiempoResuelto", tiempoResuelto.toString()); // Pasar el tiempo resuelto al modelo
+            modelMap.put("tiempoResuelto", tiempoResuelto); // Pasar el tiempo resuelto al modelo
 
             return new ModelAndView("Resultad0", modelMap);
         } else {
