@@ -19,25 +19,13 @@
             <a class="navbar-item" th:href="@{/logout}">Cerrar Sesión</a>
         </div>
     </nav>
-<div class="container center-div">
-    <h1 class="text-center mb-4">¡COMPLETADO!</h1>
-    <div class="text-center">
-        <p>Tiempo transcurrido: <span class="timer" id="tiempoTranscurrido">00:00:00</span></p>
-        <button onclick="window.location.href='/spring/home'" class="btn btn-primary">Volver al Inicio</button>
+    <div class="container center-div">
+        <h1 class="text-center mb-4">¡COMPLETADO!</h1>
+        <div class="text-center">
+            <p>Tiempo transcurrido: <span class="timer" th:text="${tiempoResuelto}">00:00:00</span></p>
+            <button onclick="window.location.href='/spring/home'" class="btn btn-primary">Volver al Inicio</button>
+        </div>
     </div>
-</div>
-
-<script>
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const tiempo = urlParams.get('tiempo');
-
-        if (tiempo) {
-            const tiempoTranscurridoElement = document.getElementById('tiempoTranscurrido');
-            tiempoTranscurridoElement.textContent = tiempo;
-        }
-    };
-</script>
-<script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -66,28 +67,52 @@ public class ControladorJuego {
         return ResponseEntity.ok("El juego ha sido reanudado en el backend.");
     }
 
+    private LocalTime extraerTiempoDeResolucion(HttpSession session) {
+        LocalTime tiempoInicio = (LocalTime) session.getAttribute("tiempoInicio");
+        LocalTime tiempoPausa = (LocalTime) session.getAttribute("tiempoPausa");
+        Long tiempoTotalPausas = (Long) session.getAttribute("tiempoTotalPausas");
+
+        if (tiempoInicio == null) {
+            tiempoInicio = LocalTime.now();
+            session.setAttribute("tiempoInicio", tiempoInicio);
+        }
+
+        if (tiempoTotalPausas == null) {
+            tiempoTotalPausas = 0L;
+            session.setAttribute("tiempoTotalPausas", tiempoTotalPausas);
+        }
+
+        LocalTime tiempoActual = LocalTime.now();
+        Long tiempoTranscurrido = Duration.between(tiempoInicio, tiempoActual).getSeconds() - tiempoTotalPausas;
+
+        return LocalTime.ofSecondOfDay(tiempoTranscurrido);
+    }
+
     @RequestMapping(value = "/Resultad0", method = RequestMethod.GET)
-    public ModelAndView mostrarResultado(HttpServletRequest request, @RequestParam("tiempo") String tiempo, @RequestParam("resuelto") boolean resuelto) {
+    public ModelAndView mostrarResultado(HttpServletRequest request, @RequestParam("resuelto") boolean resuelto) {
         HttpSession session = request.getSession(false);
 
-        String emailUsuario = (String) session.getAttribute("email");
-        Long idPartidaActual = (Long) session.getAttribute("idPartidaActual");
+        if (session != null) {
+            String emailUsuario = (String) session.getAttribute("email");
+            Long idPartidaActual = (Long) session.getAttribute("idPartidaActual");
 
-        LocalTime tiempoResuelto = LocalTime.parse(tiempo);
-        Long tiempoResueltoEnLong = tiempoToLong(tiempoResuelto);
+            LocalTime tiempoResuelto = extraerTiempoDeResolucion(session);
+            Long tiempoResueltoEnLong = extraerTiempoEnLong(session);
 
-        servicioJuego.guardarTiemposEnLaPartida(idPartidaActual, tiempoResuelto, resuelto);
-        this.servicioJuego.guardarTiemposEnElUsuario(emailUsuario, tiempoResueltoEnLong);
+            servicioJuego.guardarTiemposEnLaPartida(idPartidaActual, tiempoResuelto, resuelto);
+            this.servicioJuego.guardarTiemposEnElUsuario(emailUsuario, tiempoResueltoEnLong);
 
-        session.removeAttribute("idPartidaActual");
+            session.removeAttribute("idPartidaActual");
 
-        String email = (String) session.getAttribute("email");
-        Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorEmail(email);
-        ModelMap modelMap = new ModelMap();
-        modelMap.put("monedas", usuarioBuscado.getMonedas());
-        modelMap.put("tiempoResuelto", tiempo);  // Añadir el tiempo resuelto al modelo
+            Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorEmail(emailUsuario);
+            ModelMap modelMap = new ModelMap();
+            modelMap.put("monedas", usuarioBuscado.getMonedas());
+            modelMap.put("tiempoResuelto", tiempoResuelto.toString()); // Pasar el tiempo resuelto al modelo
 
-        return new ModelAndView("Resultad0", modelMap);
+            return new ModelAndView("Resultad0", modelMap);
+        } else {
+            return new ModelAndView("redirect:login");
+        }
     }
 
     private void iniciarCronometroSudoku(HttpSession session) {
