@@ -3,19 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <title>Juego</title>
-
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/juegoSudokuEstilos.css}"/>
-
 </head>
 <body>
 <main role="main" class="container">
     <nav class="navbar">
         <div class="navbar-item">Sudoku</div>
         <div class="navbar-item monedas">
-            <span class="monedas">Monedas =</span>
+            <a th:href="@{/comprar}" class="btn btn-link"><span class="monedas">Monedas</span></a> = <span th:text="${monedas}"></span>
         </div>
         <div class="navbar-brand ml-auto">
             <a class="navbar-item" id="perfiltexto" th:href="@{/perfil/{nombreUsuario}(nombreUsuario=${nombreUsuario})}">Perfil</a>
@@ -29,6 +26,8 @@
                 <tbody id="tablero-sudoku-rta" th:data-sudoku-resuelto="${sudokuResuelto}">
                 </tbody>
             </table>
+            <div id="texto-pausa">Pausa</div>
+
         </div>
         <div id="teclado-numeric">
             <button class="tecla" data-numero="1">1</button>
@@ -44,26 +43,17 @@
     </div>
     <div class="timer-container">
         <div class="timer" id="timer">00:00:00</div>
-
-
         <button class="button" onclick="ayuda()">Ayuda</button>
         <button class="button" onclick="pista()">Pista</button>
-
         <button class="button" id="toggleAnotacionesButton">Activar Anotaciones</button>
-
         <button class="button" onclick="resolverSudoku()" id="rendirse">Mostrar resultado/Rendirse</button>
-
-        <div id="botonContainer">
-
-        </div>
-
+        <button class="button" id="togglePauseButton" onclick="togglePause()">Pausa</button>
+        <div id="botonContainer"></div>
     </div>
-
-
 </main>
-
 </body>
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script th:src="@{/js/tablero.js}"></script>
 <script th:src="@{/js/main.js}"></script>
 </html>

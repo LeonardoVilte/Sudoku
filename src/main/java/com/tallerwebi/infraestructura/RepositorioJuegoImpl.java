@@ -72,6 +72,4 @@ public class RepositorioJuegoImpl implements RepositorioJuego {
                 .setParameter("idPartidaActual", idPartidaActual)
                 .executeUpdate();
     }
-
-
 }

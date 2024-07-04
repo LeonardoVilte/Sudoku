@@ -19,6 +19,10 @@ public class Usuario {
     private Long horasJugadas = 0L; // Inicializamos en cero
     private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
     private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
+    private Integer monedas = 0;
+    // private Integer pistas = 6;
+    // private Integer ayudas = 3;
+
 
     public String getNombre() {
         return nombre;
@@ -51,7 +55,6 @@ public class Usuario {
     public void setTiempoPromedioResolucion(Double tiempoPromedioResolucion) {
         this.tiempoPromedioResolucion = tiempoPromedioResolucion;
     }
-
 
     public Long getId() {
         return id;
@@ -91,4 +94,13 @@ public class Usuario {
     public void activar() {
         activo = true;
     }
+
+    public int getMonedas() {
+        return monedas;
+    }
+
+    public void setMonedas(int monedas) {
+        this.monedas = monedas;
+    }
+//
 }

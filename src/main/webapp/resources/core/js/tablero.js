@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function() {
     const tablaSudoku = document.getElementById("tablero-sudoku");
     let sudokuMatriz = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
     let sudokuInicial = sudokuMatriz;
     const medidaCuadricula = 9;
 
     const timerElement = document.getElementById('timer');
-    let segundos = 0;
+    segundos = 0;  // Inicializar los segundos aquí
 
     const toggleAnotacionesButton = document.getElementById('toggleAnotacionesButton');
     let modoAnotaciones = false;
@@ -18,80 +18,69 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    for(let fila = 0; fila < medidaCuadricula; fila++){
-        const nuevaFila = document.createElement("tr");
-        for(let columna = 0; columna < medidaCuadricula; columna++){
-            const celda = document.createElement("td");
+for (let fila = 0; fila < medidaCuadricula; fila++) {
+    const nuevaFila = document.createElement("tr");
+    for (let columna = 0; columna < medidaCuadricula; columna++) {
+        const celda = document.createElement("td");
 
-            const annotationsDiv = document.createElement('div');
-            annotationsDiv.classList.add('annotations');
-            annotationsDiv.style.display = 'none';
+        const annotationsDiv = document.createElement('div');
+        annotationsDiv.classList.add('annotations');
+        annotationsDiv.style.display = 'none';
 
-            for (let k = 1; k <= 9; k++) {
-                const annotation = document.createElement('div');
-                annotation.classList.add('annotation');
-                annotation.textContent = k;
-                annotationsDiv.appendChild(annotation);
-            }
-
-            const input = document.createElement("input");
-            input.type = "number";
-            input.className = "celda";
-            input.id = `celda-${fila}-${columna}`;
-            if(sudokuInicial[fila][columna] !== 0) {
-                input.setAttribute("disabled", "true");
-            }
-            input.addEventListener('input', function(event){
-                if (!/^[1-9]$/.test(input.value) && input.value !== null && input.value !== "") {
-                    alert("El numero no es valido, ingrese un valor entre 1 y 9");
-                    input.value = "";
-                } else {
-                    if (modoAnotaciones && /^[1-9]$/.test(input.value)) {
-                        const annotation = annotationsDiv.querySelector(`.annotation:nth-child(${input.value})`);
-                        annotation.style.display = annotation.style.display === 'flex' ? 'none' : 'flex';
-                        input.value = '';
-                    } else {
-                        sudokuMatriz[fila][columna] = parseInt(input.value);
-                        document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(sudokuMatriz);
-                        if (!esNumeroValido(sudokuMatriz, fila, columna, parseInt(input.value))) {
-                            input.style.backgroundColor = 'red';
-                        } else {
-                            input.style.backgroundColor = '';
-                        }
-                        terminado();
-                    }
-                }
-            });
-
-            celda.appendChild(annotationsDiv);
-            celda.appendChild(input);
-            nuevaFila.appendChild(celda);
+        for (let k = 1; k <= 9; k++) {
+            const annotation = document.createElement('div');
+            annotation.classList.add('annotation');
+            annotation.textContent = k;
+            annotationsDiv.appendChild(annotation);
         }
-        tablaSudoku.appendChild(nuevaFila);
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.className = "celda";
+        input.id = `celda-${fila}-${columna}`;
+        if (sudokuInicial[fila][columna] !== 0) {
+            input.setAttribute("disabled", "true");
+            input.classList.add('pre-filled');
+        }
+        input.addEventListener('input', function(event) {
+            if (!/^[1-9]$/.test(input.value) && input.value !== null && input.value !== "") {
+                alert("El numero no es valido, ingrese un valor entre 1 y 9");
+                input.value = "";
+            } else {
+                if (modoAnotaciones && /^[1-9]$/.test(input.value)) {
+                    const annotation = annotationsDiv.querySelector(`.annotation:nth-child(${input.value})`);
+                    annotation.style.display = annotation.style.display === 'flex' ? 'none' : 'flex';
+                    input.value = '';
+                } else {
+                    sudokuMatriz[fila][columna] = parseInt(input.value);
+                    document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(sudokuMatriz);
+                    if (!esNumeroValido(sudokuMatriz, fila, columna, parseInt(input.value))) {
+                        input.style.backgroundColor = 'red';
+                    } else {
+                        input.style.backgroundColor = '';
+                    }
+                    terminado();
+                }
+            }
+        });
+
+        celda.appendChild(annotationsDiv);
+        celda.appendChild(input);
+        nuevaFila.appendChild(celda);
     }
+    tablaSudoku.appendChild(nuevaFila);
+}
 
     imprimirSudoku(sudokuMatriz);
 
-    function actualizarTimer() {
-        segundos++;
-        const horas = Math.floor(segundos / 3600);
-        const minutos = Math.floor((segundos % 3600) / 60);
-        const segundosRestantes = segundos % 60;
-        const tiempoFormateado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundosRestantes.toString().padStart(2, '0')}`;
-        timerElement.textContent = tiempoFormateado;
-    }
-
-    setInterval(actualizarTimer, 1000);
+    timerInterval = setInterval(actualizarTimer, 1000);
 
     let selectedCell = null;
-
 
     let posicionX = null;
     let posicionY = null;
 
-
     function selectCell(event) {
-
         if (selectedCell) {
             selectedCell.classList.remove('selected');
         }
@@ -126,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 } else {
                     selectedCell.style.backgroundColor = '';
                 }
-
                 selectedCell.classList.remove('selected');
                 selectedCell = null;
             }

@@ -5,39 +5,27 @@
     <title>Resultado</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
-    <link rel="stylesheet" th:href="@{/css/resultado.css}"/> <!-- Añadir el nuevo archivo CSS -->
+    <link rel="stylesheet" th:href="@{/css/resultado.css}"/>
 </head>
 <body>
 <main role="main" class="container">
     <nav class="navbar">
         <div class="navbar-item">Sudoku</div>
         <div class="navbar-item monedas">
-            <span class="monedas">Monedas =</span>
+            <a th:href="@{/comprar}" class="btn btn-link"><span class="monedas">Monedas</span></a> = <span th:text="${monedas}"></span>
         </div>
         <div class="navbar-brand ml-auto">
-            <a class="navbar-item" id="perfiltexto" th:href="@{perfil}">Perfil</a>
-            <a class="navbar-item" th:href="@{logout}">Cerrar Sesión</a>
+            <a class="navbar-item" id="perfiltexto" th:href="@{/perfil}">Perfil</a>
+            <a class="navbar-item" th:href="@{/logout}">Cerrar Sesión</a>
         </div>
     </nav>
-<div class="container center-div">
-    <h1 class="text-center mb-4">¡COMPLETADO!</h1>
-    <div class="text-center">
-        <p>Tiempo transcurrido: <span class="timer" id="tiempoTranscurrido">00:00:00</span></p>
-        <button onclick="window.location.href='/spring/home'" class="btn btn-primary">Volver al Inicio</button>
+    <div class="container center-div">
+        <h1 class="text-center mb-4">¡COMPLETADO!</h1>
+        <div class="text-center">
+            <p>Tiempo transcurrido: <span class="timer" th:text="${tiempoResuelto}">00:00:00</span></p>
+            <button onclick="window.location.href='/spring/home'" class="btn btn-primary">Volver al Inicio</button>
+        </div>
     </div>
-</div>
-
-<script>
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const tiempo = urlParams.get('tiempo');
-
-        if (tiempo) {
-            const tiempoTranscurridoElement = document.getElementById('tiempoTranscurrido');
-            tiempoTranscurridoElement.textContent = tiempo;
-        }
-    };
-</script>
-<script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
 </body>
 </html>

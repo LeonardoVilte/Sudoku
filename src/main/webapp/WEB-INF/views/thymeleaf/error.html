@@ -1,0 +1,15 @@
+<!-- error.jsp -->
+<html>
+<head>
+    <title>Error</title>
+</head>
+<body>
+<h1>Ocurrió un error</h1>
+<p>${errorMessage}</p>
+<pre>
+    <c:forEach var="traceElement" items="${stackTrace}">
+        ${traceElement}<br/>
+    </c:forEach>
+    </pre>
+</body>
+</html>

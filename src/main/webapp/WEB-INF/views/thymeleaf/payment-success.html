@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pago Exitoso</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/payment.css}"/>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title text-center text-success">¡Pago Exitoso!</h1>
+                    <p class="card-text text-center">Gracias por tu compra. Tu pago se ha procesado correctamente.</p>
+                    <a th:href="@{/home}" class="btn btn-primary btn-block">Volver al inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
