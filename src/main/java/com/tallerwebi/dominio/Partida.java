@@ -65,4 +65,9 @@ public class Partida {
     public void setTiempo(LocalTime tiempo) {
         this.tiempo = tiempo;
     }
+
+    public long getTiempoEnSegundos(){
+        return tiempo.toSecondOfDay();
+    }
+
 }

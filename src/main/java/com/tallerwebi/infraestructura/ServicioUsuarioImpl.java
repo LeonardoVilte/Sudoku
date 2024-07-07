@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalTime;
 
 @Service("servicioUsuario")
 @Transactional
@@ -51,6 +52,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
             usuario.setMonedas(usuario.getMonedas() + notification.getCantidadMonedas());
             actualizarUsuario(usuario);
         }
+    }
+
+    @Override
+    public LocalTime obtenerTiempoJugadoEnTodasLasPartidas(Usuario usuario) {
+        return this.repositorioUsuario.obtenerTiempoJugadoDelUsuario(usuario);
     }
 
     @Override

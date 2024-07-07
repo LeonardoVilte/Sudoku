@@ -1,5 +1,6 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.Partida;
 import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.Usuario;
 import org.hibernate.Session;
@@ -8,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository("repositorioUsuario")
@@ -68,6 +70,21 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .setParameter("idUsuario", idUsuario)
                 .setParameter("partidasTotalesJugadas", partidasTotalesJugadas)
                 .executeUpdate();
+    }
+
+    @Override
+    public LocalTime obtenerTiempoJugadoDelUsuario(Usuario usuario) {
+        Session session = sessionFactory.getCurrentSession();
+
+        List<Partida> partidas = session.createQuery("FROM Partida p WHERE p.usuario.id = :usuarioId", Partida.class)
+                .setParameter("usuarioId", usuario.getId())
+                .getResultList();
+
+        Long totalSegundos = partidas.stream()
+                .mapToLong(Partida::getTiempoEnSegundos)
+                .sum();
+
+        return LocalTime.ofSecondOfDay(totalSegundos);
     }
 
 

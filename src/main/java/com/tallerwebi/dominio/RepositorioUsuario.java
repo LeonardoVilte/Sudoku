@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio;
 
+import java.time.LocalTime;
 import java.util.List;
 
 public interface RepositorioUsuario {
@@ -15,5 +16,7 @@ public interface RepositorioUsuario {
     List<Usuario> traerRankingUsuarios();
 
     void actualizarDatosDeLaPartida(Usuario usuario, Long tiempoResuelto);
+
+    LocalTime obtenerTiempoJugadoDelUsuario(Usuario usuario);
 }
 

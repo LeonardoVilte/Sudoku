@@ -167,7 +167,7 @@ function togglePause() {
 
     $.ajax({
         type: "POST",
-        url: "/spring/jugar?dificultad=1", // Asegúrate de ajustar aquí la URL correcta
+        url: "/spring/jugar/pausar", // Asegúrate de ajustar aquí la URL correcta
         data: {
             esPausa: isPaused
         },

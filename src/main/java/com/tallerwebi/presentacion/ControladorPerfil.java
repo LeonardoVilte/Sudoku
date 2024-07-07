@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalTime;
 
 @Controller
 public class ControladorPerfil {
@@ -27,12 +28,11 @@ public class ControladorPerfil {
         if(!this.servicioUsuario.siUsuarioExiste(nombreUsuario)){
             return new ModelAndView("redirect:/login");
         }
-
         Usuario usuario = this.servicioUsuario.obtenerUsuarioPorNombre(nombreUsuario);
-
+        LocalTime tiempoJugado = this.servicioUsuario.obtenerTiempoJugadoEnTodasLasPartidas(usuario);
 
         modelo.addAttribute("nombre", usuario.getNombre());
-        modelo.addAttribute("horasJugadas", usuario.getHorasJugadas());
+        modelo.addAttribute("horasJugadas", tiempoJugado);
         modelo.addAttribute("cantidadPartidasJugadas", usuario.getCantidadPartidasJugadas());
         modelo.addAttribute("tiempoPromedioResolucion", usuario.getTiempoPromedioResolucion());
         modelo.addAttribute("monedas", usuario.getMonedas());

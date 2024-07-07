@@ -58,18 +58,6 @@ public class ControladorJuego {
         }
     }
 
-    @PostMapping("/pausar")
-    public ResponseEntity<String> pausarJuego(HttpSession session) {
-        pausarCronometroSudoku(session);
-        return ResponseEntity.ok("El juego ha sido pausado en el backend.");
-    }
-
-    @PostMapping("/reanudar")
-    public ResponseEntity<String> reanudarJuego(HttpSession session) {
-        reanudarCronometroSudoku(session);
-        return ResponseEntity.ok("El juego ha sido reanudado en el backend.");
-    }
-
     private LocalTime extraerTiempoDeResolucion(HttpSession session) {
         LocalTime tiempoInicio = (LocalTime) session.getAttribute("tiempoInicio");
         LocalTime tiempoPausa = (LocalTime) session.getAttribute("tiempoPausa");
@@ -127,19 +115,31 @@ public class ControladorJuego {
         session.setAttribute("tiempoInicial", tiempoInicial);
         session.setAttribute("tiempoPausado", 0L);
     }
+    @PostMapping("/pausar")
+    public ResponseEntity<String> pausarJuego(HttpSession session) {
+        pausarCronometroSudoku(session);
+        return ResponseEntity.ok("El juego ha sido pausado en el backend.");
+    }
+
+    @PostMapping("/reanudar")
+    public ResponseEntity<String> reanudarJuego(HttpSession session) {
+        reanudarCronometroSudoku(session);
+        return ResponseEntity.ok("El juego ha sido reanudado en el backend.");
+    }
 
     private void pausarCronometroSudoku(HttpSession session) {
-        Long tiempoInicial = (Long) session.getAttribute("tiempoInicial");
-        Long tiempoPausado = (Long) session.getAttribute("tiempoPausado");
-        tiempoPausado += System.currentTimeMillis() - tiempoInicial;
-        session.setAttribute("tiempoPausado", tiempoPausado);
-        session.removeAttribute("tiempoInicial");
+        Long tiempoDeLaPausa = System.currentTimeMillis();
+        session.setAttribute("tiempoDeLaPausa", tiempoDeLaPausa);
     }
 
     private void reanudarCronometroSudoku(HttpSession session) {
         Long tiempoPausado = (Long) session.getAttribute("tiempoPausado");
-        Long tiempoInicial = System.currentTimeMillis() - tiempoPausado;
-        session.setAttribute("tiempoInicial", tiempoInicial);
+
+        Long tiempoDeLaPausa = (Long) session.getAttribute("tiempoDeLaPausa");
+        tiempoPausado += System.currentTimeMillis() - tiempoDeLaPausa;
+
+        session.removeAttribute("tiempoDeLaPausa");
+        session.setAttribute("tiempoPausado", tiempoPausado);
     }
 
     private Long extraerTiempoEnLong(HttpSession session) {
