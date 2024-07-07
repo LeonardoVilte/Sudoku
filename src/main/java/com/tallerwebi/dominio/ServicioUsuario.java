@@ -16,4 +16,6 @@ public interface ServicioUsuario {
     void actualizarMonedas(MercadoPagoNotification notification);
 
     LocalTime obtenerTiempoJugadoEnTodasLasPartidas(Usuario usuario);
+
+    Integer obtenerCantidadDePartidasCompletadas(Usuario usuario);
 }

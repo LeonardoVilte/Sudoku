@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.nio.channels.SeekableByteChannel;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -85,6 +86,16 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .sum();
 
         return LocalTime.ofSecondOfDay(totalSegundos);
+    }
+
+    @Override
+    public Integer obtenerCantidadDePartidasCompletadas(Usuario usuario) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Long cantidadPartidasCompletadas = session.createQuery("SELECT count(p) FROM Partida p WHERE p.usuario.id= :usuarioId AND  p.resuelto = true", Long.class)
+                .setParameter("usuarioId" , usuario.getId())
+                .uniqueResult();
+        return cantidadPartidasCompletadas !=null ? cantidadPartidasCompletadas.intValue() : 0;
     }
 
 

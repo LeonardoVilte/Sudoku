@@ -18,5 +18,7 @@ public interface RepositorioUsuario {
     void actualizarDatosDeLaPartida(Usuario usuario, Long tiempoResuelto);
 
     LocalTime obtenerTiempoJugadoDelUsuario(Usuario usuario);
+
+    Integer obtenerCantidadDePartidasCompletadas(Usuario usuario);
 }
 

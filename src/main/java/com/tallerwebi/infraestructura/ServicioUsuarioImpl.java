@@ -60,6 +60,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
+    public Integer obtenerCantidadDePartidasCompletadas(Usuario usuario) {
+        return this.repositorioUsuario.obtenerCantidadDePartidasCompletadas(usuario);
+    }
+
+    @Override
     public Usuario obtenerUsuarioActual() throws UsuarioNoEncontrado {
         Usuario usuario = repositorioUsuario.buscarPorEmail("test@unlam.edu.ar");
         if (usuario == null) {

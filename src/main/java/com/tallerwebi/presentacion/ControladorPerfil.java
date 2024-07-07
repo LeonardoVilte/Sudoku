@@ -30,10 +30,12 @@ public class ControladorPerfil {
         }
         Usuario usuario = this.servicioUsuario.obtenerUsuarioPorNombre(nombreUsuario);
         LocalTime tiempoJugado = this.servicioUsuario.obtenerTiempoJugadoEnTodasLasPartidas(usuario);
+        Integer partidasCompletadas = this.servicioUsuario.obtenerCantidadDePartidasCompletadas(usuario);
 
         modelo.addAttribute("nombre", usuario.getNombre());
         modelo.addAttribute("horasJugadas", tiempoJugado);
         modelo.addAttribute("cantidadPartidasJugadas", usuario.getCantidadPartidasJugadas());
+        modelo.addAttribute("cantidasDePartidasCompletadas", partidasCompletadas);
         modelo.addAttribute("tiempoPromedioResolucion", usuario.getTiempoPromedioResolucion());
         modelo.addAttribute("monedas", usuario.getMonedas());
 
