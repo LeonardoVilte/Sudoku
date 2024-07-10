@@ -17,12 +17,27 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario" , cascade = CascadeType.ALL)
     private List<Partida> partidas;
     private Long horasJugadas = 0L; // Inicializamos en cero
-    private Integer cantidadPartidasJugadas = 0; // Inicializamos en cero
-    private Double tiempoPromedioResolucion = 0.0; // En minutos o segundos
+    private Integer cantidadPartidasJugadas = 0;
+    private Double tiempoPromedioResolucion = 0.0;
     private Integer monedas = 0;
-    // private Integer pistas = 6;
-    // private Integer ayudas = 3;
+    private Integer pistasDisponibles = 6;
+    private Integer ayudasDisponibles  = 3;
 
+    public Integer getPistasDisponibles() {
+        return pistasDisponibles;
+    }
+
+    public void setPistasDisponibles(Integer pistasDisponibles) {
+        this.pistasDisponibles = pistasDisponibles;
+    }
+
+    public Integer getAyudasDisponibles() {
+        return ayudasDisponibles;
+    }
+
+    public void setAyudasDisponibles(Integer ayudasDisponibles) {
+        this.ayudasDisponibles = ayudasDisponibles;
+    }
 
     public String getNombre() {
         return nombre;
