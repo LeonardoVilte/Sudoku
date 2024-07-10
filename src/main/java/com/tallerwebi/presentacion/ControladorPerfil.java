@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.Duration;
 import java.time.LocalTime;
 
 @Controller
@@ -31,12 +32,13 @@ public class ControladorPerfil {
         Usuario usuario = this.servicioUsuario.obtenerUsuarioPorNombre(nombreUsuario);
         LocalTime tiempoJugado = this.servicioUsuario.obtenerTiempoJugadoEnTodasLasPartidas(usuario);
         Integer partidasCompletadas = this.servicioUsuario.obtenerCantidadDePartidasCompletadas(usuario);
+        LocalTime promedioResolucion = this.servicioUsuario.obtenerTiempoPromedioDeResolucion(usuario);
 
         modelo.addAttribute("nombre", usuario.getNombre());
         modelo.addAttribute("horasJugadas", tiempoJugado);
         modelo.addAttribute("cantidadPartidasJugadas", usuario.getCantidadPartidasJugadas());
         modelo.addAttribute("cantidasDePartidasCompletadas", partidasCompletadas);
-        modelo.addAttribute("tiempoPromedioResolucion", usuario.getTiempoPromedioResolucion());
+        modelo.addAttribute("tiempoPromedioResolucion", promedioResolucion);
         modelo.addAttribute("monedas", usuario.getMonedas());
 
         return new ModelAndView("perfil");

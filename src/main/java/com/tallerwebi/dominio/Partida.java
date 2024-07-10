@@ -67,6 +67,9 @@ public class Partida {
     }
 
     public long getTiempoEnSegundos(){
+        if (tiempo == null) {
+            return 0;
+        }
         return tiempo.toSecondOfDay();
     }
 

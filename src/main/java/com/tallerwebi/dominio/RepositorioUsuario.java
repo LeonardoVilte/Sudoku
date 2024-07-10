@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -20,5 +21,7 @@ public interface RepositorioUsuario {
     LocalTime obtenerTiempoJugadoDelUsuario(Usuario usuario);
 
     Integer obtenerCantidadDePartidasCompletadas(Usuario usuario);
+
+    LocalTime obtenerTiempoPromedio(Usuario usuario);
 }
 

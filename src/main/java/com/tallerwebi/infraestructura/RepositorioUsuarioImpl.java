@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.nio.channels.SeekableByteChannel;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -98,6 +99,33 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         return cantidadPartidasCompletadas !=null ? cantidadPartidasCompletadas.intValue() : 0;
     }
 
+    @Override
+    public LocalTime obtenerTiempoPromedio(Usuario usuario) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Object[] resultado = (Object[]) session.createQuery(
+                        "SELECT SUM(HOUR(p.tiempo) * 3600 + MINUTE(p.tiempo) * 60 + SECOND(p.tiempo)), COUNT(p) " +
+                                "FROM Partida p WHERE p.usuario.id = :usuarioId AND p.resuelto = true")
+                .setParameter("usuarioId", usuario.getId())
+                .uniqueResult();
+
+        Long segundosTotales = (Long) resultado[0];
+        Long count = (Long) resultado[1];
+
+        if (segundosTotales == null || count == 0) {
+            return LocalTime.of(0, 0, 0);
+        }
+
+        long promedioSegundos = segundosTotales / count;
+
+
+        long hours = promedioSegundos / 3600;
+        long minutes = (promedioSegundos % 3600) / 60;
+        long seconds = promedioSegundos % 60;
+
+        return LocalTime.of((int) hours, (int) minutes, (int) seconds);
+
+    }
 
     @Override
     public void guardar(Usuario usuario) {

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Duration;
 import java.time.LocalTime;
 
 @Service("servicioUsuario")
@@ -62,6 +63,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     @Override
     public Integer obtenerCantidadDePartidasCompletadas(Usuario usuario) {
         return this.repositorioUsuario.obtenerCantidadDePartidasCompletadas(usuario);
+    }
+
+    @Override
+    public LocalTime obtenerTiempoPromedioDeResolucion(Usuario usuario) {
+        return this.repositorioUsuario.obtenerTiempoPromedio(usuario);
     }
 
     @Override

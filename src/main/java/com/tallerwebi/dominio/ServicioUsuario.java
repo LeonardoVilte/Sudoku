@@ -3,6 +3,7 @@ package com.tallerwebi.dominio;
 import com.tallerwebi.dominio.excepcion.UsuarioNoEncontrado;
 import com.tallerwebi.presentacion.MercadoPagoNotification;
 
+import java.time.Duration;
 import java.time.LocalTime;
 
 public interface ServicioUsuario {
@@ -18,4 +19,6 @@ public interface ServicioUsuario {
     LocalTime obtenerTiempoJugadoEnTodasLasPartidas(Usuario usuario);
 
     Integer obtenerCantidadDePartidasCompletadas(Usuario usuario);
+
+    LocalTime obtenerTiempoPromedioDeResolucion(Usuario usuario);
 }
