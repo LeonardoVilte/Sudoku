@@ -73,6 +73,16 @@ public class ServicioJuegoImpl implements ServicioJuego {
         this.repositorioJuego.guardarDatosEnPartida(idPartidaActual, tiempoResuelto, resuelto);
     }
 
+    @Override
+    public Boolean usarAyuda(Usuario usuario) {
+        if(usuario.getAyudasDisponibles() > 0){
+            usuario.setAyudasDisponibles(usuario.getAyudasDisponibles() - 1);
+            this.repositorioUsuario.modificar(usuario);
+            return true;
+        }
+        return false;
+    }
+
     public void limpiarTablero(Integer[][] tablero){
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {

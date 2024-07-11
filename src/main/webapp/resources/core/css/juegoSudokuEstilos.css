@@ -189,7 +189,6 @@ input{
 }
 .timer-container {
     margin: 1rem 3.9rem;
-    padding: 10px 20px;
 }
 .timer {
     margin: 10px;
@@ -270,12 +269,6 @@ input{
     background-color: lightblue;
 }
 
-/* Estilos para el contenedor del timer */
-.timer-container {
-    text-align: center; /* Alinea el texto al centro */
-    padding-left: 150px;
-}
-
 /* Estilos para los botones */
 .button {
     display: inline-block;
@@ -349,4 +342,76 @@ td {
     height: 100%;
     text-align: center;
 }
+.alerta-roja {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px;
+}
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #45a049; /* Verde oscuro */
+}
+
+#rendirse {
+    background-color: #f44336; /* Rojo */
+    padding:1.1rem;
+    width:90%;
+}
+
+#rendirse:hover {
+    background-color: #e53935; /* Rojo oscuro */
+}
+
+#toggleAnotacionesButton {
+    background-color: #2196F3; /* Azul */
+}
+
+#toggleAnotacionesButton:hover {
+    background-color: #1976D2; /* Azul oscuro */
+}
+
+#togglePauseButton {
+    background-color: #FFC107; /* Amarillo */
+}
+
+#togglePauseButton:hover {
+    background-color: #FFB300; /* Amarillo oscuro */
+}
+
+#mensaje {
+    grid-column: span 2; /* Ocupa dos columnas */
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.mensaje-exito {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #c3e6cb;
+    margin-top: 10px;
+}
+
 

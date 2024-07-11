@@ -1,6 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,6 +126,21 @@ public class ControladorJuego {
     public ResponseEntity<String> reanudarJuego(HttpSession session) {
         reanudarCronometroSudoku(session);
         return ResponseEntity.ok("El juego ha sido reanudado en el backend.");
+    }
+
+    @PostMapping("/usarAyuda")
+    public ResponseEntity<String> usarAyuda(HttpSession session){
+        String nombreUsuario = (String)session.getAttribute("Usuario");
+
+        Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorNombre(nombreUsuario);
+        Boolean resultado = this.servicioJuego.usarAyuda(usuarioBuscado);
+
+        if(resultado){
+            return ResponseEntity.ok("Ayuda usada exitosamente");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No tienes ayudas disponibles");
+        }
     }
 
     private void pausarCronometroSudoku(HttpSession session) {

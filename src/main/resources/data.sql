@@ -46,3 +46,6 @@ INSERT INTO Partida(id,usuario_id,tiempo, resuelto,Dificultad) VALUES
                                                                 (null, 4, '00:32:58',true,3),
                                                                 (null, 5, '00:41:13',true,3);
 
+UPDATE Usuario
+SET ayudasDisponibles = 1, pistasDisponibles = 10 WHERE id = 1;
+

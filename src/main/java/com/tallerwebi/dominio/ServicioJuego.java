@@ -34,4 +34,6 @@ public interface ServicioJuego {
     List<Partida> traer3MejoresTiemposPorDificultad(int i);
 
     void guardarTiemposEnLaPartida(Long idPartidaActual, LocalTime tiempoResuelto, boolean resuelto);
+
+    Boolean usarAyuda(Usuario usuarioBuscado);
 }

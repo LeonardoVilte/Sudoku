@@ -83,25 +83,32 @@ function pista() {
     }
 }
 
-function ayuda() {
-    let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
-    let matrizSudoku = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
+async function ayuda() {
+    try {
+        const response = await usarAyuda();
 
-    if (posicionX !== null && posicionY !== null) {
-        if (matrizSudoku[posicionX][posicionY] !== 0) {
-            if (matrizSudoku[posicionX][posicionY] === matrizSudokuResuelta[posicionX][posicionY]) {
-                alert(`El valor ${matrizSudoku[posicionX][posicionY]} es correcto para esa casilla`);
+        // Continúa con la lógica de ayuda solo si la solicitud fue exitosa
+        let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
+        let matrizSudoku = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
+
+        if (posicionX !== null && posicionY !== null) {
+            if (matrizSudoku[posicionX][posicionY] !== 0) {
+                if (matrizSudoku[posicionX][posicionY] === matrizSudokuResuelta[posicionX][posicionY]) {
+                    alert(`El valor ${matrizSudoku[posicionX][posicionY]} es correcto para esa casilla`);
+                } else {
+                    alert(`El valor ${matrizSudoku[posicionX][posicionY]} es incorrecto para esa casilla`);
+                    matrizSudoku[posicionX][posicionY] = 0;
+                    document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
+                }
+                imprimirSudoku(matrizSudoku);
             } else {
-                alert(`El valor ${matrizSudoku[posicionX][posicionY]} es incorrecto para esa casilla`);
-                matrizSudoku[posicionX][posicionY] = 0;
-                document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
+                alert("El casillero seleccionado no debe estar vacío para recibir una ayuda");
             }
-            imprimirSudoku(matrizSudoku);
         } else {
-            alert("El casillero seleccionado no debe estar vacío para recibir una ayuda");
+            alert("Debe seleccionar un casillero para recibir una ayuda");
         }
-    } else {
-        alert("Debe seleccionar un casillero para recibir una ayuda");
+    } catch (error) {
+        console.error("Error usando ayuda:", error);
     }
 }
 
@@ -194,6 +201,27 @@ function actualizarTimer() {
         timerElement.textContent =
             `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
     }
+}
+function usarAyuda() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            url: "/spring/usarAyuda",
+            success: function(response) {
+                document.getElementById("mensaje").innerText = response;
+                document.getElementById("mensaje").classList.remove("alerta-roja");
+                document.getElementById("mensaje").classList.add("mensaje-exito")
+                resolve(response);
+            },
+            error: function(error) {
+                document.getElementById("mensaje").innerText = error.responseText;
+                document.getElementById("mensaje").classList.remove("mensaje-exito")
+                document.getElementById("mensaje").classList.add("alerta-roja");
+
+                reject(error);
+            }
+        });
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {

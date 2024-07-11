@@ -20,8 +20,8 @@ public class Usuario {
     private Integer cantidadPartidasJugadas = 0;
     private Double tiempoPromedioResolucion = 0.0;
     private Integer monedas = 0;
-    private Integer pistasDisponibles = 6;
-    private Integer ayudasDisponibles  = 3;
+    private Integer pistasDisponibles = 3;
+    private Integer ayudasDisponibles  = 5;
 
     public Integer getPistasDisponibles() {
         return pistasDisponibles;
