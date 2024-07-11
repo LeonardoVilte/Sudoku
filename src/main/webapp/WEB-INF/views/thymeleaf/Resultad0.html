@@ -20,7 +20,7 @@
         </div>
     </nav>
     <div class="container center-div">
-        <h1 class="text-center mb-4">¡COMPLETADO!</h1>
+        <h2 class="text-center mb-4" th:text="${mensajeResultado}"></h2>
         <div class="text-center">
             <p>Tiempo transcurrido: <span class="timer" th:text="${tiempoResuelto}">00:00:00</span></p>
             <button onclick="window.location.href='/spring/home'" class="btn btn-primary">Volver al Inicio</button>

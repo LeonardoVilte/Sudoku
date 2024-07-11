@@ -99,8 +99,12 @@ public class ControladorJuego {
             Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorEmail(emailUsuario);
             ModelMap modelMap = new ModelMap();
             modelMap.put("monedas", usuarioBuscado.getMonedas());
-            modelMap.put("tiempoResuelto", tiempoResuelto); // Pasar el tiempo resuelto al modelo
-
+            modelMap.put("tiempoResuelto", tiempoResuelto);
+            String mensajeEnResultado = "Te has rendido, pero aca tienes tu tiempo jugado";
+            if(resuelto){
+                mensajeEnResultado = "Has completado el sudoku, FELICIDADES este es tu tiempo";
+            }
+            modelMap.put("mensajeResultado", mensajeEnResultado);
             return new ModelAndView("Resultad0", modelMap);
         } else {
             return new ModelAndView("redirect:login");
