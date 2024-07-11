@@ -151,6 +151,21 @@ public class ControladorJuego {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No tienes ayudas disponibles");
         }
     }
+    @PostMapping("/usarPista")
+    public ResponseEntity<String> usarPista(HttpSession session){
+        String nombreUsuario = (String) session.getAttribute("Usuario");
+
+        Usuario usuarioBuscado = this.servicioUsuario.obtenerUsuarioPorNombre(nombreUsuario);
+        Boolean resultado = this.servicioJuego.usarPista(usuarioBuscado);
+        Integer pistasDisponibles = usuarioBuscado.getPistasDisponibles();
+
+        if(resultado){
+            return ResponseEntity.ok(String.format("Te quedan: %d pistas", pistasDisponibles));
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No tienes pistas disponibles");
+        }
+    }
 
     private void pausarCronometroSudoku(HttpSession session) {
         Long tiempoDeLaPausa = System.currentTimeMillis();

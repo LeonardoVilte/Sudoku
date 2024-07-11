@@ -13,23 +13,28 @@ UPDATE Usuario SET nombre = 'UsuarioTest', monedas = 0 WHERE id = 1;
 
 
 UPDATE Usuario
-SET nombre = 'usuarioPrueba1', horasJugadas = 100, cantidadPartidasJugadas = 50, tiempoPromedioResolucion = 12.5
+SET nombre = 'usuarioPrueba1', horasJugadas = 100, cantidadPartidasJugadas = 50, tiempoPromedioResolucion = 12.5,
+    ayudasDisponibles = 5, pistasDisponibles = 5
 where id = 3;
 
 UPDATE Usuario
 SET nombre = 'usuarioPrueba2', horasJugadas = 151, cantidadPartidasJugadas = 69, tiempoPromedioResolucion = 5.0
+    ,ayudasDisponibles = 5, pistasDisponibles = 5
 where id = 4;
 
 UPDATE Usuario
-SET nombre = 'usuarioPrueba3', horasJugadas = 10, cantidadPartidasJugadas = 23, tiempoPromedioResolucion = 15.2
+SET nombre = 'usuarioPrueba3', horasJugadas = 10, cantidadPartidasJugadas = 23, tiempoPromedioResolucion = 15.2,
+    ayudasDisponibles = 5, pistasDisponibles = 5
 where id = 5;
 
 UPDATE Usuario
 SET nombre = 'usuarioPrueba4', horasJugadas = 32, cantidadPartidasJugadas = 73, tiempoPromedioResolucion = 7.3
+    ,ayudasDisponibles = 5, pistasDisponibles = 5
 where id = 6;
 
 UPDATE Usuario
-SET nombre = 'usuarioPrueba5', horasJugadas = 15, cantidadPartidasJugadas = 41, tiempoPromedioResolucion = 16.5
+SET nombre = 'usuarioPrueba5', horasJugadas = 15, cantidadPartidasJugadas = 41, tiempoPromedioResolucion = 16.5,
+    ayudasDisponibles = 5, pistasDisponibles = 5
 where id = 7;
 
 UPDATE Usuario SET horasJugadas = 0, cantidadPartidasJugadas = 0, tiempoPromedioResolucion = 0
@@ -47,5 +52,5 @@ INSERT INTO Partida(id,usuario_id,tiempo, resuelto,Dificultad) VALUES
                                                                 (null, 5, '00:41:13',true,3);
 
 UPDATE Usuario
-SET ayudasDisponibles = 1, pistasDisponibles = 10 WHERE id = 1;
+SET ayudasDisponibles = 5, pistasDisponibles = 5 WHERE id = 1;
 

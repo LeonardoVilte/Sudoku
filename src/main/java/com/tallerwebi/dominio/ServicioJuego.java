@@ -36,4 +36,6 @@ public interface ServicioJuego {
     void guardarTiemposEnLaPartida(Long idPartidaActual, LocalTime tiempoResuelto, boolean resuelto);
 
     Boolean usarAyuda(Usuario usuarioBuscado);
+
+    Boolean usarPista(Usuario usuarioBuscado);
 }

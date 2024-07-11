@@ -66,20 +66,32 @@ function resolverSudoku() {
     }
 }
 
-function pista() {
-    let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
-    let matrizSudoku = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
+async function pista() {
+    try {
+        const mensaje = await usarPista();
+        document.getElementById("mensaje").innerText = mensaje;
+        document.getElementById("mensaje").classList.remove("alerta-roja");
+        document.getElementById("mensaje").classList.add("mensaje-exito")
 
-    if (posicionX !== null && posicionY !== null) {
-        if (matrizSudoku[posicionX][posicionY] === 0) {
-            matrizSudoku[posicionX][posicionY] = matrizSudokuResuelta[posicionX][posicionY];
-            document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
-            imprimirSudoku(matrizSudoku);
+
+        let matrizSudokuResuelta = stringAMatriz(document.getElementById("tablero-sudoku-rta").dataset.sudokuResuelto);
+        let matrizSudoku = stringAMatriz(document.getElementById("tablero-sudoku").dataset.sudoku);
+
+        if (posicionX !== null && posicionY !== null) {
+            if (matrizSudoku[posicionX][posicionY] === 0) {
+                matrizSudoku[posicionX][posicionY] = matrizSudokuResuelta[posicionX][posicionY];
+                document.getElementById("tablero-sudoku").dataset.sudoku = matrizAString(matrizSudoku);
+                imprimirSudoku(matrizSudoku);
+            } else {
+                alert("El casillero seleccionado debe estar vacío");
+            }
         } else {
-            alert("El casillero seleccionado debe estar vacio");
+            alert("Debe seleccionar un casillero para recibir una pista");
         }
-    } else {
-        alert("Debe seleccionar un casillero para recibir una pista");
+    } catch (error) {
+        document.getElementById("mensaje").innerText = error.message;
+        document.getElementById("mensaje").classList.remove("mensaje-exito")
+        document.getElementById("mensaje").classList.add("alerta-roja")
     }
 }
 
@@ -222,6 +234,17 @@ function usarAyuda() {
             }
         });
     });
+}
+function usarPista() {
+    return fetch("/spring/usarPista", {
+        method: "POST",
+    })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text); });
+            }
+            return response.text(); // Devuelve el texto de la respuesta
+        });
 }
 
 document.addEventListener('DOMContentLoaded', function() {

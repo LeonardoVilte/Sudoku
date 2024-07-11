@@ -83,6 +83,16 @@ public class ServicioJuegoImpl implements ServicioJuego {
         return false;
     }
 
+    @Override
+    public Boolean usarPista(Usuario usuario) {
+        if(usuario.getPistasDisponibles()> 0){
+            usuario.setPistasDisponibles(usuario.getPistasDisponibles() - 1);
+            this.repositorioUsuario.modificar(usuario);
+            return true;
+        }
+        return false;
+    }
+
     public void limpiarTablero(Integer[][] tablero){
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
