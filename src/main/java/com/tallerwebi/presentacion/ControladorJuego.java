@@ -87,6 +87,7 @@ public class ControladorJuego {
         if (session != null) {
             String emailUsuario = (String) session.getAttribute("email");
             Long idPartidaActual = (Long) session.getAttribute("idPartidaActual");
+            String nombreUsuario = (String) session.getAttribute("Usuario");
 
             LocalTime tiempoResueltoLocalTime = LocalTime.parse(tiempoResuelto);
             Long tiempoResueltoEnLong = tiempoToLong(tiempoResueltoLocalTime);
@@ -100,11 +101,15 @@ public class ControladorJuego {
             ModelMap modelMap = new ModelMap();
             modelMap.put("monedas", usuarioBuscado.getMonedas());
             modelMap.put("tiempoResuelto", tiempoResuelto);
+            modelMap.put("nombreUsuario" , nombreUsuario);
+
             String mensajeEnResultado = "Te has rendido, pero aca tienes tu tiempo jugado";
             if(resuelto){
                 mensajeEnResultado = "Has completado el sudoku, FELICIDADES este es tu tiempo";
             }
             modelMap.put("mensajeResultado", mensajeEnResultado);
+
+
             return new ModelAndView("Resultad0", modelMap);
         } else {
             return new ModelAndView("redirect:login");
