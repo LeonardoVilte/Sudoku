@@ -107,7 +107,7 @@ a:hover {
     border: 2px solid #000;
     border-radius: 30px;
     padding: 30px;
-    font-size: 24px;
+    font-size: 30px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     opacity: 0;
@@ -192,4 +192,27 @@ a:hover {
     .button-wide {
         width: 100%; /* Cambiar el ancho de los botones anchos a 100% en dispositivos más pequeños */
     }
+}
+#botonJugar {
+    background-color: #4CAF50; /* Verde */
+}
+
+#botonJugar:hover {
+    background-color: #45a049;
+}
+
+#botonMercado {
+    background-color: #008CBA; /* Azul */
+}
+
+#botonMercado:hover {
+    background-color: #007bb5;
+}
+
+.button svg {
+    vertical-align: middle;
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+    fill: white;
 }
