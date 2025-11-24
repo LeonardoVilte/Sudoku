@@ -1,23 +1,26 @@
-# ======================
-# 1) BUILD STAGE
-# ======================
-FROM maven:3.8.5-eclipse-temurin-11 AS build
+# ================================
+# STAGE 1: Build WAR
+# ================================
+FROM maven:3.9.6-eclipse-temurin-11 AS build
+
 WORKDIR /app
 
 COPY pom.xml .
-RUN mvn -e -B dependency:resolve
-
 COPY src ./src
-RUN mvn -e -B package -DskipTests
 
-# ======================
-# 2) RUNTIME STAGE
-# ======================
-FROM eclipse-temurin:11-jre
-WORKDIR /app
+RUN mvn clean package -DskipTests
 
-COPY --from=build /app/target/*.jar app.jar
+# ================================
+# STAGE 2: Run in Tomcat
+# ================================
+FROM tomcat:9.0-jdk11-temurin
+
+# Remove default ROOT app
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
+
+# Copy generated WAR
+COPY --from=build /app/target/tallerwebi-base-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["catalina.sh", "run"]
