@@ -1,22 +1,23 @@
-# Etapa 1: Compilar el proyecto usando Maven
-FROM maven:3.9.6-eclipse-temurin-11 AS build
+# ======================
+# 1) BUILD STAGE
+# ======================
+FROM maven:3.8.5-eclipse-temurin-11 AS build
 WORKDIR /app
 
-# Copiamos todo el proyecto
-COPY . .
+COPY pom.xml .
+RUN mvn -e -B dependency:resolve
 
-# Compilamos el WAR
-RUN mvn clean package -DskipTests
+COPY src ./src
+RUN mvn -e -B package -DskipTests
 
-# Etapa 2: Ejecutar la app con Jetty embebido (del plugin que ya tenés en el pom)
+# ======================
+# 2) RUNTIME STAGE
+# ======================
 FROM eclipse-temurin:11-jre
 WORKDIR /app
 
-# Copiamos todo el código nuevamente (necesario porque Jetty se ejecuta desde el pom)
-COPY . .
+COPY --from=build /app/target/*.jar app.jar
 
-# Exponemos el puerto donde Jetty arranca
 EXPOSE 8080
 
-# Comando para ejecutar Jetty desde Maven
-CMD ["mvn", "jetty:run"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
