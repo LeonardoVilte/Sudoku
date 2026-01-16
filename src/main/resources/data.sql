@@ -54,3 +54,4 @@ INSERT INTO Partida(id,usuario_id,tiempo, resuelto,Dificultad) VALUES
 UPDATE Usuario
 SET ayudasDisponibles = 5, pistasDisponibles = 5 WHERE id = 1;
 
+INSERT INTO Usuario(id, email, password, rol, activo, monedas, nombre) VALUES (null, 'recruiter@test.com', 'recruiter123', 'USER', TRUE, 0, 'Visitante');
